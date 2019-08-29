@@ -1,0 +1,24 @@
+<navbar parameter='{{parameter}}'></navbar>
+<view class="ChangePassword">
+    <view class="phone">当前手机号：{{phone}}</view>
+    <view class="list">
+      <view class="item">
+        <input type='password' placeholder='设置新密码' bindblur='inputgetName' data-name='password' placeholder-class='placeholder'></input>
+      </view>
+      <view class="item">
+        <input type='password' placeholder='确认新密码' bindblur='inputgetName' data-name='qr_password' placeholder-class='placeholder'></input>
+      </view>
+      <view class="item acea-row row-between-wrapper">
+        <input type='number' placeholder='填写验证码' placeholder-class='placeholder' bindblur='inputgetName' data-name='captcha'  class="codeIput"></input>
+         <button
+              class="code font-color {{disabled === true ? 'on' : ''}}"
+              disabled='{{disabled}}'
+              bindtap="code"
+            >
+            {{ timetext }}
+          </button>
+      </view>
+    </view>
+    <view class="confirmBnt bg-color" bindtap="editPwd">确认修改</view>
+  </view>
+<authorize bind:onLoadFun="onLoadFun"></authorize>

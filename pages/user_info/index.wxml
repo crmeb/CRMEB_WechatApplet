@@ -1,0 +1,81 @@
+<navbar parameter='{{parameter}}'></navbar>
+<form bindsubmit="formSubmit" report-submit='true'>
+  <view class='personal-data'>
+  <view class="wrapper">
+      <view class="title">管理我的账号</view>
+      <view class="wrapList">
+        <view
+          class="item acea-row row-between-wrapper {{item.uid === userInfo.uid ? 'on' : ''}}"
+          wx:for="{{switchUserInfo}}" 
+          wx:key
+          bindtap='switchAccounts'
+          data-index='{{index}}'
+        >
+          <view class="picTxt acea-row row-between-wrapper">
+            <view class="pictrue" catchtap='uploadpic' wx:if='{{item.uid === userInfo.uid }}'>
+              <image src='{{item.avatar}}'></image>
+              <image src='/images/alter.png' class="alter"></image>
+            </view>
+            <view class="pictrue" wx:else>
+              <image src='{{item.avatar}}'></image>
+            </view>
+            <view class="text">
+              <view class="name line1">{{ item.nickname }}</view>
+              <view class="phone" wx:if="{{item.phone && item.user_type !='h5' }}">绑定手机号：{{ item.phone }}</view>
+              <view class="phone" wx:elif="{{item.phone && item.user_type =='h5' }}">账号：{{ item.phone }}</view>
+              <view class="phone" wx:else>暂未绑定手机号</view>
+            </view>
+          </view>
+          <view
+            class="currentBnt acea-row row-center-wrapper font-color"
+           wx:if='{{item.uid === userInfo.uid}}'
+          >
+            当前账号
+          </view>
+          <view class="bnt font-color acea-row row-center-wrapper" wx:else>
+            使用账号
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='list'>
+        <view class='item acea-row row-between-wrapper'>
+          <view>昵称</view>
+          <view class='input'><input type='text' name='nickname' value='{{userInfo.nickname}}'></input></view>
+        </view>
+        <view class='item acea-row row-between-wrapper'>
+          <view>手机号码</view>
+          <navigator url="/pages/user_phone/index" hover-class="none" class="input" wx:if="{{!userInfo.phone}}">
+            点击绑定手机号<text class="iconfont icon-xiangyou"></text>
+          </navigator>
+          <view class='input acea-row row-between-wrapper' wx:else>
+            <input type='text' disabled='true' name='phone' value='{{userInfo.phone}}' class='id'></input>
+            <text class='iconfont icon-suozi'></text>
+          </view>
+        </view>
+        <view class='item acea-row row-between-wrapper'>
+          <view>ID号</view>
+          <view class='input acea-row row-between-wrapper'>
+            <input type='text' value='{{userInfo.uid}}' disabled='true' class='id'></input>
+            <text class='iconfont icon-suozi'></text>
+          </view> 
+        </view>
+        <view class='item acea-row row-between-wrapper'>
+          <view>权限设置</view>
+         <view class="input" bindtap="Setting">
+            点击管理<text class="iconfont icon-xiangyou"></text>
+          </view>
+        </view>
+        <view class="item acea-row row-between-wrapper" wx:if="{{userInfo.phone && userInfo.user_type == 'h5'}}">
+          <view>密码</view>
+          <navigator url="/pages/user_pwd_edit/index" hover-class="none" class="input">
+            点击修改密码<text class="iconfont icon-xiangyou"></text>
+          </navigator>
+        </view>
+    </view>
+    <button class='modifyBnt bg-color' formType="submit">保存修改</button>
+    <view class="logOut cart-color acea-row row-center-wrapper" bindtap="outLogin" wx:if="{{userInfo.phone && userInfo.user_type == 'h5'}}">退出登录</view>
+  </view>
+</form>
+
+<authorize bind:onLoadFun="onLoadFun"></authorize>

@@ -1,0 +1,97 @@
+<navbar parameter='{{parameter}}'></navbar>
+<view class='user'>
+   <view class='header bg-color acea-row row-between-wrapper'>
+      <view class='picTxt acea-row row-between-wrapper'>
+         <view class='pictrue'><image src='{{userInfo.avatar}}'></image></view>
+         <view class='text'>
+            <view class='acea-row row-middle'>
+               <view class='name line1'>{{userInfo.nickname || '请授权'}}</view>
+               <view data-url='/pages/user_vip/index' class='member acea-row row-middle' wx:if="{{userInfo.vip}}" bindtap='goPages'>
+               <image src='{{userInfo.vip_icon}}'></image>{{userInfo.vip_name}}</view>
+            </view>
+            <view class='id' data-url='/pages/user_info/index' bindtap='goPages' wx:if='{{userInfo.phone}}'>ID：{{userInfo.uid || 0}}<text class='iconfont icon-bianji1'></text></view>
+            <view wx:else data-url='/pages/user_phone/index' bindtap='goPages'><text class="binding">绑定手机号</text></view>
+         </view>
+      </view>
+      <text class='iconfont icon-shezhi' data-url='/pages/user_info/index' bindtap='goPages'></text>
+   </view>
+   <view class='wrapper'>
+      <view class='nav acea-row row-middle'>
+         <view class='item' data-url='/pages/user_money/index' bindtap='goPages'>
+            <view>我的余额</view>
+            <view class='num'>{{userInfo.now_money || 0}}</view>
+         </view>
+         <view class='item' wx:if="{{userInfo.is_promoter || userInfo.statu==2}}" data-url='/pages/user_spread_user/index' bindtap='goPages'>
+            <view>当前佣金</view>
+            <view class='num'>{{userInfo.brokerage_price || 0}}</view>
+         </view>
+         <view class='item' wx:else>
+            <view>当前积分</view>
+            <view class='num'>{{userInfo.integral || 0}}</view>
+         </view>
+         <view class='item' data-url='/pages/user_coupon/index' bindtap='goPages'>
+            <view>优惠券</view>
+            <view class='num'>{{userInfo.couponCount || 0}}</view>
+         </view>
+      </view>
+      <view class='myOrder'>
+        <view class='title acea-row row-between-wrapper'>
+           <view>我的订单</view>
+           <view class='allOrder' data-url='/pages/order_list/index' bindtap='goPages'>全部订单<text class='iconfont icon-jiantou'></text></view>
+        </view>
+        <view class='orderState acea-row row-middle'>
+           <view class='item' data-url='/pages/order_list/index?status=0' bindtap='goPages'>
+              <view class='pictrue'>
+                <image src='/images/dfk.png'></image>
+                <text class="order-status-num" wx:if="{{orderStatusNum.unpaid_count > 0}}">{{ orderStatusNum.unpaid_count }}</text>
+              </view>
+              <view>待付款</view>
+           </view>
+            <view class='item' data-url='/pages/order_list/index?status=1' bindtap='goPages'>
+              <view class='pictrue'>
+                <image src='/images/dfh.png'></image>
+                <text class="order-status-num" wx:if="{{orderStatusNum.unshipped_count > 0}}">{{ orderStatusNum.unshipped_count }}</text>
+              </view>
+              <view>待发货</view>
+           </view>
+            <view class='item' data-url='/pages/order_list/index?status=2' bindtap='goPages'>
+              <view class='pictrue'>
+              <image src='/images/dsh.png'></image>
+              <text class="order-status-num" wx:if="{{orderStatusNum.received_count > 0}}">{{ orderStatusNum.received_count }}</text>
+              </view>
+              <view>待收货</view>
+           </view>
+            <view class='item' data-url='/pages/order_list/index?status=3' bindtap='goPages'>
+              <view class='pictrue'>
+              <image src='/images/dpj.png'></image>
+              <text class="order-status-num" wx:if="{{orderStatusNum.evaluated_count > 0}}">{{ orderStatusNum.evaluated_count }}</text>
+              </view>
+              <view>待评价</view>
+           </view>
+            <view class='item' data-url='/pages/user_return_list/index' bindtap='goPages'>
+              <view class='pictrue'>
+              <image src='/images/sh.png'></image>
+              <text class="order-status-num" wx:if="{{orderStatusNum.refund_count > 0}}">{{ orderStatusNum.refund_count }}</text>
+              </view>
+              <view>售后/退款</view>
+           </view>
+        </view>
+      </view>
+      <view class='myService'>
+         <view class='title acea-row row-middle'>我的服务</view>
+         <view class='serviceList acea-row row-middle'>
+            <view class='item' wx:for="{{MyMenus}}" wx:key bindtap='goPages' data-url='{{item.url}}' wx:if="{{item.url!='#' && item.url!='/pages/admin/index' && item.url!='/pages/service/index'}}">
+              <view class='pictrue'><image src='{{item.pic}}'></image></view>
+              <view>{{item.name}}</view>
+            </view>
+            <button class='item' open-type='contact' hover-class='none'>
+              <view class='pictrue'><image src='/images/customer.png'></image></view>
+              <view>联系客服</view>
+            </button>
+         </view>
+      </view>
+   </view>
+   <image src='/images/support.png' class='support'></image>
+</view> 
+
+<authorize bind:onLoadFun='onLoadFun' isGoIndex='{{isGoIndex}}' iShidden="{{iShidden}}"></authorize>

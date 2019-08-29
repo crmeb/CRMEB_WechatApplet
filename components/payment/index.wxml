@@ -1,0 +1,19 @@
+<view class="payment {{pay_close ? 'on' : ''}}">
+      <view class="title acea-row row-center-wrapper">
+        选择付款方式<text class="iconfont icon-guanbi" bindtap='close'></text>
+      </view>
+      <view class="item acea-row row-between-wrapper" bindtap='goPay' data-number="{{item.number || 0}}" data-value='{{item.value}}' wx:for="{{payMode}}" wx:key>
+        <view class="left acea-row row-between-wrapper">
+          <view class="iconfont {{item.icon}}"></view>
+          <view class="text">
+            <view class="name">{{item.name}}</view>
+            <view class="info" wx:if="{{item.number}}">
+            {{item.title}} <span class="money">￥{{ item.number }}</span>
+            </view>
+            <view class="info" wx:else>{{item.title}}</view>
+          </view>
+        </view>
+        <view class="iconfont icon-xiangyou"></view>
+      </view>
+    </view>
+    <view class="mask" wx:if='{{pay_close}}' bindtap='close'></view>

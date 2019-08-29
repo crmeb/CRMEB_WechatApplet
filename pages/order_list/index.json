@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "navbar": "/components/navbar/index",
+    "authorize": "/components/authorize/authorize",
+    "home": "/components/home/index",
+    "payment":"/components/payment/index"
+  },
+  "navigationBarTextStyle": "white"
+}

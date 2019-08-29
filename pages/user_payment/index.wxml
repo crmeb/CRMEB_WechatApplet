@@ -1,0 +1,13 @@
+<navbar parameter='{{parameter}}'></navbar>
+<form bindsubmit="submitSub" report-submit='true'>
+<view class="payment">
+     <view class="nav acea-row row-around row-middle">
+        <view class="item {{active==index?'on':''}}" wx:key data-id="{{index}}" wx:for='{{navRecharge}}' bindtap="navRecharge">{{item}}</view>
+     </view>
+     <view class='input acea-row row-betweent row-bottom'><text>￥</text><input placeholder='{{placeholder}}' focus="{{focus}}" bindfocus='setPlaceholder' type='digit' bindblur="setPlaceholderStatus" placeholder-class='placeholder' name='number' value='{{number}}'></input></view>
+     <view class='tip' wx:if='{{!active}}'>提示：当前余额为 <text class='font-color'>￥{{userinfo.now_money || 0}}</text></view>
+     <view class="tip" wx:else>提示：当前佣金为 <text class='font-color'>￥{{userinfo.extractPrice || 0}}</text></view>
+     <button class='but bg-color' formType="submit"> {{active ? '立即转入': '立即充值' }}</button>
+</view>
+</form>
+<authorize bind:onLoadFun="onLoadFun"></authorize>
