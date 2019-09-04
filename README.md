@@ -2,7 +2,8 @@
 
 #### 介绍
   CRMEB 3.0 小程序
-
+#### 页面展示
+![输入图片说明](https://github.com/crmeb/CRMEB_WechatApplet_v3.0/blob/master/demo.jpg "demo.jpg")
 #### 使用说明
 
 1. 配置config.js 中的 HTTP_REQUEST_URL 修改为自己的域名
