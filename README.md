@@ -3,7 +3,11 @@
 #### 介绍
   CRMEB 3.0 小程序
 #### 页面展示
-![image](https://raw.githubusercontent.com/crmeb/CRMEB_WechatApplet_v3.0/master/demo.jpg)
+![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517m1q6lojldotdq8lt.jpg)
+![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517mj4z9e62j84n4jih.jpg)
+![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517a5r35hc87rh13557.jpg)
+![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517cl3l6jbav64ldeor.jpg)
+![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517ombj4g1o9nc49g4j.jpg)
 
 #### 使用说明
 
