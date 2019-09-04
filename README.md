@@ -38,9 +38,9 @@ CRMEBv3.0微信小程序前端页面
   
 + H5版前端界面
   
-   + github:https://github.com/crmeb/CRMEB-H5-3.0
+   + github:https://github.com/crmeb/CRMEB-H5-v3.0
   
-   + 码云：https://gitee.com/ZhongBangKeJi/CRMEB-H5-3.0
+   + 码云：https://gitee.com/ZhongBangKeJi/CRMEB-H5-v3.0
 
 ### 帮助文档：
 https://help.crmeb.net/crmeb
