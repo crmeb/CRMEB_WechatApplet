@@ -1,32 +1,67 @@
-# CRMEB XCX v3.0
+<p align="center">
+<img src="https://images.gitee.com/uploads/images/2018/1214/151026_2299df23_892944.gif" />
+</p>
+<h1 align="center"> CRMEB客户管理+电商营销系统</h1> 
+<p align="center">
+    <a href="http://www.crmeb.com">
+        <img src="https://img.shields.io/badge/OfficialWebsite-CRMEB-yellow.svg" />
+    </a>
+<a href="http://www.crmeb.com">
+        <img src="https://img.shields.io/badge/Licence-GPL3.0-green.svg?style=flat" />
+    </a>
+    <a href="http://www.crmeb.com">
+        <img src="https://img.shields.io/badge/Edition-3.0-blue.svg" />
+    </a>
+     <a href="https://gitee.com/ZhongBangKeJi/CRMEB/repository/archive/master.zip">
+        <img src="https://img.shields.io/badge/download-2m-red.svg" />
+    </a>
+</p>
+
+### 如果对您有帮助，您可以点右上角 "Star" 支持一下 谢谢！
+
+# CRMEBv3.0微信小程序前端页面
 
 ## 介绍
-  CRMEB 3.0 小程序前端界面
-  #### CRMEB后端程序下载地址
+CRMEBv3.0微信小程序前端页面
+
++ CRMEB后端程序下载地址
+
+  + 码云:https://gitee.com/ZhongBangKeJi/CRMEB.git
   
-  ##### 码云：https://gitee.com/ZhongBangKeJi/CRMEB.git
+  + github:https://github.com/crmeb/CRMEB
+
++ 微信小程序版前端界面
   
-  ##### github:https://github.com/crmeb/CRMEB
+   + github:https://github.com/crmeb/CRMEB_WechatApplet_v3.0
   
-  #### 微信小程序版前端界面
+   + 码云：https://gitee.com/ZhongBangKeJi/CRMEB_WechatApplet_v3.0
   
-  ##### github:https://github.com/crmeb/CRMEB_WechatApplet_v3.0
++ H5版前端界面
   
-  ##### 码云：https://gitee.com/ZhongBangKeJi/CRMEB_WechatApplet_v3.0
+   + github:https://github.com/crmeb/CRMEB-H5-3.0
   
-  #### H5版前端界面
-  
-  ##### github:https://github.com/crmeb/CRMEB-H5-3.0
-  
-  ##### 码云：https://gitee.com/ZhongBangKeJi/CRMEB-H5-3.0
-  
-#### 页面展示
+   + 码云：https://gitee.com/ZhongBangKeJi/CRMEB-H5-3.0
+
+### 帮助文档：
+https://help.crmeb.net/crmeb
+### 论坛地址:
+http://bbs.crmeb.net
+
+QQ群: 710729856 <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=1794ec6e9fd6ac21bd6519d459d4495e824553693ab0a98a9899e61d68a494d0">CRMEB微信开发四群</a>
+
+## 页面展示
 ![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517m1q6lojldotdq8lt.jpg)
 ![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517mj4z9e62j84n4jih.jpg)
 ![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517a5r35hc87rh13557.jpg)
 ![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517cl3l6jbav64ldeor.jpg)
 ![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517ombj4g1o9nc49g4j.jpg)
 
+## 演示地址
+http://demo.crmeb.net/admin
+帐号：demo 密码：crmeb.com
+
+## 官网地址
+商业版请到官网授权：http://www.crmeb.com
 #### 使用说明
 
 1. 配置config.js 中的 HTTP_REQUEST_URL 修改为自己的域名
