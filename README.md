@@ -47,18 +47,21 @@ https://help.crmeb.net/crmeb
 ### 论坛地址:
 http://bbs.crmeb.net
 
-QQ群: 710729856 <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=1794ec6e9fd6ac21bd6519d459d4495e824553693ab0a98a9899e61d68a494d0">CRMEB微信开发四群</a>
+###  QQ交流群
+ CRMEB微信开发6群: 341864990 <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=13e9ce8da34352ee2420576aef65ae377479ac0958fab2d4a6e01e8d2479621f">点击加群</a>
+|CRMEB微信开发3群:69741389<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=a8d2235bd79d65ea465e43ed81001d0641f875675ab80051118a43cfc468cbaa">点击加群</a>
 
 ## 页面展示
-![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517m1q6lojldotdq8lt.jpg)
-![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517mj4z9e62j84n4jih.jpg)
-![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517a5r35hc87rh13557.jpg)
-![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517cl3l6jbav64ldeor.jpg)
-![image](http://bbs.crmeb.net/data/attachment/forum/201909/04/150517ombj4g1o9nc49g4j.jpg)
+![展示图](/readme/images/展示图_01.jpg "展示图.png")
+![展示图](/readme/images/展示图_02.jpg "展示图.png")
+![展示图](/readme/images/展示图_03.jpg "展示图.png")
 
-## 演示地址
+## 后台演示
 http://demo.crmeb.net/admin
 帐号：demo 密码：crmeb.com
+
+## 前台演示
+![前端演示](/readme/images/演示二维码.jpg)
 
 ## 官网地址
 商业版请到官网授权：http://www.crmeb.com
@@ -68,7 +71,7 @@ http://demo.crmeb.net/admin
 2. 配置微信开发工具中小程序的appid
 3. 前往CRMEB后台配置小程序 appid 和 AppSecret 
 3. 前往微信小程序后台配置业务，下载 合法域名
-4. 上传小程序前请删除小程序根目录下的demo.jpg图片
+4. 上传小程序前请删除小程序根目录下readme目录
 
 ### 目录结构
 
