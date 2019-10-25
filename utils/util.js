@@ -1,4 +1,4 @@
-
+import { TOKENNAME } from './../config.js';
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -342,7 +342,7 @@ const uploadImageOne=function (opt, successCallback, errorCallback) {
         },
         header: {
           "Content-Type": "multipart/form-data",
-          Authorization: 'Bearer '+getApp().globalData.token
+          [TOKENNAME]: 'Bearer '+getApp().globalData.token
         },
         success: function (res) {
           wx.hideLoading();
@@ -455,6 +455,12 @@ const PosterCanvas = (arr2, store_name, price,successFn) =>{
       ctx.restore();
       const CONTENT_ROW_LENGTH = 40;
       let [contentLeng, contentArray, contentRows] = textByteLength(store_name, CONTENT_ROW_LENGTH);
+      if (contentRows > 2) {
+        contentRows =2;
+        let textArray=contentArray.slice(0,2);
+        textArray[textArray.length-1]+='……';
+        contentArray = textArray;
+      }
       ctx.setTextAlign('center');
       ctx.setFontSize(32);
       let contentHh = 32 * 1.3;
@@ -532,4 +538,5 @@ module.exports = {
   checkLogin: checkLogin,
   wxgetUserInfo: wxgetUserInfo,
   autoLogin: autoLogin,
+  logout: logout
 }

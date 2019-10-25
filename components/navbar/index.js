@@ -48,6 +48,10 @@ Component({
           break;
         case '3': case "red":
           color = 'red'
+          break;
+        case '4': case "gradual01":
+          color = 'gradual01'
+          break;
         default:
           break;
       }

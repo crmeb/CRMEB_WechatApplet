@@ -23,7 +23,7 @@ Page({
     duration: 500,
     navList:[],
     active: 0,
-    first:0,
+    page:1,
     limit:8,
     status:false,
     scrollLeft: 0
@@ -51,16 +51,18 @@ Page({
     var that = this;
     if (that.data.active == 0) return ;
     var limit = that.data.limit;
-    var first = that.data.first;
+    var page = that.data.page;
     var articleList = that.data.articleList;
-    getArticleList(that.data.active, { first: first, limit: limit}).then(res=>{
+    if (that.data.status) return ;
+    getArticleList(that.data.active, { page: page, limit: limit}).then(res=>{
       var articleListNew = [];
       var len = res.data.length;
       articleListNew = articleList.concat(res.data);
+      that.data.page++
       that.setData({ 
         articleList: articleListNew, 
         status: limit > len, 
-        first: first + limit 
+        page: that.data.page,
       });
     });
   },
@@ -77,7 +79,7 @@ Page({
     })
     if (this.data.active == 0) this.getArticleHot();
     else{
-      this.setData({ articleList: [], first: 0, status: false});
+      this.setData({ articleList: [], page: 1, status: false});
       this.getCidArticle();
     }
   },
@@ -95,6 +97,7 @@ Page({
     this.getArticleHot();
     this.getArticleBanner();
     this.getArticleCate();
+    this.setData({ status: false, page: 1, articleList:[]});
     this.getCidArticle();
   },
 

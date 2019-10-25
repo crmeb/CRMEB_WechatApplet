@@ -6,5 +6,6 @@
     "address-window": "/components/address-window/index",
     "authorize": "/components/authorize/authorize",
     "home": "/components/home/index"
-  }
+  },
+    "navigationBarTextStyle": "white"
 }

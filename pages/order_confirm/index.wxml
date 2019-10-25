@@ -1,21 +1,35 @@
 <navbar parameter='{{parameter}}'></navbar>
 <view class='order-submission'>
-  <view class='line'>
-    <image src='/images/line.jpg'></image>
-  </view>
-  <view class='address acea-row row-between-wrapper' bindtap='onAddress'>
-    <view class='addressCon' wx:if="{{addressInfo.real_name}}">
-      <view class='name'>{{addressInfo.real_name}}
-        <text class='phone'>{{addressInfo.phone}}</text>
+  <view class="allAddress">
+    <view class="nav acea-row">
+      <view class="item font-color {{shippingType == 0 ? 'on' : 'on2'}}" data-index="0" bindtap="addressType"></view>
+      <view class="item font-color {{shippingType == 1 ? 'on' : 'on2'}}" data-index="1" bindtap="addressType" wx:if='{{store_self_mention}}'></view>
+    </view>
+    <view class='address acea-row row-between-wrapper' bindtap='onAddress' wx:if='{{shippingType == 0}}'>
+      <view class='addressCon' wx:if="{{addressInfo.real_name}}">
+        <view class='name'>{{addressInfo.real_name}}
+          <text class='phone'>{{addressInfo.phone}}</text>
+        </view>
+        <view>
+          <text class='default font-color' wx:if="{{addressInfo.is_default}}">[默认]</text>{{addressInfo.province}}{{addressInfo.city}}{{addressInfo.district}}{{addressInfo.detail}}</view>
+        <!-- <view class='setaddress'>设置收货地址</view> -->
       </view>
-      <view>
-        <text class='default font-color' wx:if="{{addressInfo.is_default}}">[默认]</text>{{addressInfo.province}}{{addressInfo.city}}{{addressInfo.district}}{{addressInfo.detail}}</view>
-      <!-- <view class='setaddress'>设置收货地址</view> -->
+      <view class='addressCon' wx:else>
+        <view class='setaddress'>设置收货地址</view>
+      </view>
+      <view class='iconfont icon-jiantou'></view>
     </view>
-    <view class='addressCon' wx:else>
-      <view class='setaddress'>设置收货地址</view>
+    <view class='address acea-row row-between-wrapper' wx:else>
+      <view class='addressCon'>
+        <view class='name'>{{system_store.name}}
+          <text class='phone'>{{system_store.phone}}</text>
+        </view>
+        <view> {{ system_store._detailed_address }}</view>
+      </view>
     </view>
-    <view class='iconfont icon-jiantou'></view>
+    <view class='line'>
+      <image src='/images/line.jpg'></image>
+    </view>
   </view>
   <orderGoods cartInfo="{{cartInfo}}"></orderGoods>
   <view class='wrapper'>
@@ -38,13 +52,31 @@
     </view>
     <view class='item acea-row row-between-wrapper' wx:if="{{priceGroup.vipPrice > 0 && userInfo.vip && !pinkId && !BargainId && !combinationId && !seckillId}}">
       <view>会员优惠</view>
-      <view class='discount' >￥{{priceGroup.vipPrice}}</view>
+      <view class='discount'>￥{{priceGroup.vipPrice}}</view>
     </view>
-    <view class='item acea-row row-between-wrapper'>
+    <view class='item acea-row row-between-wrapper' wx:if='{{shippingType==0}}'>
       <view>快递费用</view>
       <view class='discount' wx:if='{{priceGroup.storePostage > 0}}'>{{priceGroup.storePostage}}</view>
       <view class='discount' wx:else>免运费</view>
     </view>
+     <view wx:else>
+        <view class="item acea-row row-between-wrapper">
+          <view>联系人</view>
+          <view class="discount">
+            <input type="text" placeholder="请填写您的联系姓名" placeholder-class="placeholder" bindblur='realName'></input>
+          </view>
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <view>联系电话</view>
+          <view class="discount">
+            <input type="text" placeholder="请填写您的联系电话" placeholder-class="placeholder" bindblur='phone'></input>
+          </view>
+        </view>
+      </view>
+    <!-- <view class='item acea-row row-between-wrapper' wx:else>
+      <view>自提门店</view>
+      <view class='discount'>{{system_store.name}}</view>
+    </view> -->
     <view class='item' wx:if="{{textareaStatus}}">
       <view>备注信息</view>
       <textarea wx:if="{{coupon.coupon===false}}" placeholder-class='placeholder' bindinput='bindHideKeyboard' value="" name="mark" placeholder='请添加备注（150字以内）'></textarea>
@@ -79,7 +111,7 @@
       <view>积分抵扣：</view>
       <view class='money'>-￥{{integral_price}}</view>
     </view>
-    <view class='item acea-row row-between-wrapper'>
+    <view class='item acea-row row-between-wrapper' wx:if="{{priceGroup.storePostage > 0}}">
       <view>运费：</view>
       <view class='money'>￥{{priceGroup.storePostage}}</view>
     </view>

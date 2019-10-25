@@ -17,6 +17,7 @@ Page({
     },
     id:0,
     articleInfo:[],
+    store_info:{},
   },
 
   /**
@@ -46,7 +47,7 @@ Page({
   getArticleOne:function(){
     var that = this;
     getArticleDetails(that.data.id).then(res=>{
-      that.setData({ 'parameter.title': res.data.title, articleInfo: res.data });
+      that.setData({ 'parameter.title': res.data.title, articleInfo: res.data, store_info: res.data.store_info ? res.data.store_info : {} });
       //html转wxml
       wxParse.wxParse('content', 'html', res.data.content, that, 0);
     });
@@ -83,6 +84,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: this.data.parameter.title,
+      path: '/pages/news_details/index?id=' + this.data.id,
+      imageUrl: this.data.articleInfo.image_input.length ? this.data.articleInfo.image_input[0] : '',
+    }
   }
 })

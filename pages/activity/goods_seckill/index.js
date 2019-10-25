@@ -30,15 +30,13 @@ Page({
     limit : 20,
     loading:false,
     loadend:false,
+    pageloading:false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (e) {
-
-  },
-  onLoadFun: function () {
     this.getSeckillConfig();
   },
   goDetails:function(e){
@@ -58,10 +56,12 @@ Page({
       countDownHour: "00",
       countDownMinute: "00",
       countDownSecond: "00",
-      status: that.data.timeList[that.data.active].status
+      status: that.data.timeList[that.data.active].status,
+      loadend:false,
+      page:1,
+      seckillList:[],
     });
     wxh.time(e.currentTarget.dataset.stop, that);
-    that.setData({ seckillList: [], offset: 0 });
     that.getSeckillList();
   },
   getSeckillConfig: function () {
@@ -82,8 +82,8 @@ Page({
     var that = this; 
     var data = { page: that.data.page, limit: that.data.limit};
     if (that.data.loadend) return ;
-    if (that.data.loading) return ;
-    that.setData({ loading:true});
+    if (that.data.pageloading) return ;
+    that.setData({ pageloading:true});
     getSeckillList(that.data.timeList[that.data.active].id, data).then(res=>{
       var seckillList = that.data.seckillList;
       var loadend = seckillList.length < that.data.limit;
@@ -91,11 +91,11 @@ Page({
       that.setData({
         seckillList: seckillList.concat(res.data),
         offset: that.data.page,
-        loading: false,
+        pageloading: false,
         loadend: loadend
       });
     }).catch(err=>{
-      that.setData({ loading:false});
+      that.setData({ pageloading:false});
     });
   },
   /**

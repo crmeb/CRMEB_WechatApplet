@@ -1,6 +1,6 @@
 <navbar parameter='{{parameter}}' logoUrl="{{logoUrl}}"></navbar>
 <view class='index'>
-    <view class='index-bg'>
+    <view class='index-bg' wx:if="{{imgUrls.length}}">
         <swiper indicator-dots="true"
             autoplay="{{autoplay}}" circular="{{circular}}" interval="{{interval}}" duration="{{duration}}" indicator-color="rgba(255,255,255,0.6)" indicator-active-color="#fff">
             <block wx:for="{{imgUrls}}" wx:key>
@@ -12,7 +12,7 @@
             </block>
         </swiper>
     </view>
-    <view class='nav acea-row'>
+    <view class='nav acea-row' wx:if="{{menus.length}}">
       <block wx:for="{{menus}}" wx:key>
         <navigator class='item' wx:if="{{item.show == '1'}}" url='{{item.url}}'  open-type='switchTab' hover-class='none'>
           <view class='pictrue'><image src='{{item.pic}}'></image></view>
@@ -24,7 +24,7 @@
         </navigator>
       </block> 
     </view>
-    <view class='news acea-row row-between-wrapper'>
+    <view class='news acea-row row-between-wrapper' wx:if="{{itemNew.length}}">
        <view class='pictrue'><image src='/images/news.png'></image></view>
        <view class='swiperTxt'>
             <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="2500" duration="{{duration}}" vertical="true" circular="true">
@@ -136,9 +136,9 @@
           </block>  
        </view>
     </view>
-    <view class='adver' wx:if="{{lovelyBanner.length > 0}}">
-      <block wx:for="{{lovelyBanner}}" wx:key>
-        <image src='{{item.img}}'></image>
+    <view class='adver' wx:if="{{lovelyBanner.img}}">
+      <block>
+        <image src='{{lovelyBanner.img}}'></image>
       </block>  
     </view>
      <view class='wrapper' wx:if="{{firstList.length}}">

@@ -1,0 +1,12 @@
+ <view hidden="{{iShidden == false}}">
+    <view class="WriteOff">
+      <view class="pictrue"><image src="/images/value.jpg"></image></view>
+      <view class="num acea-row row-center-wrapper">wx156687208866123509
+        <view class="see">查看<text class="iconfont icon-xiangyou"></text></view>
+      </view>
+      <view class="tip">确定要核销此订单吗？</view>
+      <view class="sure">确定核销</view>
+      <view class="sure cancel" bindtap="cancel">取消</view>
+    </view>
+    <view class="mask" catchtouchmove="true"></view>
+ </view>

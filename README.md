@@ -68,6 +68,7 @@ http://demo.crmeb.net/admin
 2. 配置微信开发工具中小程序的appid
 3. 前往CRMEB后台配置小程序 appid 和 AppSecret 
 3. 前往微信小程序后台配置业务，下载 合法域名
+4. 上传小程序前请删除小程序根目录下的demo.jpg图片
 
 ### 目录结构
 

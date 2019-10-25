@@ -4,6 +4,7 @@
 .navbar.black{background-color:#232323;}
 .navbar.gray{background-color:#666;}
 .navbar.red{background-color:#eb5447;}
+.navbar.gradual01{background-image: linear-gradient(to right,#f67837 0%,#f11d09 100%);}
 .navbar .navbarH{position:relative;}
 .navbar .navbarH .navbarCon{position:absolute;bottom:0;height:100rpx;width:100%;}
 .navbar .navbarH .navbarCon .name{color:#000;font-size:36rpx;font-weight:bold;width: 300rpx;text-align: center;}

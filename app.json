@@ -42,6 +42,9 @@
     "pages/user_address/index",
     "pages/order_addcart/order_addcart",
     "pages/user_payment/index",
+    "pages/order_cancellation/index",
+    "pages/commission_rank/index",
+    "pages/promoter_rank/index",
     "components/navbar/index",
     "components/recommend/index",
     "components/share-red-packets/index",
@@ -55,15 +58,23 @@
     "components/product-window/index",
     "components/coupon-list-window/index",
     "components/address-window/index",
-    "components/home/index"
+    "components/home/index",
+    "components/write-off/index"
   ],
   "subPackages": [
     {
       "root": "pages/activity",
       "name": "activity",
       "pages": [
+        "goods_combination/index",
+        "goods_combination_details/index",
+        "goods_combination_status/index",
         "goods_seckill_details/index",
-        "goods_seckill/index"
+        "goods_seckill/index",
+        "goods_bargain_details/index",
+        "goods_bargain/index",
+        "poster-poster/index",
+        "user_goods_bargain_list/index"
       ]
     }
   ],
@@ -78,7 +89,7 @@
     "backgroundColor": "#ffffff",
     "color": "#282828",
     "selectedColor": "#e93323",
-    "borderStyle":"white",
+    "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/index/index",

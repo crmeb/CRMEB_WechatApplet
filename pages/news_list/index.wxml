@@ -52,7 +52,7 @@
     </block>  
    </view>
 </view>
-<view class='noCommodity' wx:if="{{articleList.length == 0 || navList.length == 0 || imgUrls.length == 0}}">
+<view class='noCommodity' wx:if="{{articleList.length == 0 && (page != 1 || active== 0)}}">
    <view class='pictrue'><image src='/images/noNews.png'></image></view>
 </view>
 <home></home>

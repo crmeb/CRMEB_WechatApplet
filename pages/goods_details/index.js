@@ -1,10 +1,10 @@
 import { getProductDetail, getProductCode, collectAdd, collectDel, postCartAdd} from '../../api/store.js';
+import { getUserInfo, userShare } from '../../api/user.js';
 import { getCoupons ,setFormId} from '../../api/api.js';
 import { getCartCounts } from '../../api/order.js';
-import { getUserInfo, userShare } from '../../api/user.js';
-import wxh from '../../utils/wxh.js';
-import util from '../../utils/util.js';
 import WxParse from '../../wxParse/wxParse.js';
+import util from '../../utils/util.js';
+import wxh from '../../utils/wxh.js';
 
 const app = getApp();
 
@@ -51,6 +51,14 @@ Page({
       isState:true,//默认不显示
     },//分销商详细
     uid:0,//用户uid
+    circular: false,
+    autoplay: false,
+    interval: 3000,
+    duration: 500,
+    clientHeight:"",
+    systemStore:{},//门店信息
+    good_list:[],
+    isDown:true,
   },
   /**
    * 登录后加载
@@ -168,6 +176,17 @@ Page({
     if (options.spid) app.globalData.spid=options.spid;
     this.getGoodsDetails();
   },
+  setClientHeight:function(){
+    if (!this.data.good_list.length) return ;
+    var query = wx.createSelectorQuery().in(this);
+    query.select("#list").boundingClientRect();
+    var that = this;
+    query.exec(function (res) {
+      that.setData({
+        clientHeight: res[0].height + 20
+      });
+    });
+  },
   /**
    * 获取产品详情
    * 
@@ -176,6 +195,13 @@ Page({
     var that=this;
     getProductDetail(that.data.id).then(res=>{
       var storeInfo = res.data.storeInfo;
+      var good_list = res.data.good_list || [];
+      var count = Math.ceil(good_list.length / 6);
+      var goodArray= new Array();
+      for (var i = 0; i < count;i++){
+        var list = good_list.slice(i * 6, 6);
+        if (list.length) goodArray.push({list:list});
+      }
       that.setData({
         storeInfo: storeInfo,
         reply: res.data.reply ? [res.data.reply] : [],
@@ -185,16 +211,48 @@ Page({
         productAttr: res.data.productAttr,
         productValue: res.data.productValue,
         ["sharePacket.priceName"]: res.data.priceName,
-        ['parameter.title']: storeInfo.store_name
+        ['parameter.title']: storeInfo.store_name,
+        systemStore: res.data.system_store,
+        good_list: goodArray
       });
       that.downloadFilestoreImage();
       that.DefaultSelect();
+      that.setClientHeight();
       //html转wxml
       WxParse.wxParse('description', 'html', that.data.description, that, 0);
     }).catch(err=>{
       //状态异常返回上级页面
-      return app.Tips({ title: err }, { tab: 3, url: 1 });
+      return app.Tips({ title: err.toString() }, { tab: 3, url: 1 });
     })
+  },
+  goPages:function(e){
+    console.log(e, e.currentTarget.dataset.id);
+    wx.navigateTo({ url: 'pages/goods_details/index?id='+e.currentTarget.dataset.id});
+  },
+  /**
+   * 拨打电话
+  */
+  makePhone:function(){
+    wx.makePhoneCall({
+      phoneNumber: this.data.systemStore.phone
+    })
+  },
+  /**
+   * 打开地图
+   * 
+  */
+  showMaoLocation:function(){
+    if (!this.data.systemStore.latitude || !this.data.systemStore.longitude) return app.Tips({title:'缺少经纬度信息无法查看地图！'});
+    wx.openLocation({
+      latitude: parseFloat(this.data.systemStore.latitude),
+      longitude: parseFloat(this.data.systemStore.longitude),
+      scale:8,
+      name: this.data.systemStore.name,
+      address: this.data.systemStore.address + this.data.systemStore.detailed_address,
+      success:function(){
+
+      },
+    });
   },
   /**
    * 默认选中属性
@@ -454,16 +512,19 @@ Page({
       wx.downloadFile({
         url: that.setDomain(res.data.code),
         success: function (res) {
+          that.setData({ isDown:false});
           if (typeof successFn == 'function')
             successFn && successFn(res.tempFilePath);
           else
             that.setData({ PromotionCode: res.tempFilePath });
         },
         fail: function () {
+          that.setData({ isDown: false });
           that.setData({ PromotionCode: '' });
         },
       });
     }).catch(err=>{
+      that.setData({ isDown: false });
       that.setData({ PromotionCode: '' });
     });
   },
@@ -474,6 +535,7 @@ Page({
     var that = this;
     that.setData({ canvasStatus: true });
     var arr2 = [that.data.posterbackgd, that.data.storeImage, that.data.PromotionCode];
+    if(that.data.isDown) return app.Tips({title:'正在下载海报,请稍后再试！'});
     wx.getImageInfo({
       src: that.data.PromotionCode,
       fail: function (res) {
@@ -554,8 +616,8 @@ Page({
     that.setData({actionSheetHidden: !that.data.actionSheetHidden});
     userShare();
     return {
-      title: that.data.productSelect.store_name || '',
-      imageUrl: that.data.productSelect.image || '',
+      title: that.data.storeInfo.store_name || '',
+      imageUrl: that.data.storeInfo.image || '',
       path: '/pages/goods_details/index?id=' + that.data.id + '&spid='+that.data.uid,
     }
   }

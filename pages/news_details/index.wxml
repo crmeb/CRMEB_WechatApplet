@@ -9,6 +9,18 @@
    <view class='conter'>
      <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
    </view>
+   <view class="picTxt acea-row row-between-wrapper" wx:if='{{store_info.id}}'>
+      <view class="pictrue"><image src="{{store_info.image}}"></image></view>
+      <view class="text">
+        <view class="name line1">{{store_info.store_name}}</view>
+        <view class="money font-color">
+          ￥<text class="num">{{store_info.vip_price}}</text>
+        </view>
+        <view class="y_money">￥{{store_info.price}}</view>
+      </view>
+      <navigator url="/pages/goods_details/index?id={{store_info.id}}" hover-class="none" class="label"><text class="span">查看商品</text></navigator>
+    </view>
+    <button class="bnt bg-color" open-type="share"  hover-class='none'>和好友一起分享</button>
 </view>
 <import src="/wxParse/wxParse.wxml"/>
 <home></home>

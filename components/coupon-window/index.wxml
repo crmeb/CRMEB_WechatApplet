@@ -4,7 +4,7 @@
          <view class='money font-color'>￥<text class='num'>{{item.coupon_price}}</text></view>
          <view class='text'>
             <view class='name'>购物买{{item.use_min_price}}减{{item.coupon_price}}</view>
-            <view>{{item.add_time}}-{{item.end_time}}</view>
+            <view>{{item.start_time ? item.start_time+'-' : ''}}{{item.end_time}}</view>
          </view>
       </view>
    </view>

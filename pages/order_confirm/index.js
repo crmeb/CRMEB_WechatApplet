@@ -14,7 +14,9 @@ Page({
     parameter: {
       'navbar': '1',
       'return': '1',
-      'title': '提交订单'
+      'title': '提交订单',
+      'color': true,
+      'class': '0'
     },
     //支付方式
     cartArr: [
@@ -44,6 +46,11 @@ Page({
     is_address:false,
     isClose:false,
     toPay:false,//修复进入支付时页面隐藏从新刷新页面
+    shippingType:0,
+    system_store:{},
+    storePostage:0,
+    contacts:'',
+    contactsTel:''
   },
   /**
    * 授权回调事件
@@ -66,7 +73,50 @@ Page({
       this.selectComponent('#address-window').getAddressList();
     }
   },
+  addressType:function(e){
+    var index = e.currentTarget.dataset.index;
+    if (index == 0) {
+      this.data.totalPrice = app.help().Add(parseFloat(this.data.totalPrice), parseFloat(this.data.storePostage));
+      if (this.data.storePostage) {
+        this.data.priceGroup.storePostage = this.data.storePostage;
+      }
+    } else if (index == 1) {
+      if (!this.data.system_store.id) return app.Tips({ title:'暂无门店信息，您无法选择到店自提！'});
+      this.data.totalPrice = app.help().Sub(this.data.totalPrice, this.data.priceGroup.storePostage);
+      if (this.data.priceGroup.storePostage) {
+        this.data.storePostage = this.data.priceGroup.storePostage;
+        this.data.priceGroup.storePostage = 0;
+      }
+    }
+    this.setData({
+      shippingType: parseInt(index),
+      totalPrice: this.data.totalPrice,
+      storePostage: this.data.storePostage,
+      'priceGroup.storePostage': this.data.priceGroup.storePostage
+    })
+  },
+  bindPickerChange: function (e) {
+    let value = e.detail.value;
+    if (value==0){
+      this.data.totalPrice = app.help().Add(parseFloat(this.data.totalPrice), parseFloat(this.data.storePostage));
+      if (this.data.storePostage){
+        this.data.priceGroup.storePostage = this.data.storePostage;
+      }
+    } else if (value==1){
+      this.data.totalPrice = app.help().Sub(this.data.totalPrice, this.data.priceGroup.storePostage);
+      if (this.data.priceGroup.storePostage){
+        this.data.storePostage = this.data.priceGroup.storePostage;
+        this.data.priceGroup.storePostage = 0;
+      }
+    }
+    this.setData({
+      shippingType: value,
+      totalPrice: this.data.totalPrice,
+      storePostage: this.data.storePostage,
+      'priceGroup.storePostage': this.data.priceGroup.storePostage
+    })
 
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -260,7 +310,9 @@ Page({
         priceGroup: res.data.priceGroup,
         totalPrice: app.help().Add(parseFloat(res.data.priceGroup.totalPrice), parseFloat(res.data.priceGroup.storePostage)),
         seckillId: parseInt(res.data.seckill_id),
-        usableCoupon: res.data.usableCoupon
+        usableCoupon: res.data.usableCoupon,
+        system_store: res.data.system_store,
+        store_self_mention: res.data.store_self_mention
       });
       that.data.cartArr[1].title = '可用余额:' + res.data.userInfo.now_money;
       if (res.data.offline_pay_status == 2)  that.data.cartArr.pop();
@@ -284,7 +336,7 @@ Page({
         combinationId = cartINfo[index].combination_id
     })
     that.setData({ BargainId: parseInt(BargainId), combinationId: parseInt(combinationId)});
-    if (that.data.cartArr.length == 2 && (BargainId || combinationId || that.data.seckillId)){
+    if (that.data.cartArr.length == 3 && (BargainId || combinationId || that.data.seckillId)){
       that.data.cartArr.pop();
       that.setData({ cartArr: that.data.cartArr});
     }
@@ -346,11 +398,33 @@ Page({
       pagesUrl: '/pages/user_address_list/index?cartId=' + this.data.cartId + '&pinkId=' + this.data.pinkId + '&couponId=' + this.data.couponId
     });
   },
+  realName:function(e){
+    this.setData({
+      contacts: e.detail.value
+    })
+  },
+  phone: function (e) {
+    this.setData({
+      contactsTel: e.detail.value
+    })
+  },
   SubOrder:function(e){
     var formId = e.detail.formId, that = this, data={};
     if (!this.data.payType) return app.Tips({title:'请选择支付方式'});
-    if (!this.data.addressId) return app.Tips({ title:'请选择收货地址'});
+    if (!this.data.addressId && !this.data.shippingType) return app.Tips({ title:'请选择收货地址'});
+    if (this.data.shippingType){
+      if (this.data.contacts == "" || this.data.contactsTel == "")
+        return app.Tips({ title: '请填写联系人或联系人电话' });
+      if (!/^1(3|4|5|7|8|9|6)\d{9}$/.test(this.data.contactsTel)) {
+        return app.Tips({ title: '请填写正确的手机号' });
+      }
+      if (!/^[\u4e00-\u9fa5\w]{2,16}$/.test(this.data.contacts)) {
+        return app.Tips({ title: '请填写您的真实姓名' });
+      }
+    }
     data={
+      real_name: that.data.contacts,
+      phone: that.data.contactsTel,
       addressId: that.data.addressId,
       formId: formId,
       couponId: that.data.couponId,
@@ -361,7 +435,8 @@ Page({
       pinkId: that.data.pinkId,
       seckill_id: that.data.seckillId,
       mark: that.data.mark,
-      'from':'routine'
+      'from':'routine',
+      shipping_type: app.help().Add(that.data.shippingType,1)
     };
     if (data.payType == 'yue' && parseFloat(that.data.userInfo.now_money) < parseFloat(that.data.totalPrice)) return app.Tips({title:'余额不足！'});
     wx.showLoading({ title: '订单支付中'});

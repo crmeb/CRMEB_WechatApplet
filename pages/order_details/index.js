@@ -19,7 +19,8 @@ Page({
     order_id:'',
     evaluate:0,
     cartInfo:[],//购物车产品
-    orderInfo:{},//订单详情
+    orderInfo: { system_store:{}},//订单详情
+    system_store:{},
     isGoodsReturn:false,//是否为退款订单
     status:{},//订单底部按钮状态
     isClose:false,
@@ -53,7 +54,31 @@ Page({
     let value = opt.value != undefined ? opt.value : null;
     (action && this[action]) && this[action](value);
   },
+  /**
+   * 拨打电话
+  */
+  makePhone: function () {
+    wx.makePhoneCall({
+      phoneNumber: this.data.system_store.phone
+    })
+  },
+  /**
+   * 打开地图
+   * 
+  */
+  showMaoLocation: function () {
+    if (!this.data.system_store.latitude || !this.data.system_store.longitude) return app.Tips({ title: '缺少经纬度信息无法查看地图！' });
+    wx.openLocation({
+      latitude: parseFloat(this.data.system_store.latitude),
+      longitude: parseFloat(this.data.system_store.longitude),
+      scale: 8,
+      name: this.data.system_store.name,
+      address: this.data.system_store.address + this.data.system_store.detailed_address,
+      success: function () {
 
+      },
+    });
+  },
   /**
    * 关闭支付组件
    * 
@@ -114,9 +139,14 @@ Page({
     var that=this;
     wx.showLoading({ title: "正在加载中" });
     getOrderDetail(this.data.order_id).then(res=>{
-      var _type = res.data._status._type;
+      let _type = res.data._status._type;
       wx.hideLoading();
-      that.setData({ orderInfo: res.data, cartInfo: res.data.cartInfo, evaluate: _type == 3 ? 3 : 0 });
+      that.setData({ 
+        orderInfo: res.data, 
+        cartInfo: res.data.cartInfo, 
+        evaluate: _type == 3 ? 3 : 0, 
+        system_store: res.data.system_store,
+      });
       that.getOrderStatus();
     }).catch(err=>{
       wx.hideLoading();

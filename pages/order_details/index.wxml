@@ -12,8 +12,8 @@
     <view class='nav'>
         <view class='navCon acea-row row-between-wrapper'>
           <view class="{{status.type == 0 || status.type == -9 ? 'on':''}}">待付款</view>
-          <view class="{{status.type == 1 ? 'on':''}}">待发货</view>
-          <view class="{{status.type == 2 ? 'on':''}}">待收货</view>
+          <view class="{{status.type == 1 ? 'on':''}}">{{orderInfo.shipping_type==1 ? '待发货':'待核销'}}</view>
+          <view class="{{status.type == 2 ? 'on':''}}" wx:if="{{orderInfo.shipping_type == 1}}">待收货</view>
           <view class="{{status.type == 3 ? 'on':''}}">待评价</view>
           <view class="{{status.type == 4 ? 'on':''}}">已完成</view>
         </view>
@@ -21,19 +21,53 @@
           <view class='iconfont {{status.type == 0 || status.type == -9  ? "icon-webicon318":"icon-yuandianxiao"}} {{status.type >= 0 ? "font-color":""}}'></view>
           <view class='line {{status.type > 0 ? "bg-color":""}}'></view>
           <view class='iconfont {{status.type == 1 ? "icon-webicon318":"icon-yuandianxiao"}} {{status.type >= 1 ? "font-color":""}}'></view>
-          <view class='line {{status.type > 1 ? "bg-color":""}}'></view>
-          <view class='iconfont {{status.type == 2 ? "icon-webicon318":"icon-yuandianxiao"}} {{status.type >= 2 ? "font-color":""}}'></view>
+          <view class='line {{status.type > 1 ? "bg-color":""}}' wx:if="{{orderInfo.shipping_type == 1}}"></view>
+          <view class='iconfont {{status.type == 2 ? "icon-webicon318":"icon-yuandianxiao"}} {{status.type >= 2 ? "font-color":""}}' wx:if="{{orderInfo.shipping_type == 1}}"></view>
           <view class='line {{status.type > 2 ? "bg-color":""}}'></view>
           <view class='iconfont {{status.type == 3 ? "icon-webicon318":"icon-yuandianxiao"}} {{status.type >= 3 ? "font-color":""}}'></view>
           <view class='line {{status.type > 3 ? "bg-color":""}}'></view>
           <view class='iconfont {{status.type == 4 ? "icon-webicon318":"icon-yuandianxiao"}} {{status.type >= 4 ? "font-color":""}}'></view>
         </view>
     </view>
-    <view class='address'>
+    <view class="writeOff" wx:if="{{orderInfo.shipping_type == 2 && orderInfo.paid}}">
+        <view class="title">核销信息</view>
+        <view class="grayBg">
+          <view class="pictrue"><image src="{{orderInfo.code}}"></image></view>
+        </view>
+        <view class="gear"><image src="/images/writeOff.jpg"></image></view>
+        <view class="num">{{orderInfo._verify_code}}</view>
+        <view class="rules">
+          <view class="item">
+            <view class="rulesTitle acea-row row-middle">
+              <text class="iconfont icon-shijian"></text>核销时间
+            </view>
+            <view class="info">
+              每日：<text class="time">{{orderInfo.system_store.day_time}}</text>
+            </view>
+          </view>
+          <view class="item">
+            <view class="rulesTitle acea-row row-middle">
+              <text class="iconfont icon-shuoming1"></text>使用说明
+            </view>
+            <view class="info">可将二维码出示给店员扫描或提供数字核销码</view>
+          </view>
+        </view>
+    </view>
+      <view class="map acea-row row-between-wrapper" wx:if="{{orderInfo.shipping_type == 2}}">
+        <view>自提地址信息</view>
+        <view class="place cart-color acea-row row-center-wrapper" bindtap="showMaoLocation">
+          <text class="iconfont icon-weizhi"></text>查看位置
+        </view>
+      </view>
+    <view class='address' wx:if="{{orderInfo.shipping_type === 1 }}">
         <view class='name'>{{orderInfo.real_name}}<text class='phone'>{{orderInfo.user_phone}}</text></view>
         <view>{{orderInfo.user_address}}</view>
     </view>
-    <view class='line'><image src='/images/line.jpg'></image></view>
+    <view class='address' wx:else style="margin-top:0;">
+        <view class='name' bindtap="makePhone">{{orderInfo.system_store.name}}<text class='phone'>{{orderInfo.system_store.name.phone}}</text><text class="iconfont icon-tonghua font-color"></text></view>
+        <view>{{orderInfo.system_store._detailed_address}}</view>
+    </view>
+    <view class='line' wx:if="{{orderInfo.shipping_type === 1}}"><image src='/images/line.jpg'></image></view>
    </view>
    <orderGoods evaluate='{{evaluate}}' orderId="{{order_id}}" cartInfo="{{cartInfo}}"></orderGoods>
    <view class='wrapper'>

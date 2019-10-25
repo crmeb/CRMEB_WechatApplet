@@ -8,7 +8,7 @@
 .my-promotion .header .profit .item{min-width:200rpx;text-align:center;}
 .my-promotion .header .profit .item .money{font-size:34rpx;color:#fff;margin-top:5rpx;}
 .my-promotion .bnt{font-size:28rpx;color:#fff;width:258rpx;height:68rpx;border-radius:50rpx;text-align:center;line-height:68rpx;margin:-32rpx auto 0 auto;}
-.my-promotion .list{padding:0 20rpx;margin-top:10rpx;}
+.my-promotion .list{padding: 0 20rpx 50rpx 20rpx;margin-top:10rpx;}
 .my-promotion .list .item{width:345rpx;height:240rpx;border-radius:20rpx;background-color:#fff;margin-top:20rpx;font-size:30rpx;color:#666;}
 .my-promotion .list .item .iconfont{font-size:70rpx;
  background-image:linear-gradient(to right,#fc4d3d 0%,#e93323 100%);

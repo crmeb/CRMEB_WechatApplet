@@ -1,0 +1,36 @@
+<navbar parameter='{{parameter}}'></navbar>
+<view class="CommissionRank">
+    <view class="header">
+      <view class="rank">您目前的排名<text class="num">{{position}}</text>名</view>
+    </view>
+    <view class="wrapper">
+      <view class="nav acea-row row-around">
+        <view
+          class="item {{active == index ? 'font-color' : ''}}"
+          wx:for="{{navList}}"
+          data-index="{{index}}"
+          bindtap="switchTap"
+          wx:key
+        >
+          {{ item }}
+        </view>
+      </view>
+      <view class="list">
+      <view class="item acea-row row-between-wrapper" wx:for='{{rankList}}' wx:key>
+        <view class="num" wx:if='{{index <= 2}}'>
+          <image src="/images/medal0{{index+1}}.png"></image>
+        </view>
+        <view class="num" wx:else>
+        {{index+1}}
+        </view>
+        <view class="picTxt acea-row row-between-wrapper">
+          <view class="pictrue"><image src="{{item.avatar}}"></image></view>
+          <view class="text line1">{{item.nickname}}</view>
+        </view>
+        <view class="people font-color">￥{{item.brokerage_price}}</view>
+      </view>
+    </view>
+    </view>
+  </view>
+
+  <authorize bind:onLoadFun='onLoadFun'></authorize>
