@@ -59,6 +59,7 @@ Page({
     systemStore:{},//门店信息
     good_list:[],
     isDown:true,
+    storeSelfMention:true,
   },
   /**
    * 登录后加载
@@ -213,6 +214,7 @@ Page({
         ["sharePacket.priceName"]: res.data.priceName,
         ['parameter.title']: storeInfo.store_name,
         systemStore: res.data.system_store,
+        storeSelfMention: res.data.store_self_mention,
         good_list: goodArray
       });
       that.downloadFilestoreImage();

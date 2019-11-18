@@ -1,5 +1,5 @@
 module.exports = {
-  // 请求域名 格式： http://您的域名
+  // 请求域名 格式： https://您的域名
   HTTP_REQUEST_URL:'',
   // Socket链接 暂不做配置
   WSS_SERVER_URL:'',

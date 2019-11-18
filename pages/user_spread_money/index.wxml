@@ -13,7 +13,7 @@
      <block wx:for="{{recordList}}" wx:key>
       <view class='list'>
           <view class='item'>
-            <view class='data'>{{item.money}}</view>
+            <view class='data'>{{item.time}}</view>
             <view class='listn'>
               <block wx:for="{{item.list}}" wx:for-item='child' wx:key>
                 <view class='itemn acea-row row-between-wrapper'>

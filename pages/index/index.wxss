@@ -1,4 +1,10 @@
 page{background-color:#fff!important;}
+.index .indexTip{position:fixed;right:42rpx;z-index:9;}
+.index .indexTip .tip{width:400rpx;border-radius:6rpx;background-color:#fff;padding:15rpx 22rpx;position:relative;}
+.index .indexTip .tip::before{content: "";width: 0;height: 0;border-left:15rpx solid transparent;border-right:15rpx solid transparent;border-bottom:17rpx solid #fff;position:absolute;top:-14rpx;right:95rpx;}
+.index .indexTip .text{font-size:22rpx;color:#333;width:320rpx;}
+.index .indexTip .text image{width:30rpx;height:16rpx;display:inline-block;}
+.index .indexTip .iconfont{color:#cdcdcd;font-size:32rpx;}
 .index .index-bg{width:100%;height:375rpx;position:relative;}
 .index .index-bg swiper{width:100%;height:100%;position:relative;}
 .index .index-bg .slide-navigator{width:100%;height:100%;}

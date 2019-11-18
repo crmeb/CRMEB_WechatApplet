@@ -22,6 +22,7 @@ Page({
     MyMenus:[],
     isGoIndex:false,
     iShidden:true,
+    isAuto:false,
     switchActive:false,
     loginType: app.globalData.loginType,
     orderStatusNum:{},
@@ -94,7 +95,10 @@ Page({
   },
   onShow:function(){
     let that = this;
-    if (app.globalData.isLog) this.getUserInfo();
+    if (app.globalData.isLog){ 
+      this.getUserInfo();
+      this.getMyMenus();
+    }
   },
 
   /**

@@ -208,7 +208,7 @@ Page({
       var cartList = res.data;
       var valid = cartList.valid;
       var numSub = [{ numSub: true }, { numSub: false }];
-      var numAdd = [{ numAdd: true }, { numAdd: false }];
+      var numAdd = [{ numAdd: true }, { numAdd: false }], selectValue = [];;
       if (valid.length > 0) {
         for (var index in valid) {
           if (valid[index].cart_num == 1) { valid[index].numSub = true; }
@@ -219,10 +219,16 @@ Page({
           } else if (valid[index].cart_num == valid[index].productInfo.stock) {
             valid[index].numAdd = true;;
           } else { valid[index].numAdd = false; }
-          valid[index].checked = false;
+          valid[index].checked = true;
+          selectValue.push(valid[index].id);
         }
       }
-      that.setData({ cartList: cartList, goodsHidden: cartList.valid.length <= 0 ? false : true });
+      that.setData({ 
+        cartList: cartList, 
+        goodsHidden: cartList.valid.length <= 0 ? false : true, 
+        selectValue: selectValue, 
+        isAllSelect: valid.length == selectValue.length && valid.length
+      });
       that.switchSelect();
     });
   },

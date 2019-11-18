@@ -1,7 +1,8 @@
 <navbar parameter='{{parameter}}'></navbar>
 <view class="CommissionRank">
     <view class="header">
-      <view class="rank">您目前的排名<text class="num">{{position}}</text>名</view>
+      <view class="rank" wx:if='{{position}}'>您目前的排名<text class="num">{{position}}</text>名</view>
+      <view class="rank" wx:else>您目前暂无排名</view>
     </view>
     <view class="wrapper">
       <view class="nav acea-row row-around">

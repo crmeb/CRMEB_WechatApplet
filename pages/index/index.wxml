@@ -1,5 +1,11 @@
 <navbar parameter='{{parameter}}' logoUrl="{{logoUrl}}"></navbar>
 <view class='index'>
+    <view class="indexTip" style="top:{{navH+13}}rpx" hidden="{{iShidden}}">
+       <view class="tip acea-row row-between-wrapper">
+          <view class="text">点击“<image src="/images/spot.png"></image>”添加到我的小程序， 微信首页下拉即可访问商城。</view>
+       <view class="iconfont icon-guanbi1" bindtap="closeTip"></view>
+       </view> 
+    </view>
     <view class='index-bg' wx:if="{{imgUrls.length}}">
         <swiper indicator-dots="true"
             autoplay="{{autoplay}}" circular="{{circular}}" interval="{{interval}}" duration="{{duration}}" indicator-color="rgba(255,255,255,0.6)" indicator-active-color="#fff">

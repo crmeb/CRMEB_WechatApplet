@@ -21,7 +21,7 @@ Page({
     firstList: [],
     salesInfo: '',
     likeInfo: [],
-    lovelyBanner: [],
+    lovelyBanner: {},
     benefit:[],
     indicatorDots: false,
     circular: true,
@@ -33,13 +33,25 @@ Page({
       'return':'0'
     },
     window: false,
+    iShidden:false,
+    navH: ""
+  },
+  closeTip:function(){
+    wx.setStorageSync('msg_key',true);
+    this.setData({
+      iShidden:true
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      navH: app.globalData.navHeight
+    });
     if (options.spid) app.globalData.spid = options.spid;
     if (options.scene) app.globalData.code = decodeURIComponent(options.scene);
+    if (wx.getStorageSync('msg_key')) this.setData({ iShidden:true});
   },
   catchTouchMove: function (res) {
     return false
@@ -84,7 +96,7 @@ Page({
         firstList: res.data.info.firstList,
         salesInfo: res.data.info.salesInfo,
         likeInfo: res.data.likeInfo,
-        lovelyBanner: res.data.info,
+        lovelyBanner: res.data.lovely.length ? res.data.lovely[0] : {},
         benefit: res.data.benefit,
         logoUrl: res.data.logoUrl,
         couponList: res.data.couponList,
@@ -94,7 +106,7 @@ Page({
           if (!res.authSetting['scope.userInfo']) {
             that.setData({ window: that.data.couponList.length ? true : false });
           } else {
-            that.setData({ window: false });
+            that.setData({ window: false, iShidden: true});
           }
         }
       });

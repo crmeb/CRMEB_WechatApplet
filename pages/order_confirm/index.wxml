@@ -1,8 +1,8 @@
 <navbar parameter='{{parameter}}'></navbar>
 <view class='order-submission'>
-  <view class="allAddress">
+  <view class="allAddress" style="{{store_self_mention ? '':'padding-top:10rpx'}}">
     <view class="nav acea-row">
-      <view class="item font-color {{shippingType == 0 ? 'on' : 'on2'}}" data-index="0" bindtap="addressType"></view>
+      <view class="item font-color {{shippingType == 0 ? 'on' : 'on2'}}" data-index="0" bindtap="addressType" wx:if='{{store_self_mention}}'></view>
       <view class="item font-color {{shippingType == 1 ? 'on' : 'on2'}}" data-index="1" bindtap="addressType" wx:if='{{store_self_mention}}'></view>
     </view>
     <view class='address acea-row row-between-wrapper' bindtap='onAddress' wx:if='{{shippingType == 0}}'>
@@ -52,11 +52,11 @@
     </view>
     <view class='item acea-row row-between-wrapper' wx:if="{{priceGroup.vipPrice > 0 && userInfo.vip && !pinkId && !BargainId && !combinationId && !seckillId}}">
       <view>会员优惠</view>
-      <view class='discount'>￥{{priceGroup.vipPrice}}</view>
+      <view class='discount'>-￥{{priceGroup.vipPrice}}</view>
     </view>
     <view class='item acea-row row-between-wrapper' wx:if='{{shippingType==0}}'>
       <view>快递费用</view>
-      <view class='discount' wx:if='{{priceGroup.storePostage > 0}}'>{{priceGroup.storePostage}}</view>
+      <view class='discount' wx:if='{{priceGroup.storePostage > 0}}'>+￥{{priceGroup.storePostage}}</view>
       <view class='discount' wx:else>免运费</view>
     </view>
      <view wx:else>
@@ -99,10 +99,6 @@
       <view>商品总价：</view>
       <view class='money'>￥{{priceGroup.totalPrice}}</view>
     </view>
-    <view class='item acea-row row-between-wrapper' wx:if="{{priceGroup.vipPrice > 0 && userInfo.vip && !pinkId && !BargainId && !combinationId && !seckillId}}">
-      <view>会员优惠金额：</view>
-      <view class='money'>-￥{{priceGroup.vipPrice}}</view>
-    </view>
     <view class='item acea-row row-between-wrapper' wx:if="{{coupon_price > 0}}">
       <view>优惠券抵扣：</view>
       <view class='money'>-￥{{coupon_price}}</view>
@@ -113,7 +109,7 @@
     </view>
     <view class='item acea-row row-between-wrapper' wx:if="{{priceGroup.storePostage > 0}}">
       <view>运费：</view>
-      <view class='money'>￥{{priceGroup.storePostage}}</view>
+      <view class='money'>+￥{{priceGroup.storePostage}}</view>
     </view>
   </view>
   <view style='height:120rpx;'></view>

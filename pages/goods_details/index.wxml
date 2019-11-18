@@ -37,12 +37,12 @@
     </view>
     <view class='iconfont icon-jiantou'></view>
   </view>
-  <view class="store-info" wx:if='{{systemStore.id}}'>
+  <view class="store-info" wx:if='{{systemStore.id && storeSelfMention}}'>
     <view class="title">门店信息</view>
     <view class="info acea-row row-between-wrapper">
       <view class="picTxt acea-row row-between-wrapper">
         <view class="pictrue">
-          <image src="{{systemStore.image}}"></image>
+          <image src="{{systemStore.image}}" lazy-load="true"></image>
         </view>
         <view class="text">
           <view class="name line1">
@@ -101,9 +101,9 @@
   </view>
   <view style='height:120rpx;'></view>
   <view class='footer acea-row row-between-wrapper'>
-    <button open-type="contact" hover-class='none' class='item'>
-      <view class='iconfont icon-kefu'></view>
-      <view>客服</view>
+    <button open-type="contact" hover-class='none' class='item ' send-message-title="{{storeInfo.store_name}}" send-message-img="{{storeInfo.image}}" send-message-path="/pages/goods_details/index?id={{storeInfo.id}}" show-message-card>
+    <view class='iconfont icon-kefu'></view>
+    <view>客服</view>
     </button>
     <view bindtap='setCollect' class='item'>
       <view class='iconfont icon-shoucang1' wx:if="{{storeInfo.userCollect}}"></view>

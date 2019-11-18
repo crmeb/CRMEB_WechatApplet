@@ -182,3 +182,13 @@ export function orderCreate(key,data){
 export function express(uni) {
   return request.get("order/express/" + uni);
 }
+
+/**
+ * 计算订单金额
+ * @param key
+ * @param data
+ * @returns {*}
+ */
+export function postOrderComputed(key, data) {
+  return request.post("/order/computed/" + key, data);
+}

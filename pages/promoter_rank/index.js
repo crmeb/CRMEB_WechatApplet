@@ -22,6 +22,9 @@ Page({
     loading:false,
     loadend:false,
     rankList:[],
+    Two:{},
+    One:{},
+    Three:{},
   },
   onLoadFun:function(e){
     this.getRanklist();
@@ -65,6 +68,9 @@ Page({
       page:1,
       loadend:false,
       rankList:[],
+      Two:{},
+      One:{},
+      Three:{}
     });
     this.getRanklist();
   },

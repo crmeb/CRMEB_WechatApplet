@@ -1,4 +1,4 @@
-import { orderConfirm, getCouponsOrderPrice, orderCreate } from '../../api/order.js';
+import { orderConfirm, getCouponsOrderPrice, orderCreate, postOrderComputed} from '../../api/order.js';
 import { getAddressDefault, getAddressDetail } from '../../api/user.js';
 
 
@@ -73,49 +73,35 @@ Page({
       this.selectComponent('#address-window').getAddressList();
     }
   },
-  addressType:function(e){
-    var index = e.currentTarget.dataset.index;
-    if (index == 0) {
-      this.data.totalPrice = app.help().Add(parseFloat(this.data.totalPrice), parseFloat(this.data.storePostage));
-      if (this.data.storePostage) {
-        this.data.priceGroup.storePostage = this.data.storePostage;
+  computedPrice:function(){
+    let shippingType = this.data.shippingType;
+    postOrderComputed(this.data.orderKey,{
+      addressId: this.data.addressId,
+      useIntegral: this.data.useIntegral ? 1 : 0,
+      couponId: this.data.couponId,
+      shipping_type: parseInt(shippingType) + 1
+    }).then(res=>{
+      let result = res.data.result;
+      if (result){
+        this.setData({ 
+          totalPrice: result.pay_price, 
+          integral_price: result.deduction_price, 
+          coupon_price: result.coupon_price, 
+          integral: this.data.useIntegral ? result.SurplusIntegral : this.data.userInfo.integral ,
+          'priceGroup.storePostage': shippingType == 1 ? 0 : result.pay_postage,
+        });
       }
-    } else if (index == 1) {
-      if (!this.data.system_store.id) return app.Tips({ title:'暂无门店信息，您无法选择到店自提！'});
-      this.data.totalPrice = app.help().Sub(this.data.totalPrice, this.data.priceGroup.storePostage);
-      if (this.data.priceGroup.storePostage) {
-        this.data.storePostage = this.data.priceGroup.storePostage;
-        this.data.priceGroup.storePostage = 0;
-      }
-    }
-    this.setData({
-      shippingType: parseInt(index),
-      totalPrice: this.data.totalPrice,
-      storePostage: this.data.storePostage,
-      'priceGroup.storePostage': this.data.priceGroup.storePostage
     })
+  },
+  addressType:function(e){
+    let index = e.currentTarget.dataset.index;
+    this.setData({shippingType: parseInt(index)});
+    this.computedPrice();
   },
   bindPickerChange: function (e) {
     let value = e.detail.value;
-    if (value==0){
-      this.data.totalPrice = app.help().Add(parseFloat(this.data.totalPrice), parseFloat(this.data.storePostage));
-      if (this.data.storePostage){
-        this.data.priceGroup.storePostage = this.data.storePostage;
-      }
-    } else if (value==1){
-      this.data.totalPrice = app.help().Sub(this.data.totalPrice, this.data.priceGroup.storePostage);
-      if (this.data.priceGroup.storePostage){
-        this.data.storePostage = this.data.priceGroup.storePostage;
-        this.data.priceGroup.storePostage = 0;
-      }
-    }
-    this.setData({
-      shippingType: value,
-      totalPrice: this.data.totalPrice,
-      storePostage: this.data.storePostage,
-      'priceGroup.storePostage': this.data.priceGroup.storePostage
-    })
-
+    this.setData({shippingType: value})
+    this.computedPrice();
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -138,136 +124,38 @@ Page({
    * 
   */
   ChangCoupons:function(e){
-    var index = e.detail, list = this.data.coupon.list, couponTitle = '请选择', couponId = 0, coupon_price = 0, totalPrice = 0, 
-        change_coupon_price=0;
+    var index = e.detail, list = this.data.coupon.list, couponTitle = '请选择', couponId = 0;
     for (var i = 0, len = list.length; i < len; i++) {
       if(i != index){
         list[i].use_title = '';
         list[i].is_use = 0;
       }
-      //获取当前优惠券抵扣金额
-      if (list[i].id == this.data.couponId) change_coupon_price = list[i].coupon_price;
-    }
-    if (this.data.totalPrice <= 0 && this.data.status != 1) return app.Tips({title:'支付金额为0无法使用优惠卷！'});
-    if (this.data.status==1 || this.data.is_address) {
-      this.setData({ totalPrice: this.data.priceGroup.totalPrice });
-    }else{
-      //使用优惠券抵扣前先把之前的抵扣金额加回去
-      this.setData({ totalPrice: util.$h.Add(this.data.totalPrice, change_coupon_price) });
     }
     if (list[index].is_use) {
       //不使用优惠券
       list[index].use_title = '';
       list[index].is_use = 0;
-      totalPrice = this.data.totalPrice;
-      //用户取消使用优惠卷但是使用了积分抵扣
-      if (totalPrice > 0 && this.data.useIntegral && !this.data.is_Integral) 
-      {
-        totalPrice = this.changeCouponPrice(totalPrice, this.data.userInfo.integral);
-        this.setData({is_Integral:true});
-      }
-      this.data.status = 0;
     } else {
       //使用优惠券
       list[index].use_title = '不使用';
       list[index].is_use = 1;
       couponTitle = list[index].coupon_title;
       couponId = list[index].id;
-      coupon_price = list[index].coupon_price;
-     //使用积分抵扣,使用优惠券金额大于当前支付金额
-      if (this.data.totalPrice < coupon_price && this.data.useIntegral){
-        //超出金额
-        var changePrice = util.$h.Sub(coupon_price, this.data.totalPrice);
-        //超出回退积分
-        var changeIntegral = util.$h.Div(changePrice, this.data.integralRatio);
-        //回退积分和积分抵扣金额
-        this.setData({ 
-          integral: util.$h.Add(this.data.integral, changeIntegral), 
-          integral_price: util.$h.Sub(this.data.integral_price, changePrice)
-        });
-        totalPrice=0;
-        this.data.status=0;
-      } else if (this.data.totalPrice < coupon_price && !this.data.useIntegral){
-        //使用优惠券金额大于当前支付金额
-        totalPrice=0;
-        this.data.status=1;
-      } else if (this.data.totalPrice > coupon_price && this.data.useIntegral){
-        //支付金额大于优惠券金额并且使用了积分
-        totalPrice = util.$h.Sub(this.data.totalPrice, list[index].coupon_price);
-        //当前优惠券大于0的时候再去减去可兑换的金额
-        if (this.data.integral > 0) totalPrice = this.changeCouponPrice(totalPrice, this.data.integral);
-        this.data.status = 0;
-      } else if (this.data.totalPrice > coupon_price && !this.data.useIntegral){
-        //支付金额大于优惠券金额没有使用积分
-        totalPrice = util.$h.Sub(this.data.totalPrice, list[index].coupon_price);
-        this.data.status = 0;
-      }
     }
     this.setData({ 
       couponTitle: couponTitle, 
       couponId: couponId, 
       'coupon.coupon': false, 
       "coupon.list":list,
-      coupon_price: coupon_price,
-      totalPrice: totalPrice,
-      status: this.data.status,
     });
-  },
-  /**
-   * 处理点击优惠券后支付金额和积分变动
-   * @param string | float totalPrice 当前支付金额
-   * @return float totalPrice 当前支付金额
-   * 
-  */
-  changeCouponPrice: function (totalPrice, integral){
-    var changePrice = util.$h.Mul(this.data.integralRatio,integral);
-    this.data.integral_price=0;
-    if (changePrice > totalPrice) {
-      //超出金额
-      var minParice = util.$h.Sub(changePrice, totalPrice);
-      //超出积分
-      var changeIntegral = util.$h.Div(minParice, this.data.integralRatio);
-      //抵扣金额需要原本的订单金额
-      this.setData({ integral: changeIntegral, integral_price: this.data.totalPrice });
-      //超出金额当前支付金额为0
-      totalPrice=0;
-    } else {
-      this.setData({ integral: 0, integral_price: util.$h.Add(this.data.integral_price, changePrice) });
-      totalPrice = util.$h.Sub(totalPrice, changePrice);
-    }
-    return totalPrice;
+    this.computedPrice();
   },
   /**
    * 使用积分抵扣
   */
   ChangeIntegral:function(){
-    var integral=parseFloat(this.data.integral);
-    if (this.data.userInfo.integral <= 0) return app.Tips({ title: '您当前积分为较低不能使用抵扣' }, function () { 
-      this.setData({ useIntegral:false });
-    }.bind(this));
-    if (this.data.totalPrice <= 0 && !this.data.useIntegral) return app.Tips({title:'当前支付金额不能在使用积分抵扣啦~'},function(){
-      this.setData({ useIntegral: false });
-    }.bind(this));
     this.setData({useIntegral:!this.data.useIntegral});
-    //使用积分抵扣时
-    if (this.data.useIntegral){
-      var changePrice = util.$h.Mul(this.data.integralRatio, integral);
-      if (changePrice > this.data.totalPrice){
-        //超出金额
-        var minParice = util.$h.Sub(changePrice, this.data.totalPrice);
-        //超出积分
-        var changeIntegral = util.$h.Div(minParice, this.data.integralRatio);
-        console.log(changeIntegral, minParice, changePrice, this.data.integralRatio)
-        //超出当前金额支付金额为0,积分抵扣金额为当前支付金额,积分剩余等于超出积分
-        this.setData({ integral: changeIntegral, integral_price:this.data.totalPrice,totalPrice:0});
-      }else{
-        this.setData({ integral: 0, integral_price: changePrice, totalPrice: util.$h.Sub(this.data.totalPrice, changePrice)});
-      }
-    }else{
-      var integral_price = this.data.integral_price;
-      //不使用积分返回原始数据
-      this.setData({ integral_price: 0, integral: this.data.userInfo.integral, totalPrice: util.$h.Add(this.data.totalPrice, integral_price.toString())});
-    }
+    this.computedPrice();
   },
   /**
    * 选择地址后改变事件
@@ -412,7 +300,7 @@ Page({
     var formId = e.detail.formId, that = this, data={};
     if (!this.data.payType) return app.Tips({title:'请选择支付方式'});
     if (!this.data.addressId && !this.data.shippingType) return app.Tips({ title:'请选择收货地址'});
-    if (this.data.shippingType){
+    if (this.data.shippingType == 1){
       if (this.data.contacts == "" || this.data.contactsTel == "")
         return app.Tips({ title: '请填写联系人或联系人电话' });
       if (!/^1(3|4|5|7|8|9|6)\d{9}$/.test(this.data.contactsTel)) {

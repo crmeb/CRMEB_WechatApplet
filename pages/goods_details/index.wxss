@@ -22,7 +22,7 @@ padding:2rpx 8rpx 3rpx;border-radius:200rpx;top:-10rpx;right:-10rpx;}
   margin-top: 3rpx;}
 .product-con .store-info .info .picTxt .text .address .iconfont {color: #707070;
   font-size: 18rpx;margin-left: 10rpx;}
-.product-con .store-info .info .picTxt .text .address .addressTxt {width: 480rpx;}
+.product-con .store-info .info .picTxt .text .address .addressTxt {max-width: 480rpx;}
 .product-con .store-info .info .iconfont {font-size: 40rpx;}
 .product-con .superior {background-color: #fff;margin-top: 20rpx;padding-bottom: 10rpx;}
 .product-con .superior .title {height: 98rpx;}
