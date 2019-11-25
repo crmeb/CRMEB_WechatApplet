@@ -32,15 +32,15 @@ CRMEBv3.0微信小程序前端页面
 
 + 微信小程序版前端界面
   
-   + github:https://github.com/crmeb/CRMEB_WechatApplet_v3.0
+   + github:https://github.com/crmeb/CRMEB_WechatApplet
   
-   + 码云：https://gitee.com/ZhongBangKeJi/CRMEB_WechatApplet_v3.0
+   + 码云：https://gitee.com/ZhongBangKeJi/CRMEB_WechatApplet
   
 + H5版前端界面
   
-   + github:https://github.com/crmeb/CRMEB-H5-v3.0
+   + github:https://github.com/crmeb/CRMEB-H5
   
-   + 码云：https://gitee.com/ZhongBangKeJi/CRMEB-H5-v3.0
+   + 码云：https://gitee.com/ZhongBangKeJi/CRMEB-H5
 
 ### 帮助文档：
 https://help.crmeb.net/crmeb
