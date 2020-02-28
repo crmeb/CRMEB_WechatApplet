@@ -1,6 +1,7 @@
 const app = getApp();
 
-import { getIndexData, getCoupons } from '../../api/api.js';
+import { getIndexData, getCoupons ,getTemlIds} from '../../api/api.js';
+import { CACHE_SUBSCRIBE_MESSAGE } from '../../config.js';
 import Util from '../../utils/util.js';
 
 Page({
@@ -34,7 +35,8 @@ Page({
     },
     window: false,
     iShidden:false,
-    navH: ""
+    navH: "",
+    newGoodsBananr:'',
   },
   closeTip:function(){
     wx.setStorageSync('msg_key',true);
@@ -52,6 +54,16 @@ Page({
     if (options.spid) app.globalData.spid = options.spid;
     if (options.scene) app.globalData.code = decodeURIComponent(options.scene);
     if (wx.getStorageSync('msg_key')) this.setData({ iShidden:true});
+    this.getTemlIds();
+  },
+  getTemlIds(){
+    let messageTmplIds = wx.getStorageSync(CACHE_SUBSCRIBE_MESSAGE);
+    if (!messageTmplIds){
+      getTemlIds().then(res=>{
+        if (res.data) 
+          wx.setStorageSync(CACHE_SUBSCRIBE_MESSAGE, JSON.stringify(res.data));
+      })
+    }
   },
   catchTouchMove: function (res) {
     return false
@@ -100,6 +112,7 @@ Page({
         benefit: res.data.benefit,
         logoUrl: res.data.logoUrl,
         couponList: res.data.couponList,
+        newGoodsBananr: res.data.newGoodsBananr
       });
       wx.getSetting({
         success(res) {

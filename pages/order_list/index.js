@@ -1,5 +1,6 @@
 import { getOrderList, orderData, orderCancel, orderDel, orderPay } from '../../api/order.js';
 import { getUserInfo } from '../../api/user.js';
+import { openOrderSubscribe } from '../../utils/SubscribeMessage.js';
 
 const app = getApp();
 Page({
@@ -135,7 +136,15 @@ Page({
   goOrderDetails:function(e){
     var order_id = e.currentTarget.dataset.order_id;
     if (!order_id) return app.Tips({ title: '缺少订单号无法查看订单详情' });
-    wx.navigateTo({ url: '/pages/order_details/index?order_id=' + order_id})
+    wx.showLoading({
+      title: '正在加载',
+    })
+    openOrderSubscribe().then(()=>{
+      wx.hideLoading();
+      wx.navigateTo({ url: '/pages/order_details/index?order_id=' + order_id })
+    }).catch(()=>{
+      wx.hideLoading();
+    })
   },
   /**
    * 切换类型

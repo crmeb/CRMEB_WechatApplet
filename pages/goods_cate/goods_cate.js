@@ -1,5 +1,4 @@
 import { getCategoryList} from '../../api/store.js';
-import { setFormId } from '../../api/api.js';
 
 const app = getApp();
 Page({
@@ -25,8 +24,8 @@ Page({
     this.getAllCategory();
   },
   infoScroll:function(){
-    var that = this;
-    var len = that.data.productList.length;
+    let that = this;
+    let len = that.data.productList.length;
     that.setData({
       navH: app.globalData.navHeight,
       number: that.data.productList[len - 1].children.length
@@ -59,7 +58,6 @@ Page({
   tap: function (e) {
     var id = e.currentTarget.dataset.id;
     var index = e.currentTarget.dataset.index;
-    console.log(index, id);
     this.setData({
       toView: id,
       navActive: index
@@ -84,7 +82,6 @@ Page({
           lastActive: 0
         })
       } else if (scrollTop >= scrollArr[i] - scrollArr[0] && scrollTop < scrollArr[i + 1] - scrollArr[0]) {
-        console.log(scrollArr[1] - scrollArr[0])
         this.setData({
           navActive: i
         })
@@ -97,8 +94,6 @@ Page({
   },
 
   searchSubmitValue: function (e) {
-    var that = this;
-    setFormId(e.detail.formId);
     if (e.detail.value.length > 0) 
       wx.navigateTo({ url: '/pages/goods_list/goods_list?searchValue=' + e.detail.value})
     else 

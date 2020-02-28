@@ -1,6 +1,7 @@
 // pages/my-promotion/index.js
 
 import { getUserInfo } from '../../api/user.js';
+import { openExtrctSubscribe } from '../../utils/SubscribeMessage.js';
 
 
 const app = getApp();
@@ -30,7 +31,20 @@ Page({
   onLoad: function (options) {
 
   },
-
+  openSubscribe: function (e) {
+    let page = e.currentTarget.dataset.url;
+    wx.showLoading({
+      title: '正在加载',
+    })
+    openExtrctSubscribe().then(res => {
+      wx.hideLoading();
+      wx.navigateTo({
+        url: page,
+      });
+    }).catch(() => {
+      wx.hideLoading();
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

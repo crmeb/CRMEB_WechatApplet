@@ -44,7 +44,7 @@ export function setCouponReceive(couponId){
  * @param object data
 */
 export function getCoupons(data){
-  return request.get('coupons',data)
+  return request.get('coupons',data,{noAuth:true})
 }
 
 /**
@@ -162,4 +162,12 @@ export function bindingPhone(data){
 */
 export function logout(){
   return request.get('logout');
+}
+
+/**
+ * 获取订阅消息id
+ */
+export function getTemlIds()
+{
+  return request.get('wechat/teml_ids', {}, { noAuth:true});
 }

@@ -1,8 +1,8 @@
 
 import { getOrderDetail} from '../../api/order.js';
-import { setFormId } from '../../api/api.js';
+import { openOrderSubscribe } from '../../utils/SubscribeMessage.js'
 
-var app = getApp();
+const app = getApp();
 Page({
 
   /**
@@ -46,8 +46,6 @@ Page({
    * 去首页关闭当前所有页面
   */
   goIndex:function(e){
-    var formId = e.detail.formId;
-    setFormId(formId);
     wx.switchTab({url:'/pages/index/index'});
   },
 
@@ -57,10 +55,17 @@ Page({
   */
   goOrderDetails:function(e)
   {
-    var formId = e.detail.formId;
-    setFormId(formId);
-    wx.navigateTo({
-      url: '/pages/order_details/index?order_id=' + this.data.orderId
+    let that = this;
+    wx.showLoading({
+      title: '正在加载',
+    })
+    openOrderSubscribe().then(res => {
+      wx.hideLoading();
+      wx.navigateTo({
+        url: '/pages/order_details/index?order_id=' + that.data.orderId
+      });
+    }).catch(() => {
+      wx.hideLoading();
     });
   }
 

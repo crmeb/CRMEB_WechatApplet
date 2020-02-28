@@ -2,10 +2,10 @@
 <view class="ChangePassword">
     <view class="list">
       <view class="item">
-        <input type='number' placeholder='填写手机号码' bindblur='inputgetName' data-name='phone' placeholder-class='placeholder'></input>
+        <input type='number' placeholder='填写手机号码' bindinput='inputgetName' data-name='phone' placeholder-class='placeholder'></input>
       </view>
       <view class="item acea-row row-between-wrapper">
-        <input type='number' placeholder='填写验证码' placeholder-class='placeholder' bindblur='inputgetName' data-name='captcha'  class="codeIput"></input>
+        <input type='number' placeholder='填写验证码' placeholder-class='placeholder' bindinput='inputgetName' data-name='captcha'  class="codeIput"></input>
          <button
               class="code font-color {{disabled === true ? 'on' : ''}}"
               disabled='{{disabled}}'

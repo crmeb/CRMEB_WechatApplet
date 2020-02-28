@@ -117,9 +117,7 @@
     <view>合计:
       <text class='font-color'>￥{{totalPrice || 0}}</text>
     </view>
-    <form bindsubmit="SubOrder" report-submit='true'>
-      <button class='settlement' style='z-index:100' formType="submit">立即结算</button>
-    </form>
+    <view class='settlement' style='z-index:100' bindtap="SubOrder">立即结算</view>
   </view>
 </view>
 <coupon-list-window coupon='{{coupon}}' bind:ChangCouponsClone="ChangCouponsClone" openType='{{openType}}' bind:ChangCoupons="ChangCoupons"></coupon-list-window>

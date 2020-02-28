@@ -67,7 +67,7 @@
         </view>
       </view>
       <view class='bottom acea-row row-right row-middle'>
-        <view class='bnt cancelBnt' wx:if="{{item._status._type==0}}" data-index="{{index}}" data-order_id="{{item.order_id}}" bindtap='cancelOrder'>取消订单</view>
+        <view class='bnt cancelBnt' wx:if="{{item._status._type==0 || item._status._type == 9}}" data-index="{{index}}" data-order_id="{{item.order_id}}" bindtap='cancelOrder'>取消订单</view>
         <view class='bnt bg-color' wx:if="{{item._status._type == 0}}" data-pay_price="{{item.pay_price}}" data-order_id="{{item.order_id}}" bindtap='goPay'>立即付款</view>
         <view class='bnt bg-color' wx:elif="{{item._status._type == 1 || item._status._type == 9}}" data-order_id="{{item.order_id}}" bindtap='goOrderDetails'>查看详情</view>
         <view class='bnt bg-color' wx:elif="{{item._status._type == 2 && item.delivery_type}}" data-order_id="{{item.order_id}}" bindtap='goOrderDetails'>查看详情</view>

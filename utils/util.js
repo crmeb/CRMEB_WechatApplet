@@ -116,14 +116,19 @@ const wxgetUserInfo = function()
   });
 }
 
-const checkLogin = function()
+const checkLogin = function (token, expiresTime, isLog)
 {
-  let res = getApp().globalData.token ? true : false;
-  let res1 = getApp().globalData.isLog;
+  if (getApp()){
+    token = getApp().globalData.token;
+    expiresTime = getApp().globalData.expiresTime;
+    isLog = getApp().globalData.isLog;
+  }
+  let res = token ? true : false;
+  let res1 = isLog;
   let res2 = res && res1;
   if (res2){
     let newTime=Math.round(new Date() / 1000);
-    if (getApp().globalData.expiresTime < newTime) return false;
+    if (expiresTime < newTime) return false;
   }
   return res2;
 }
@@ -137,6 +142,8 @@ const logout = function()
 const chekWxLogin = function()
 {
   return new Promise((resolve, reject)=>{
+    if (checkLogin()) 
+      return resolve({ userinfo: getApp().globalData.userInfo, isLogin: true });
     wx.getSetting({
       success(res) {
         if (!res.authSetting['scope.userInfo']) {
@@ -145,16 +152,12 @@ const chekWxLogin = function()
           wx.getStorage({
             key: 'cache_key',
             success(res){
-              if (checkLogin()) {
-                return resolve({ userinfo: getApp().globalData.userInfo, isLogin: true });
-              } else {
-                wxgetUserInfo().then(userInfo => {
-                  userInfo.cache_key = res.data;
-                  return resolve({ userInfo: userInfo, isLogin: false });
-                }).catch(res => {
-                  return reject(res);
-                })
-              }
+              wxgetUserInfo().then(userInfo => {
+                userInfo.cache_key = res.data;
+                return resolve({ userInfo: userInfo, isLogin: false });
+              }).catch(res => {
+                return reject(res);
+              });
             },
             fail(){
               getCodeLogin((code) => {

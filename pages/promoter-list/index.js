@@ -20,7 +20,7 @@ Page({
     total:0,
     totalLevel:0,
     teamCount: 0,
-    page: 1,
+    page: 0,
     limit: 20,
     keyword:'',
     sort:'',
@@ -56,7 +56,7 @@ Page({
     var that = this;
     that.setData({
       sort: e.currentTarget.dataset.sort,
-      page: 1,
+      page: 0,
       limit: 20,
       status: false,
       recordList: [],
@@ -68,7 +68,7 @@ Page({
   },
   setRecordList: function () {
     this.setData({
-      page: 1,
+      page: 0,
       limit: 20,
       status: false,
       recordList: [],
@@ -79,7 +79,7 @@ Page({
     if (this.data.grade != e.currentTarget.dataset.grade) {
       this.setData({
         grade: e.currentTarget.dataset.grade,
-        page: 1,
+        page: 0,
         limit: 20,
         keyword: '',
         sort: '',
@@ -115,7 +115,7 @@ Page({
         totalLevel: res.data.totalLevel,
         teamCount: Number(res.data.total) + Number(res.data.totalLevel),
         status: limit > len,
-        page:  page + 1,
+        page: limit + page,
         recordList: recordListNew
       });
     });

@@ -1,9 +1,9 @@
 import { orderConfirm, getCouponsOrderPrice, orderCreate, postOrderComputed} from '../../api/order.js';
 import { getAddressDefault, getAddressDetail } from '../../api/user.js';
+import { openPaySubscribe } from '../../utils/SubscribeMessage.js';
+import util from '../../utils/util.js';
 
-
-var app = getApp();
-const util = require('../../utils/util.js');
+const app = getApp();
 Page({
 
   /**
@@ -297,7 +297,7 @@ Page({
     })
   },
   SubOrder:function(e){
-    var formId = e.detail.formId, that = this, data={};
+    var that = this, data={};
     if (!this.data.payType) return app.Tips({title:'请选择支付方式'});
     if (!this.data.addressId && !this.data.shippingType) return app.Tips({ title:'请选择收货地址'});
     if (this.data.shippingType == 1){
@@ -314,7 +314,7 @@ Page({
       real_name: that.data.contacts,
       phone: that.data.contactsTel,
       addressId: that.data.addressId,
-      formId: formId,
+      formId: '',
       couponId: that.data.couponId,
       payType: that.data.payType,
       useIntegral: that.data.useIntegral,
@@ -328,52 +328,56 @@ Page({
     };
     if (data.payType == 'yue' && parseFloat(that.data.userInfo.now_money) < parseFloat(that.data.totalPrice)) return app.Tips({title:'余额不足！'});
     wx.showLoading({ title: '订单支付中'});
-    orderCreate(this.data.orderKey ,data).then(res=>{
-      var status = res.data.status, orderId = res.data.result.orderId, jsConfig = res.data.result.jsConfig,
-        goPages = '/pages/order_pay_status/index?order_id=' + orderId + '&msg=' + res.msg;
-      switch (status) {
-        case 'ORDER_EXIST': case 'EXTEND_ORDER': case 'PAY_ERROR':
-          wx.hideLoading();
-          return app.Tips({ title: res.msg }, { tab: 5, url: goPages });
-          break;
-        case 'SUCCESS':
-          wx.hideLoading();
-          if (that.data.BargainId || that.data.combinationId || that.data.pinkId || that.data.seckillId) return app.Tips({ title: res.msg, icon: 'success' }, { tab: 4, url: goPages });
-          return app.Tips({ title: res.msg, icon: 'success' }, { tab: 5, url: goPages });
-          break;
-        case 'WECHAT_PAY':
-          that.setData({ toPay: true });
-          wx.requestPayment({
-            timeStamp: jsConfig.timestamp,
-            nonceStr: jsConfig.nonceStr,
-            package: jsConfig.package,
-            signType: jsConfig.signType,
-            paySign: jsConfig.paySign,
-            success: function (res) {
-              wx.hideLoading();
-              if (that.data.BargainId || that.data.combinationId || that.data.pinkId || that.data.seckillId) return app.Tips({ title: '支付成功', icon: 'success' }, { tab: 4, url: goPages });
-              return app.Tips({ title: '支付成功', icon: 'success' }, { tab: 5, url: goPages });
-            },
-            fail: function (e) {
-              wx.hideLoading();
-              return app.Tips({ title: '取消支付' }, { tab: 5, url: goPages + '&status=2' });
-            },
-            complete: function (e) {
-              wx.hideLoading();
-              //关闭当前页面跳转至订单状态
-              if (res.errMsg == 'requestPayment:cancel') return app.Tips({ title: '取消支付' }, { tab: 5, url: goPages + '&status=2' });
-            },
-          })
-          break;
-        case 'PAY_DEFICIENCY':
-          wx.hideLoading();
-          //余额不足
-          return app.Tips({ title: res.msg }, { tab: 5, url: goPages + '&status=1' });
-          break;
-      }
-    }).catch(err=>{
-      wx.hideLoading();
-      return app.Tips({title:err});
+    openPaySubscribe().then(()=>{
+      orderCreate(this.data.orderKey ,data).then(res=>{
+        var status = res.data.status, orderId = res.data.result.orderId, jsConfig = res.data.result.jsConfig,
+          goPages = '/pages/order_pay_status/index?order_id=' + orderId + '&msg=' + res.msg;
+        switch (status) {
+          case 'ORDER_EXIST': case 'EXTEND_ORDER': case 'PAY_ERROR':
+            wx.hideLoading();
+            return app.Tips({ title: res.msg }, { tab: 5, url: goPages });
+            break;
+          case 'SUCCESS':
+            wx.hideLoading();
+            if (that.data.BargainId || that.data.combinationId || that.data.pinkId || that.data.seckillId) 
+              return app.Tips({ title: res.msg, icon: 'success' }, { tab: 4, url: goPages });
+            return app.Tips({ title: res.msg, icon: 'success' }, { tab: 5, url: goPages });
+            break;
+          case 'WECHAT_PAY':
+            that.setData({ toPay: true });
+            wx.requestPayment({
+              timeStamp: jsConfig.timestamp,
+              nonceStr: jsConfig.nonceStr,
+              package: jsConfig.package,
+              signType: jsConfig.signType,
+              paySign: jsConfig.paySign,
+              success: function (res) {
+                wx.hideLoading();
+                if (that.data.BargainId || that.data.combinationId || that.data.pinkId || that.data.seckillId) 
+                  return app.Tips({ title: '支付成功', icon: 'success' }, { tab: 4, url: goPages });
+                return app.Tips({ title: '支付成功', icon: 'success' }, { tab: 5, url: goPages });
+              },
+              fail: function (e) {
+                wx.hideLoading();
+                return app.Tips({ title: '取消支付' }, { tab: 5, url: goPages + '&status=2' });
+              },
+              complete: function (e) {
+                wx.hideLoading();
+                //关闭当前页面跳转至订单状态
+                if (res.errMsg == 'requestPayment:cancel') return app.Tips({ title: '取消支付' }, { tab: 5, url: goPages + '&status=2' });
+              },
+            })
+            break;
+          case 'PAY_DEFICIENCY':
+            wx.hideLoading();
+            //余额不足
+            return app.Tips({ title: res.msg }, { tab: 5, url: goPages + '&status=1' });
+            break;
+        }
+      }).catch(err=>{
+        wx.hideLoading();
+        return app.Tips({title:err});
+      });
     });
   }
 })

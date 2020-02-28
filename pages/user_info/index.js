@@ -1,5 +1,5 @@
 import { getUserInfo, userEdit} from '../../api/user.js';
-import { setFormId, switchH5Login } from '../../api/api.js';
+import { switchH5Login } from '../../api/api.js';
 import authLogin from '../../utils/autuLogin.js';
 import util from '../../utils/util.js';
 
@@ -147,10 +147,9 @@ Page({
    * 提交修改
   */
   formSubmit:function(e){
-    var that = this, value = e.detail.value, formId = e.detail.formId,userInfo = that.data.switchUserInfo[that.data.userIndex];
+    var that = this, value = e.detail.value,userInfo = that.data.switchUserInfo[that.data.userIndex];
     if (!value.nickname) return app.Tips({title:'用户姓名不能为空'});
     value.avatar = userInfo.avatar;
-    setFormId(formId);
     userEdit(value).then(res=>{
       return app.Tips({ title: res.msg, icon: 'success' }, { tab: 3, url: 1 });
     }).catch(msg=>{

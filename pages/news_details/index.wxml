@@ -14,9 +14,9 @@
       <view class="text">
         <view class="name line1">{{store_info.store_name}}</view>
         <view class="money font-color">
-          ￥<text class="num">{{store_info.ot_price}}</text>
+          ￥<text class="num">{{store_info.price}}</text>
         </view>
-        <view class="y_money">￥{{store_info.price}}</view>
+        <view class="y_money">￥{{store_info.ot_price}}</view>
       </view>
       <navigator url="/pages/goods_details/index?id={{store_info.id}}" hover-class="none" class="label"><text class="span">查看商品</text></navigator>
     </view>

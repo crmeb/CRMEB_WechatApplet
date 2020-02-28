@@ -3,6 +3,9 @@ module.exports = {
   HTTP_REQUEST_URL:'',
   // Socket链接 暂不做配置
   WSS_SERVER_URL:'',
+
+
+  // 以下配置非开发者，无需修改
   // 请求头
   HEADER:{
     'content-type': 'application/json'
@@ -11,7 +14,14 @@ module.exports = {
   SERVER_DEBUG:true,
   // 心跳间隔
   PINGINTERVAL:3000,
-
-  // 回话密钥名称 请勿修改此配置
+  // 回话密钥名称 
   TOKENNAME: 'Authori-zation',
+  //用户信息缓存名称
+  CACHE_USERINFO:'USERINFO',
+  //token缓存名称
+  CACHE_TOKEN:'TOKEN',
+  //token过期事件
+  CACHE_EXPIRES_TIME:'EXPIRES_TIME',
+  //模板缓存
+  CACHE_SUBSCRIBE_MESSAGE:'SUBSCRIBE_MESSAGE'
 }

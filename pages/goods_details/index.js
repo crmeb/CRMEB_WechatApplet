@@ -1,6 +1,6 @@
 import { getProductDetail, getProductCode, collectAdd, collectDel, postCartAdd} from '../../api/store.js';
 import { getUserInfo, userShare } from '../../api/user.js';
-import { getCoupons ,setFormId} from '../../api/api.js';
+import { getCoupons } from '../../api/api.js';
 import { getCartCounts } from '../../api/order.js';
 import WxParse from '../../wxParse/wxParse.js';
 import util from '../../utils/util.js';
@@ -82,7 +82,10 @@ Page({
   getUserInfo: function(){
     var that=this;
     getUserInfo().then(res=>{
-      that.setData({ 'sharePacket.isState': res.data.is_promoter ? false : true, uid: res.data.uid });
+      that.setData({ 
+        'sharePacket.isState': res.data.is_promoter && this.data.sharePacket.priceName > 0 ? false : true, 
+        uid: res.data.uid 
+      });
     });
   },
   /**
@@ -200,7 +203,7 @@ Page({
       var count = Math.ceil(good_list.length / 6);
       var goodArray= new Array();
       for (var i = 0; i < count;i++){
-        var list = good_list.slice(i * 6, 6);
+        var list = good_list.slice(i * 6, i * 6 + 6);
         if (list.length) goodArray.push({list:list});
       }
       that.setData({
@@ -376,12 +379,10 @@ Page({
    * 
   */
   joinCart:function(e){
-    var formId = e.detail.formId;
     //是否登录
     if (app.globalData.isLog === false)
       this.setData({isAuto: true,iShidden: false,});
     else{
-      setFormId(formId);
       this.goCat();
     }
   },
@@ -455,13 +456,10 @@ Page({
    * 立即购买
   */
   goBuy:function(e){
-    var that = this,formId = e.detail.formId;
     if (app.globalData.isLog === false)
       this.setData({ isAuto: true, iShidden: false });
-    else{
-      setFormId(formId);
+    else
       this.goCat(true);
-    }
   },
   /**
    * 分享打开和关闭

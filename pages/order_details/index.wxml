@@ -64,7 +64,7 @@
         <view>{{orderInfo.user_address}}</view>
     </view>
     <view class='address' wx:else style="margin-top:0;">
-        <view class='name' bindtap="makePhone">{{orderInfo.system_store.name}}<text class='phone'>{{orderInfo.system_store.name.phone}}</text><text class="iconfont icon-tonghua font-color"></text></view>
+        <view class='name' bindtap="makePhone">{{orderInfo.system_store.name}}<text class='phone'>{{orderInfo.system_store.phone}}</text><text class="iconfont icon-tonghua font-color"></text></view>
         <view>{{orderInfo.system_store._detailed_address}}</view>
     </view>
     <view class='line' wx:if="{{orderInfo.shipping_type === 1}}"><image src='/images/line.jpg'></image></view>
@@ -77,7 +77,7 @@
       </view>
       <view class='item acea-row row-between'>
          <view>下单时间：</view>
-         <view class='conter'>{{orderInfo.add_time_y +' '+orderInfo.add_time_h}}</view>
+         <view class='conter'>{{(orderInfo.add_time_y || '') +' '+(orderInfo.add_time_h || 0)}}</view>
       </view>
       <view class='item acea-row row-between'>
          <view>支付状态：</view>
@@ -166,7 +166,7 @@
    <view style='height:120rpx;'></view>
    <view class='footer acea-row row-right row-middle' wx:if="{{isGoodsReturn==false || status.type == 9}}">
       <view class='bnt bg-color' wx:if="{{status.type==0}}" data-order_id='{{orderInfo.order_id}}' bindtap='pay_open'>立即付款</view>
-      <navigator class='bnt cancel' wx:elif="{{status.type==1}}" hover-class='none' url='/pages/goods_return/index?orderId={{orderInfo.order_id}}'>申请退款</navigator>
+      <view bindtap="openSubcribe" class='bnt cancel' wx:elif="{{status.type==1}}" hover-class='none' data-url='/pages/goods_return/index?orderId={{orderInfo.order_id}}'>申请退款</view>
       <view class='bnt bg-color' wx:if="{{status.class_status==1}}" bindtap='goJoinPink'>查看拼团</view>
       <navigator class='bnt cancel' wx:if="{{orderInfo.delivery_type == 'express' && status.class_status==3 && status.type==2}}" hover-class='none' url='/pages/goods_logistics/index?orderId={{orderInfo.order_id}}'>查看物流</navigator>
       <view class='bnt bg-color' wx:if="{{status.class_status==3}}" bindtap='confirmOrder'>确认收货</view>

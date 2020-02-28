@@ -1,7 +1,5 @@
 // pages/mall/payment/payment.js
-
 import { getUserInfo, rechargeRoutine} from '../../api/user.js';
-import { setFormId } from '../../api/api.js';
 
 var app = getApp();
 Page({
@@ -60,9 +58,8 @@ Page({
   * 用户充值
   */
   submitSub:function(e){
-    let that = this, formId = e.detail.formId, value = e.detail.value.number;
+    let that = this, value = e.detail.value.number;
     if (parseFloat(value) < 0) return app.Tips({ title:'请输入金额'});
-    setFormId(formId);
     if (that.data.active){
      wx.showModal({
        title: '转入余额',

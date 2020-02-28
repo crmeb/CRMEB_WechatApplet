@@ -1,3 +1,4 @@
+import { CACHE_USERINFO, CACHE_TOKEN, CACHE_EXPIRES_TIME } from '../../config.js';
 import Util from '../../utils/util.js';
 import { getLogo } from '../../api/api.js';
 import { login } from '../../api/user.js';
@@ -107,6 +108,9 @@ Component({
         app.globalData.isLog = true;
         app.globalData.userInfo = res.data.userInfo;
         app.globalData.expiresTime = res.data.expires_time;
+        wx.setStorageSync(CACHE_TOKEN, res.data.token);
+        wx.setStorageSync(CACHE_EXPIRES_TIME, res.data.expires_time);
+        wx.setStorageSync(CACHE_USERINFO, JSON.stringify(res.data.userInfo));
         if (res.data.cache_key) wx.setStorage({ key: 'cache_key', data: res.data.cache_key });
         //取消登录提示
         wx.hideLoading();

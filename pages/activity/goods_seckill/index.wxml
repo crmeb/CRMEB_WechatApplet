@@ -1,5 +1,4 @@
 <navbar parameter='{{parameter}}'></navbar>
-<authorize bind:onLoadFun="onLoadFun"></authorize>
 <view class='flash-sale'>
    <view class='header'><image src='{{topImage}}'></image></view>
    <view class='timeLsit'>

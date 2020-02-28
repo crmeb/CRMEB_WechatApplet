@@ -1,6 +1,9 @@
 // pages/coupon-list/index.js
-import { getCouponReceive, getCoupon } from '../../api/user.js';
-const app=getApp();
+import { getCouponReceive } from '../../api/user.js';
+import { getCoupons } from '../../api/api.js';
+
+const app = getApp();
+
 Page({
 
   /**
@@ -56,7 +59,7 @@ Page({
     var that=this
     if(this.data.loadend) return false;
     if(this.data.loading) return false;
-    getCoupon({ page: this.data.page, limit: this.data.limit }).then(res=>{
+    getCoupons({ page: this.data.page, limit: this.data.limit }).then(res=>{
       var list=res.data,loadend=list.length < that.data.limit;
       var couponsList = app.SplitArray(list, that.data.couponsList);
       that.setData({ 

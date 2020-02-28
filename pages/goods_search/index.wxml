@@ -3,7 +3,7 @@
    <view class='search acea-row row-between-wrapper'>
       <view class='input acea-row row-between-wrapper'>
         <text class='iconfont icon-sousuo2'></text>
-        <input type='text' value='{{searchValue}}' focus="{{focus}}" placeholder='点击搜索商品' placeholder-class='placeholder' bindblur='setValue'></input>
+        <input type='text' value='{{searchValue}}' focus="{{focus}}" placeholder='点击搜索商品' placeholder-class='placeholder' bindinput="setValue"></input>
       </view>
       <view class='bnt' bindtap='searchBut'>搜索</view>
    </view>

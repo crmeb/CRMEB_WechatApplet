@@ -1,7 +1,6 @@
 
 import { getCartList, getCartCounts, changeCartNum, cartDel} from '../../api/order.js';
 import { getProductHot, collectAll  } from '../../api/store.js';
-import { setFormId } from '../../api/api.js';
 
 const app = getApp();
 const util = require('../../utils/util.js');
@@ -49,8 +48,7 @@ Page({
   },
 
   subDel:function (event) {
-    var formId = event.detail.formId, that = this, selectValue = that.data.selectValue;
-    setFormId(formId);
+    let that = this, selectValue = that.data.selectValue;
     if (selectValue.length > 0) 
       cartDel(selectValue).then(res=>{
         that.getCartList();
@@ -68,8 +66,7 @@ Page({
     return productId;
   },
   subCollect: function (event){
-    var formId = event.detail.formId, that = this, selectValue = that.data.selectValue;
-    setFormId(formId);
+    let that = this, selectValue = that.data.selectValue;
     if (selectValue.length > 0) {
       var selectValueProductId = that.getSelectValueProductId();
       collectAll(that.getSelectValueProductId().join(',')).then(res=>{
@@ -82,8 +79,7 @@ Page({
     }
   },
   subOrder: function (event){
-    var formId = event.detail.formId, that = this, selectValue = that.data.selectValue;
-    setFormId(formId);
+    let that = this, selectValue = that.data.selectValue;
     if (selectValue.length > 0){
       wx.navigateTo({url:'/pages/order_confirm/index?cartId=' + selectValue.join(',')});
     }else{

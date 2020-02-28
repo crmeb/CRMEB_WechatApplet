@@ -76,8 +76,8 @@
       <view class="slider-banner banner">
         <swiper indicator-dots="true"
             autoplay="{{autoplay}}" circular="{{circular}}" interval="{{interval}}" duration="{{duration}}" indicator-color="#999" indicator-active-color="#e93323" style="height:{{clientHeight+'px'}}">
-          <swiper-item>
-            <view class="list acea-row row-middle" id="list" wx:for="{{good_list}}" wx:for-item='item' wx:key>
+          <swiper-item wx:for="{{good_list}}" wx:for-item='item' wx:key>
+            <view class="list acea-row row-middle" id="list">
               <view class="item" wx:for="{{item.list}}" wx:key wx:for-item='val'>
                 <navigator url='/pages/goods_details/index?id={{val.id}}' hover-class='none'>
                   <view class="pictrue">

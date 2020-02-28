@@ -8,7 +8,7 @@
                     <view>总资产(元)</view>
                     <view class='money'>{{userInfo.now_money || 0}}</view>
                   </view>
-                  <navigator wx:if='{{recharge_switch}}' hover-class='none' url='/pages/user_payment/index' class='recharge font-color'>充值</navigator>
+                  <view wx:if='{{recharge_switch}}' bindtap="openSubscribe" hover-class='none' data-url='/pages/user_payment/index' class='recharge font-color'>充值</view>
               </view>
               <view class='cumulative acea-row row-top'>
                 <view class='item' wx:if="{{recharge_switch}}">

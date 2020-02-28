@@ -38,6 +38,13 @@ Page({
     this.getUserInfo();
     this.getMyMenus();
   },
+  Setting: function () {
+    wx.openSetting({
+      success: function (res) {
+        console.log(res.authSetting)
+      }
+    });
+  }, 
   /**
    * 
    * 获取个人中心图标

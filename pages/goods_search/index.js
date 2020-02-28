@@ -83,6 +83,7 @@ Page({
   },
   searchBut:function(){
     var that = this;
+    this.setData({ focus: false });
     if (that.data.searchValue.length > 0){
       that.setData({ page: 1, loadend: false, bastList:[]});
       wx.showLoading({ title:'正在搜索中'});

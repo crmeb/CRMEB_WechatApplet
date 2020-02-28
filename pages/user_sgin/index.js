@@ -105,8 +105,7 @@ Page({
    * 用户签到
   */
   goSign:function(e){
-    var that = this, formId = e.detail.formId, sum_sgin_day = that.data.userInfo.sum_sgin_day;
-    setFormId(formId);
+    let that = this, sum_sgin_day = that.data.userInfo.sum_sgin_day;
     if (that.data.userInfo.is_day_sgin) return app.Tips({title:'您今日已签到!'});
     setSignIntegral().then(res=>{
       that.setData({

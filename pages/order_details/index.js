@@ -1,4 +1,5 @@
 import { getOrderDetail, orderPay, orderAgain, orderTake, orderDel} from '../../api/order.js';
+import { openOrderRefundSubscribe } from '../../utils/SubscribeMessage.js';
 import { getUserInfo } from '../../api/user.js';
 
 const app = getApp();
@@ -43,7 +44,20 @@ Page({
       this.selectComponent('#navbar').setClass();
     }
   },
-
+  openSubcribe:function(e){
+    let page = e.currentTarget.dataset.url;
+    wx.showLoading({
+      title: '正在加载',
+    })
+    openOrderRefundSubscribe().then(res => {
+      wx.hideLoading();
+      wx.navigateTo({
+        url: page,
+      });
+    }).catch(() => {
+      wx.hideLoading();
+    });
+  },
   /**
    * 事件回调
    * 
@@ -147,6 +161,10 @@ Page({
         evaluate: _type == 3 ? 3 : 0, 
         system_store: res.data.system_store,
       });
+      if (this.data.orderInfo.refund_status != 0 ){
+        this.setData({ 'parameter.class': '2', isGoodsReturn: true });
+        this.selectComponent('#navbar').setClass();
+      }
       that.getOrderStatus();
     }).catch(err=>{
       wx.hideLoading();

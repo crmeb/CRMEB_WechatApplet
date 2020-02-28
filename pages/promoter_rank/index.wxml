@@ -14,7 +14,7 @@
           </view>
         </view>
         <view class="rank acea-row row-bottom row-around">
-          <view class="item" hidden="{{Two.uid ? false : true}}">
+          <view class="item" wx:if="{{Two.uid ? false : true}}">
             <view class="pictrue"><image src="{{Two.avatar}}"></image></view>
             <view class="name line1">{{Two.nickname}}</view>
             <view class="num">{{Two.count}}人</view>

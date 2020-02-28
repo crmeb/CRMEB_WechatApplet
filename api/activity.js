@@ -10,7 +10,7 @@ import request from "./../utils/request.js";
  * 
 */
 export function getCombinationList(data) {
-  return request.get('combination/list', data);
+  return request.get('combination/list', data,{noAuth:true});
 }
 
 /**
@@ -39,7 +39,7 @@ export function postCombinationRemove(data) {
  * 砍价列表
  */
 export function getBargainList(data) {
-  return request.get("bargain/list", data);
+  return request.get("bargain/list", data,{noAuth:true});
 }
 
 /**
@@ -122,7 +122,7 @@ export function postBargainShare(bargainId) {
  * 
 */
 export function getSeckillIndexTime(){
-  return request.get('seckill/index');
+  return request.get('seckill/index',{},{noAuth:true});
 }
 
 /**
@@ -131,7 +131,7 @@ export function getSeckillIndexTime(){
  * @param object data
 */
 export function getSeckillList(time,data){
-  return request.get('seckill/list/'+time,data);
+  return request.get('seckill/list/'+time,data,{noAuth:true});
 }
 
 /**

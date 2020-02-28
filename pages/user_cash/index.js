@@ -1,8 +1,5 @@
 // pages/cash-withdrawal/index.js
-
 import { extractCash, extractBank, getUserInfo} from '../../api/user.js';
-import { setFormId } from '../../api/api.js';
-
 
 const app = getApp();
 Page({
@@ -64,8 +61,7 @@ Page({
     this.setData({ index: e.detail.value });
   },
   subCash: function (e) {
-    var formId = e.detail.formId, that = this, value = e.detail.value;
-    setFormId(formId);
+    let that = this, value = e.detail.value;
     if (that.data.currentTab == 0){//银行卡
       if (value.name.length == 0) return app.Tips({title:'请填写持卡人姓名'});
       if (value.cardnum.length == 0) return app.Tips({title:'请填写卡号'});

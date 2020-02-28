@@ -1,4 +1,4 @@
-import { WS_SERVER_URL, HEADER, SERVER_DEBUG, PINGINTERVAL} from './../config.js';
+import { WSS_SERVER_URL, HEADER, SERVER_DEBUG, PINGINTERVAL} from './../config.js';
 
 export default class Server{
 
@@ -15,7 +15,7 @@ export default class Server{
     let that = this;
     this.chatId = new Date().getTime();
     this.SocketTask = wx.connectSocket({
-      url: WS_SERVER_URL,
+      url: WSS_SERVER_URL,
       header: HEADER,
       method: 'post',
       success: res => {

@@ -7,7 +7,7 @@
   </view>
   <view class='nav acea-row row-between-wrapper' style='top:{{navH+76}}rpx'>
      <view>购物数量 <text class='num font-color'>{{cartCount}}</text></view>
-     <view wx:if="{{cartList.valid.length > 0 || cartList.invalid.length > 0}}" class='administrate acea-row row-center-wrapper' bindtap='manage'>管理</view>
+     <view wx:if="{{cartList.valid.length > 0 || cartList.invalid.length > 0}}" class='administrate acea-row row-center-wrapper' bindtap='manage'>{{ footerswitch ? '管理' : '取消'}}</view>
   </view>
   <view wx:if="{{cartList.valid.length > 0 || cartList.invalid.length > 0}}">
     <view class='list'>

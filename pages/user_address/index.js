@@ -1,7 +1,6 @@
 import { editAddress, getAddressDetail} from '../../api/user.js';
-import { setFormId } from '../../api/api.js';
 
-var app = getApp();
+const app = getApp();
 Page({
 
   /**
@@ -123,7 +122,7 @@ Page({
    * 
   */
   formSubmit:function(e){
-    var that = this, value = e.detail.value, formId=e.detail.formId;
+    var that = this, value = e.detail.value;
     if (!value.real_name) return app.Tips({title:'请填写收货人姓名'});
     if (!value.phone) return app.Tips({title:'请填写联系电话'});
     if (!/^1(3|4|5|7|8|9|6)\d{9}$/i.test(value.phone)) return app.Tips({title:'请输入正确的手机号码'});
@@ -136,7 +135,6 @@ Page({
       district: that.data.region[2],
     };
     value.is_default = that.data.userAddress.is_default ? 1 : 0;
-    setFormId(formId)
     editAddress(value).then(res=>{
       if (that.data.id)
         app.Tips({ title: '修改成功', icon: 'success' });

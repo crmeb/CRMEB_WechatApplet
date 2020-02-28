@@ -22,7 +22,7 @@ Page({
   },
   getIndexGroomList: function () {
     var that = this;
-    getGroomList().then(res=>{
+    getGroomList(4).then(res=>{
       that.setData({ imgUrls: res.data.banner, bastList: res.data.list })
     });
   },

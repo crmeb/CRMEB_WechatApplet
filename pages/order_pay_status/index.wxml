@@ -30,15 +30,15 @@
       </view>
    </view>
    <!--失败时： 重新购买 -->
-   <form bindsubmit="goOrderDetails" report-submit='true' wx:if="{{status==0}}">
+   <view bindtap="goOrderDetails" wx:if="{{status==0}}">
       <button formType="submit" class='returnBnt bg-color' hover-class='none'>查看订单</button>
-   </form>
-   <form bindsubmit="goOrderDetails" report-submit='true' wx:if="{{order_pay_info.paid==0 && status==1}}">
-      <button class='returnBnt bg-color' formType="submit" hover-class='none'>重新购买</button>
-    </form>
-    <form bindsubmit="goOrderDetails" report-submit='true' wx:if="{{order_pay_info.paid==0 && status==2}}">
-      <button class='returnBnt bg-color' formType="submit" hover-class='none'>重新支付</button>
-   </form>
+   </view>
+   <view bindtap="goOrderDetails" wx:if="{{order_pay_info.paid==0 && status==1}}">
+      <button class='returnBnt bg-color' hover-class='none'>重新购买</button>
+    </view>
+    <view bindtap="goOrderDetails" wx:if="{{order_pay_info.paid==0 && status==2}}">
+      <button class='returnBnt bg-color' hover-class='none'>重新支付</button>
+   </view>
    <form bindsubmit="goIndex" report-submit='true'>
     <button  class='returnBnt cart-color' formType="submit" hover-class='none'>返回首页</button>
    </form>
