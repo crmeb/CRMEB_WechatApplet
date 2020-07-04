@@ -58,7 +58,7 @@ Page({
    * 获取用户详情
   */
   getUserInfo:function(){
-    var that=this;
+    let that = this;
     getUserInfo().then(res=>{
       that.setData({ 
         userInfo: res.data, 

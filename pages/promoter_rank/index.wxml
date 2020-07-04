@@ -6,15 +6,15 @@
           <view
             class="item {{active == index ? 'font-color' : ''}}"
             wx:for="{{navList}}"
-            wx:key
+            wx:key='index'
             data-index="{{index}}"
             bindtap="switchTap"
           >
             {{ item }}
           </view>
         </view>
-        <view class="rank acea-row row-bottom row-around">
-          <view class="item" wx:if="{{Two.uid ? false : true}}">
+        <view class="rank acea-row row-bottom row-center">
+          <view class="item" wx:if="{{Two.uid}}">
             <view class="pictrue"><image src="{{Two.avatar}}"></image></view>
             <view class="name line1">{{Two.nickname}}</view>
             <view class="num">{{Two.count}}人</view>
@@ -33,7 +33,7 @@
       </view>
     </view>
     <view class="list" wx:if="{{rankList.length}}">
-      <view class="item acea-row row-between-wrapper" wx:for="{{rankList}}" wx:key>
+      <view class="item acea-row row-between-wrapper" wx:for="{{rankList}}" wx:key='index'>
         <view class="num">{{index+3}}</view>
         <view class="picTxt acea-row row-between-wrapper">
           <view class="pictrue"><image src="{{item.avatar}}"></image></view>
@@ -41,7 +41,9 @@
         </view>
         <view class="people font-color">{{item.count}}人</view>
       </view>
+      <view class='loadingicon acea-row row-center-wrapper'>
+    <text class='loading iconfont icon-jiazai' hidden='{{loading==false}}'></text>{{loadTitle}}
+  </view>
     </view>
   </view>
-
   <authorize bind:onLoadFun='onLoadFun'></authorize>

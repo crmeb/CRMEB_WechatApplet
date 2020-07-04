@@ -34,7 +34,7 @@
     </view>
   </view>
   <view class='list'>
-    <view class='item' wx:for="{{orderList}}" wx:key>
+    <view class='item' wx:for="{{orderList}}" wx:key='index'>
       <view bindtap='goOrderDetails' data-order_id="{{item.order_id}}">
         <view class='title acea-row row-between-wrapper'>
           <view class="acea-row row-middle">
@@ -44,12 +44,13 @@
             <view>{{item._add_time}}</view>
           </view>
           <view wx:if="{{item._status._type == 0}}" class='font-color'>待付款</view>
-          <view wx:elif="{{item._status._type == 1}}" class='font-color'>待发货</view>
+          <view wx:elif="{{item._status._type == 1 && item.shipping_type==1}}" class='font-color'>待发货</view>
           <view wx:elif="{{item._status._type == 2}}" class='font-color'>待收货</view>
           <view wx:elif="{{item._status._type == 3}}" class='font-color'>待评价</view>
           <view wx:elif="{{item._status._type == 4}}" class='font-color'>已完成</view>
+          <view wx:elif="{{item._status._type == 1 && item.shipping_type==2}}" class='font-color'>待核销</view>
         </view>
-        <view class='item-info acea-row row-between row-top' wx:for="{{item.cartInfo}}" wx:key>
+        <view class='item-info acea-row row-between row-top' wx:for="{{item.cartInfo}}" wx:key='index'>
           <view class='pictrue'>
             <image src='{{item.productInfo.image}}'></image>
           </view>

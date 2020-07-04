@@ -1,21 +1,21 @@
- <navbar parameter='{{parameter}}'></navbar>
+<navbar parameter='{{parameter}}'></navbar>
 <view class='member-center'>
   <view class='header'>
    <swiper  indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" interval="{{interval}}" duration="{{duration}}" bindchange="bindchange" previous-margin="30px" next-margin="30px">
-     <block wx:for="{{VipList}}" wx:key>
+     <block wx:for="{{VipList}}" wx:key='index'>
         <swiper-item>
            <view class="memberBg {{swiperIndex == index ? 'active' : 'quiet'}}" style='background-image:url({{item.image}})' mode='aspectFill'>
             
               <view class='name'>{{item.name}}</view>
               <view class='discount'>可享受商品折扣:{{item.discount}}折<text class='iconfont icon-zhekou'></text></view>
-              <view class='nav acea-row' wx:if="{{item.is_clear==false}}">
-                 <view class='item' wx:for="{{item.task_list}}" wx:if="{{index <= 3}}" wx:key>
+              <view class='nav acea-row' wx:if="{{grade==item.grade}}">
+                 <view class='item' wx:for="{{item.task_list}}" wx:if="{{index <= 3}}" wx:key='index'>
                     <view class='num'>{{item.number}}</view>
                     <view>{{item.real_name}}</view>
                  </view>
               </view>
-              <view class='lock' wx:if="{{item.is_clear}}"><text class='iconfont icon-quanxianguanlisuozi'></text>该会员等级尚未解锁</view>
-              <view class='lock' wx:else><text class='iconfont icon-xuanzhong1'></text>已解锁更高等级</view>
+              <view class='lock' wx:if="{{grade<item.grade}}"><text class='iconfont icon-quanxianguanlisuozi'></text>该会员等级尚未解锁</view>
+              <view class='lock' wx:if="{{grade>item.grade}}"><text class='iconfont icon-xuanzhong1'></text>已解锁更高等级</view>
              </view>
           </swiper-item>
         </block>
@@ -27,9 +27,9 @@
         <view class='num'><text class='current'>{{reach_count || 0}}</text>/{{task.length || 0}}</view>
      </view>
      <view class='list'>
-        <view class='item' wx:for="{{task}}" wx:key>
+        <view class='item' wx:for="{{task}}" wx:key='index'>
            <view class='top acea-row row-between-wrapper'>
-              <view class='name' bindtap='opHelp' data-index='{{index}}'>{{item.name}}<text wx:if='{{item.illustrate}}' class='iconfont icon-wenti'></text></view>
+              <view class='name' data-index='{{index}}'>{{item.name}}<text wx:if='{{item.illustrate}}' bindtap='opHelp' class='iconfont icon-wenti'></text></view>
               <view wx:if="{{item.finish}}">已满足条件</view>
               <view wx:else>未满足条件</view>
            </view>

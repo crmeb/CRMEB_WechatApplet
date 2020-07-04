@@ -21,7 +21,7 @@
           </view>
           <view class='copy' bindtap='copyOrderId'>复制单号</view>
        </view>
-       <view class='item' wx:for="{{expressList}}" wx:key>
+       <view class='item' wx:for="{{expressList}}" wx:key='index'>
           <view class='circular {{index === 0 ? "on":""}}'></view>
           <view class='text {{index===0 ? "on-font on":""}}'>
               <view>{{item.status}}</view>

@@ -1,4 +1,4 @@
-import { getOrderDetail, orderPay, orderAgain, orderTake, orderDel} from '../../api/order.js';
+import { getOrderDetail, orderAgain, orderTake, orderDel} from '../../api/order.js';
 import { openOrderRefundSubscribe } from '../../utils/SubscribeMessage.js';
 import { getUserInfo } from '../../api/user.js';
 
@@ -32,6 +32,11 @@ Page({
     pay_close: false,
     pay_order_id: '',
     totalPrice: '0',
+    generalActive:false,
+    generalContent:{
+      promoterNum:'',
+      title:''
+    }
   },
 
   /**
@@ -235,16 +240,52 @@ Page({
       content: '为保障权益，请收到货确认无误后，再确认收货',
       success: function (res) {
         if (res.confirm) {
+          wx.showLoading({
+            mask:true,
+            title: '加载中',
+          })
           orderTake(that.data.order_id).then(res=>{
-            return app.Tips({ title: '操作成功', icon: 'success' }, function () {
-              that.getOrderInfo();
-            });
+            wx.hideLoading();
+            const generalContent="generalContent.promoterNum";
+            const title="generalContent.title";
+            if(res.data.gain_integral!="0.00" && res.data.gain_coupon!="0.00"){
+              that.setData({
+                generalActive: true,
+                [generalContent]: `恭喜您获得${res.data.gain_coupon}元优惠券以及${res.data.gain_integral}积分，购买商品时可抵现哦～`,
+                [title]: '恭喜您获得优惠礼包'
+              });
+              return;
+            }else if(res.data.gain_integral!="0.00"){
+              that.setData({
+                generalActive: true,
+                [generalContent]: `恭喜您获得${res.data.gain_integral}积分，购买商品时可抵现哦～`,
+                [title]: '赠送积分'
+              });
+              return;
+            }else if(res.data.gain_coupon!="0.00"){
+              that.setData({
+                generalActive: true,
+                [generalContent]: `恭喜您获得${res.data.gain_coupon}元优惠券，购买商品时可抵现哦～`,
+                [title]: '恭喜您获得优惠券'
+              });
+              return;
+            }else{
+              return app.Tips({ title: '操作成功', icon: 'success' }, function () {
+                that.getOrderInfo();
+              });
+            }
           }).catch(err=>{
             return app.Tips({title:err});
           })
         }
       }
     })
+  },
+  generalWindow:function(){
+    this.setData({
+      generalActive: false
+    });
+    this.getOrderInfo();
   },
   /**
    * 

@@ -1,0 +1,69 @@
+<view class="priceChange" class="priceChange {{change ? 'on' : ''}}">
+     <view class="priceTitle">
+        {{status == 0? orderInfo.refund_status === 1? "立即退款": "一键改价": "订单备注"}}
+        <span class="iconfont icon-guanbi" bindtap="close"></span>
+      </view>
+      <view class="listChange"  wx:if="{{status == 0}}">
+        <view
+          class="item acea-row row-between-wrapper"
+          wx:if="{{orderInfo.refund_status === 0}}"
+        >
+          <view>商品总价(¥)</view>
+          <view class="money">
+            {{ orderInfo.total_price }}<span class="iconfont icon-suozi"></span>
+          </view>
+        </view>
+        <view
+          class="item acea-row row-between-wrapper"
+          wx:if="{{orderInfo.refund_status === 0}}"
+        >
+          <view>原始邮费(¥)</view>
+          <view class="money">
+            {{ orderInfo.pay_postage }}<span class="iconfont icon-suozi"></span>
+          </view>
+        </view>
+        <view
+          class="item acea-row row-between-wrapper"
+          wx:if="{{orderInfo.refund_status === 0}}"
+        >
+          <view>实际支付(¥)</view>
+          <view class="money">
+            <input
+              type="text"
+              bindinput="bindPrice" data-name="orderInfo.pay_price" value='{{orderInfo.pay_price}}'
+              class="{{focus === true ? 'on' : ''}}"/>
+          </view>
+        </view>
+        <view
+          class="item acea-row row-between-wrapper"
+          wx:if="{{orderInfo.refund_status === 1}}"
+        >
+          <view>实际支付(¥)</view>
+          <view class="money">
+            {{ orderInfo.pay_price }}<span class="iconfont icon-suozi"></span>
+          </view>
+        </view>
+        <view
+          class="item acea-row row-between-wrapper"
+          wx:if="{{orderInfo.refund_status === 1}}"
+        >
+          <view>退款金额(¥)</view>
+          <view class="money">
+            <input
+              type="text"
+              bindinput="bindRefundPrice" data-name="refund_price" value='{{refund_price}}' class="{{focus === true ? 'on' : ''}}"
+            />
+          </view>
+        </view>
+      </view>
+      <view class="listChange" wx:else>
+        <textarea placeholder="{{orderInfo.remark ? orderInfo.remark : '请填写备注信息...'}}" bindinput="bindHideKeyboard" data-name="remark" value='{{remark}}'></textarea>
+      </view>
+      <view class="modify" bindtap="save" data-type="1">
+        {{ status === 1 || orderInfo.refund_status === 0 ? "立即修改" : "确认退款" }}
+      </view>
+      <view class="modify1" bindtap="refuse" data-type="2" wx:if="{{orderInfo.refund_status === 1 && status === 0}}">
+        拒绝退款
+      </view>
+    </view>
+<view class="mask" wx:if='{{change}}' bindtap='close'></view>

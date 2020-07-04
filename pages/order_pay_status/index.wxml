@@ -2,7 +2,7 @@
 <view class='payment-status'>
    <!--失败时： 用icon-iconfontguanbi fail替换icon-duihao2 bg-color-->
    <view class='iconfont icon-duihao2 bg-color' wx:if="{{order_pay_info.paid || order_pay_info.pay_type == 'offline'}}"></view>
-   <view class='iconfont icon-iconfontguanbi bg-color' wx:else></view>
+   <view class='iconfont icon-iconfontguanbi fail' wx:else></view>
    <!-- 失败时：订单支付失败 -->
    <view class='status' wx:if="{{order_pay_info.pay_type != 'offline'}}">{{order_pay_info.paid ? '订单支付成功':'订单支付失败'}}</view>
    <view class='status' wx:else>订单创建成功</view>

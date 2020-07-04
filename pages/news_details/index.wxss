@@ -1,13 +1,13 @@
 page{background-color:#fff!important;}
-.newsDetail .title{padding:0 30rpx;font-size:34rpx;color:#282828;font-weight:bold;margin:45rpx 0 23rpx 0;line-height:1.5;}
-.newsDetail .list{margin:0 30rpx;border-bottom:1rpx solid #eee;padding-bottom:25rpx;}
-.newsDetail .list .label{font-size:24rpx;height:38rpx;border-radius:3rpx;text-align:center;line-height:38rpx;padding: 0 10rpx;}
-.newsDetail .list .item{margin-left:27rpx;font-size:24rpx;color:#999;}
+.newsDetail .title{padding:0 30rpx;font-size:44rpx;color:#282828;font-weight:bold;margin:45rpx 0 30rpx 0;line-height:1.5;}
+.newsDetail .list{margin:0 30rpx;padding-bottom:30rpx;}
+.newsDetail .list .label{font-size:30rpx;color:#B1B2B3;}
+.newsDetail .list .item{margin-left:27rpx;font-size:30rpx;color:#B1B2B3;}
 .newsDetail .list .item .iconfont{font-size:28rpx;margin-right:10rpx;}
 .newsDetail .list .item .iconfont.icon-shenhezhong{font-size:26rpx;}
-.newsDetail .conter{padding:0 15rpx;font-size:30rpx;color:#333;line-height:1.7;padding-top:35rpx;}
+.newsDetail .conter{padding:0 30rpx;font-size:32rpx;color:#8A8B8C;line-height:1.7;word-wrap: break-word;word-break: normal;}
 .newsDetail .picTxt {width: 690rpx;height: 200rpx;border-radius: 20rpx;border: 1px solid #e1e1e1;position: relative;margin: 30rpx auto 0 auto;}
-.newsDetail .picTxt .pictrue {width: 200rpx;height: 200rpx;}
+.newsDetail .picTxt .pictrue {width: 200rpx;height:100%;}
 .newsDetail .picTxt .pictrue image {width: 100%;height: 100%;border-radius: 20rpx 0 0 20rpx;
   display: block;}
 .newsDetail .picTxt .text {width: 460rpx;}
@@ -22,5 +22,5 @@ page{background-color:#fff!important;}
 .newsDetail .picTxt .label:after {content: " ";position: absolute;width: 0;height: 0;
   border-bottom: 8rpx solid #303131;border-right: 8rpx solid transparent;top: -7rpx;
   right: 0;}
-.newsDetail .bnt {color: #fff;font-size: 30rpx;width: 690rpx;height: 90rpx;border-radius: 45rpx;margin: 48rpx auto 0 auto;text-align: center;line-height: 90rpx;}
+.newsDetail .bnt {color: #fff;font-size: 30rpx;width: 690rpx;height: 90rpx;border-radius: 45rpx;margin: 48rpx auto 30rpx auto;text-align: center;line-height: 90rpx;}
 @import "/wxParse/wxParse.wxss"; 

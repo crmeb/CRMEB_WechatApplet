@@ -4,7 +4,8 @@
     "orderGoods": "/components/orderGoods/index",
     "home":"/components/home/index",
     "authorize": "/components/authorize/authorize",
-    "payment": "/components/payment/index"
+    "payment": "/components/payment/index",
+    "generalWindow": "/components/general-window/index"
   },
   "navigationBarTextStyle": "white"
 }

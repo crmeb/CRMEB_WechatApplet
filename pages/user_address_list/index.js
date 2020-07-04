@@ -62,6 +62,7 @@ Page({
               post_code: res.postalCode,
               phone: res.telNumber,
               detail: res.detailInfo,
+              type:1,
               id: 0
             }).then(res=>{
               app.Tips({ title: "添加成功", icon: 'success' }, function () {

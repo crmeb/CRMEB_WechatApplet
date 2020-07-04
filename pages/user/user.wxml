@@ -80,7 +80,7 @@
       <view class='myService'>
          <view class='title acea-row row-middle'>我的服务</view>
          <view class='serviceList acea-row row-middle'>
-            <view class='item' wx:for="{{MyMenus}}" wx:key bindtap='goPages' data-url='{{item.url}}' wx:if="{{item.url!='#' && item.url!='/pages/admin/index' && item.url!='/pages/service/index'}}">
+            <view class='item' wx:for="{{MyMenus}}" wx:key='index' bindtap='goPages' data-url='{{item.url}}' wx:if="{{item.url!='#' && item.url!='/pages/admin/index' && item.url!='/pages/service/index'}}">
               <view class='pictrue'><image src='{{item.pic}}'></image></view>
               <view>{{item.name}}</view>
             </view>
@@ -95,3 +95,10 @@
 </view> 
 
 <authorize bind:onLoadFun='onLoadFun' isGoIndex='{{isGoIndex}}' iShidden="{{iShidden}}" isAuto="{{isAuto}}"></authorize>
+
+<generalWindow 
+  generalActive='{{generalActive}}' 
+  generalContent='{{generalContent}}' 
+  bind:generalWindow='generalWindow'
+  wx:if='{{generalContent}}'
+></generalWindow>

@@ -5,13 +5,13 @@
         <view class='evaluate'>评分</view>
         <view class='start star{{replyData.reply_star}}'></view>
       </view>
-      <view><text class='font-color'>{{replyData.reply_chance}}%</text>好评率</view>
+      <view><text class='font-color'>{{replyData.reply_chance||0}}%</text>好评率</view>
    </view>
    <view class='nav acea-row row-middle'>
-      <view class='item {{type==0 ? "bg-color":""}}' bindtap='changeType' data-type='0'>全部({{replyData.sum_count}})</view>
-      <view class='item {{type==1 ? "bg-color":""}}' bindtap='changeType' data-type='1'>好评({{replyData.good_count}})</view>
-      <view class='item {{type==2 ? "bg-color":""}}' bindtap='changeType' data-type='2'>中评({{replyData.in_count}})</view>
-      <view class='item {{type==3 ? "bg-color":""}}' bindtap='changeType' data-type='3'>差评({{replyData.poor_count}})</view>
+      <view class='item {{type==0 ? "bg-color":""}}' bindtap='changeType' data-type='0'>全部({{replyData.sum_count||0}})</view>
+      <view class='item {{type==1 ? "bg-color":""}}' bindtap='changeType' data-type='1'>好评({{replyData.good_count||0}})</view>
+      <view class='item {{type==2 ? "bg-color":""}}' bindtap='changeType' data-type='2'>中评({{replyData.in_count||0}})</view>
+      <view class='item {{type==3 ? "bg-color":""}}' bindtap='changeType' data-type='3'>差评({{replyData.poor_count||0}})</view>
    </view>
    <userEvaluation reply="{{reply}}"></userEvaluation>
    <view class='loadingicon acea-row row-center-wrapper'>

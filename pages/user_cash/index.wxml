@@ -1,7 +1,7 @@
 <navbar parameter='{{parameter}}'></navbar>
 <view class='cash-withdrawal'>
    <view class='nav acea-row'>
-        <view wx:for='{{navList}}' wx:key class='item font-color' data-current="{{index}}"  bindtap="swichNav">
+        <view wx:for='{{navList}}' wx:key='index' class='item font-color' data-current="{{index}}"  bindtap="swichNav">
             <view class='line bg-color {{currentTab==index ? "on":""}}'></view>
             <view class='iconfont {{item.icon}} {{currentTab==index ? "on":""}}'></view>
             <view>{{item.name}}</view>
@@ -29,9 +29,9 @@
              </view>
              <view class='item acea-row row-between-wrapper'>
                  <view class='name'>提现</view>
-                 <view class='input'><input placeholder='最低提现金额{{minPrice}}' placeholder-class='placeholder' name="money" type='digit'></input></view>
+                 <view class='input'><input placeholder='最低提现金额{{commissionCount}}' placeholder-class='placeholder' name="money" type='digit'></input></view>
              </view>
-             <view class='tip'>当前可提现金额: {{userInfo.brokerage_price}}</view>
+             <view class='tip'>当前可提现金额: {{userInfo.commissionCount}}</view>
              <button formType="submit" class='bnt bg-color'>提现</button>
           </form>  
         </view>
@@ -43,9 +43,9 @@
              </view>
               <view class='item acea-row row-between-wrapper'>
                  <view class='name'>提现</view>
-                 <view class='input'><input placeholder='最低提现金额{{minPrice}}' placeholder-class='placeholder' name="money" type='digit'></input></view>
+                 <view class='input'><input placeholder='最低提现金额{{commissionCount}}' placeholder-class='placeholder' name="money" type='digit'></input></view>
              </view>
-             <view class='tip'>当前可提现金额: {{userInfo.brokerage_price}}</view>
+             <view class='tip'>当前可提现金额: {{userInfo.commissionCount}}</view>
              <button formType="submit" class='bnt bg-color'>提现</button>
           </form>   
         </view>
@@ -57,9 +57,9 @@
              </view>
               <view class='item acea-row row-between-wrapper'>
                  <view class='name'>提现</view>
-                 <view class='input'><input placeholder='最低提现金额{{minPrice}}' placeholder-class='placeholder' name="money" type='digit'></input></view>
+                 <view class='input'><input placeholder='最低提现金额{{commissionCount}}' placeholder-class='placeholder' name="money" type='digit'></input></view>
              </view>
-             <view class='tip'>当前可提现金额: {{userInfo.brokerage_price}}</view>
+             <view class='tip'>当前可提现金额: {{userInfo.commissionCount}}</view>
              <button formType="submit" class='bnt bg-color'>提现</button>
           </form>   
         </view>

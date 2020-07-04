@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "navbar": "/components/navbar/index",
-    "authorize": "/components/authorize/authorize"
+    "authorize": "/components/authorize/authorize",
+    "generalWindow": "/components/general-window/index"
   },
   "navigationBarTextStyle": "white"
 }

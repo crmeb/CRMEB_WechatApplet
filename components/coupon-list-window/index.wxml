@@ -1,12 +1,20 @@
 <view class='coupon-list-window {{coupon.coupon==true?"on":""}}'>
-   <view class='title'>优惠券<text class='iconfont icon-guanbi' bindtap='close'></text></view>
-   <view class='coupon-list' wx:if="{{coupon.list.length}}">
-      <view class='item acea-row row-center-wrapper' wx:for="{{coupon.list}}" bindtap='getCouponUser' data-index='{{index}}' data-id="{{item.id}}" wx:key>
-        <view class='money'>￥<text class='num'>{{item.coupon_price}}</text></view>
+    <view class='title'>优惠券<text class='iconfont icon-guanbi' bindtap='close'></text></view>
+    <view class='coupon-list' wx:if="{{coupon.list.length}}">
+      <view class='item acea-row row-center-wrapper' wx:for="{{coupon.list}}" bindtap='getCouponUser' data-index='{{index}}' data-id="{{item.id}}" wx:key='index'>
+         <view class='money {{item.is_use?"moneyGray":""}} acea-row row-column row-center-wrapper'>
+            <view>￥<text class='num'>{{item.coupon_price}}</text></view>
+            <view class="pic-num">满{{item.use_min_price}}元可用</view>
+        </view>
         <view class='text'>
-            <view class='condition line1'>购物满{{item.use_min_price}}元可用</view>
+            <view class='condition line1'>
+                <span class='line-title {{item.is_use?"gray":""}}'  wx:if="{{item.type===0}}">通用劵</span>
+                <span class='line-title {{item.is_use?"gray":""}}' wx:elif="{{item.type===1}}">品类券</span>
+                <span class='line-title {{item.is_use?"gray":""}}' wx:else>商品券</span>
+                <span>{{item.title}}</span>
+            </view>
             <view class='data acea-row row-between-wrapper'>
-              <view>{{item.start_time}}-{{item.end_time}}</view>
+              <view>{{item.start_time ? item.start_time+'-' : ''}}{{item.end_time}}</view>
               <view class='bnt gray' wx:if="{{item.is_use}}">{{item.use_title || '已领取'}}</view>
               <view class='bnt bg-color' wx:else>{{coupon.statusTile || '立即领取'}}</view>
             </view>

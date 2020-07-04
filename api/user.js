@@ -270,3 +270,9 @@ export function getRankList(q) {
 export function getBrokerageRank(q) {
   return request.get("brokerage_rank", q);
 }
+/**
+ * 充值金额选择
+*/
+export function getRechargeApi() {
+  return request.get('recharge/index')
+}

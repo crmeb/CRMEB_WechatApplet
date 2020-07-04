@@ -1,0 +1,71 @@
+.storeBox{
+  width: 100%;
+  background-color: #fff;
+  padding: 0 30rpx;
+}
+.storeBox-box{
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 23rpx 0;
+  border-bottom: 1px solid #eee;
+}
+.storeBox .picTxt{
+  width: 450rpx;
+}
+.store-cent{
+  display: flex;
+  align-items: center;
+  width: 80%;
+}
+.store-cent-left{
+  width: 300rpx;
+}
+.store-img{
+  width: 120rpx;
+  height: 120rpx;
+  border-radius:6rpx;
+  margin-right: 22rpx;
+}
+.store-img image{
+  width: 100%;
+  height: 100%;
+}
+.store-name{
+  color: #282828;
+  font-size: 30rpx;
+  margin-bottom: 22rpx;
+  width:100%;
+}
+.store-address{
+  color: #666666;
+  font-size: 24rpx;
+}
+.store-phone{
+  width:50rpx;
+  height:50rpx;
+  color: #fff;
+  border-radius:50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #E83323;
+  margin-bottom: 22rpx;
+  margin-left: 87rpx;
+}
+.store-distance{
+  font-size: 22rpx;
+  color: #E83323;
+  text-align:right;
+}
+.iconfont{
+  font-size: 20rpx;
+}
+.row-right{
+  width: 162rpx;
+}
+.addressTxt {
+  width: 100%; 
+}
+.phoneIcon{width:100%;}

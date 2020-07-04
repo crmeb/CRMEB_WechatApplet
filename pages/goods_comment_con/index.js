@@ -75,7 +75,6 @@ Page({
   uploadpic: function () {
     var that = this;
     util.uploadImageOne('upload/image', function (res) {
-      console.log(res);
       that.data.pics.push(res.data.url);
       that.setData({ pics: that.data.pics });
     });

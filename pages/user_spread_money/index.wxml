@@ -10,12 +10,12 @@
         </view>
     </view>
     <view class='sign-record'>
-     <block wx:for="{{recordList}}" wx:key>
+     <block wx:for="{{recordList}}" wx:key='index'>
       <view class='list'>
           <view class='item'>
             <view class='data'>{{item.time}}</view>
             <view class='listn'>
-              <block wx:for="{{item.list}}" wx:for-item='child' wx:key>
+              <block wx:for="{{item.list}}" wx:for-item='child' wx:key='index'>
                 <view class='itemn acea-row row-between-wrapper'>
                   <view>
                       <view class='name line1'>{{child.title}}</view>

@@ -3,7 +3,7 @@
    <navigator url='/pages/goods_details/index?id={{item.pid}}' hover-class='none' class='item acea-row row-between-wrapper' wx:for="{{collectProductList}}">
       <view class='pictrue'><image src='{{item.image}}'></image></view>
       <view class='text acea-row row-column-between'>
-         <view class='line1'>{{item.store_name}}</view>
+         <view class='name line1'>{{item.store_name}}</view>
          <view class='acea-row row-between-wrapper'>
            <view class='money font-color'>￥{{item.price}}</view>
            <view class='delete' data-id='{{item.pid}}' data-index='{{index}}' catchtap  ='delCollection'>删除</view>

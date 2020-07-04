@@ -28,6 +28,7 @@ Page({
     illustrate:'',//任务说明
     level_id:0,//任务id,
     host_product:[],
+    grade: 0,
   },
   /**
    * 授权回调
@@ -92,13 +93,22 @@ Page({
    * 
   */
   getVipList:function(){
-    var that=this;
+    let that=this;
     userLevelGrade().then(res=>{
       that.setData({
         VipList: res.data.list,
         task: res.data.task.task,
         reach_count: res.data.task.reach_count,
         level_id: res.data.list[0] ? res.data.list[0].id : 0
+      });
+      let arr = [];
+      res.data.list.forEach(function (item, index) {
+        if (item.is_clear == true) {
+          arr.push(item.grade);
+        }
+      });
+      that.setData({
+        grade: arr[0]
       });
     });
   },

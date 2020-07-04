@@ -2,7 +2,7 @@
       <view class="title acea-row row-center-wrapper">
         选择付款方式<text class="iconfont icon-guanbi" bindtap='close'></text>
       </view>
-      <view class="item acea-row row-between-wrapper" bindtap='goPay' data-number="{{item.number || 0}}" data-value='{{item.value}}' wx:for="{{payMode}}" wx:key>
+      <view class="item acea-row row-between-wrapper" bindtap='goPay' data-number="{{item.number || 0}}" data-value='{{item.value}}' wx:for="{{payMode}}" wx:key='index'>
         <view class="left acea-row row-between-wrapper">
           <view class="iconfont {{item.icon}}"></view>
           <view class="text">

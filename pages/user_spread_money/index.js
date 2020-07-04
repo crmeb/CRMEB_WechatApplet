@@ -2,7 +2,6 @@
 
 import { spreadCommission, spreadCount} from '../../api/user.js';
 
-const app = getApp();
 Page({
 
   /**
@@ -12,7 +11,7 @@ Page({
     parameter: {
       'navbar': '1',
       'return': '1',
-      'title': '佣金明细',
+      'title': '佣金记录',
       'color': true,
       'class': '0'
     },
@@ -48,7 +47,7 @@ Page({
     if (type == 1) {
       this.setData({ 'parameter.title': '提现记录', name: '提现总额', recordType: 4 });
     } else if (type == 2) {
-      this.setData({ 'parameter.title': '佣金记录', name: '佣金明细', recordType: 3 });
+      this.setData({ 'parameter.title': '佣金记录', name: '佣金记录', recordType: 3 });
     } else {
       wx.showToast({
         title: '参数错误',

@@ -22,7 +22,6 @@ export function getLogo()
   return request.get('wechat/get_logo', {}, { noAuth : true});
 }
 
-
 /**
  * 保存form_id
  * @param string formId 
@@ -109,8 +108,8 @@ export function loginMobile(data){
  * 验证码发送
  * @param object phone
 */
-export function registerVerify(phone, reset){
-  return request.post('register/verify', { phone: phone, type: reset === undefined ? 'reset' : reset },{noAuth:true})
+export function registerVerify(code, key, phone, reset){
+  return request.post('register/verify', { code: code, key: key, phone: phone, type: reset === undefined ? 'reset' : reset },{noAuth:true})
 }
 
 /**
@@ -170,4 +169,24 @@ export function logout(){
 export function getTemlIds()
 {
   return request.get('wechat/teml_ids', {}, { noAuth:true});
+}
+
+/**
+ * 获取小程序直播列表
+ */
+export function getLiveList(page,limit) {
+  return request.get('wechat/live', { page, limit}, { noAuth: true });
+}
+
+/**
+ * 获取key值
+ */
+export function verifyCode() {
+  return request.get('verify_code', {}, { noAuth: true });
+}
+/**
+ * 获取城市信息
+ */
+export function getCity() {
+  return request.get('city_list', { }, { noAuth: true });
 }

@@ -11,7 +11,11 @@ Page({
       'navbar': '1',
       'return': '1',
       'title': '促销单品'
-    }
+    },
+    loading:false,
+    loadend:false,
+    page:1,
+    limit:20
   },
 
   /**
@@ -20,10 +24,24 @@ Page({
   onLoad: function (options) {
     this.getIndexGroomList();
   },
-  getIndexGroomList: function () {
-    var that = this;
-    getGroomList(4).then(res=>{
-      that.setData({ imgUrls: res.data.banner, bastList: res.data.list })
+  getIndexGroomList: function(){
+    var that=this
+    if(this.data.loadend) return false;
+    if(this.data.loading) return false;
+    that.setData({loading:true,loadTitle:'正在搜索'});
+    getGroomList(4,{ page: that.data.page, limit: that.data.limit }).then(res=>{
+      var list=res.data.list,loadend=list.length < that.data.limit;
+      var bastList = app.SplitArray(list, that.data.bastList);
+      that.setData({ 
+        loading: false, 
+        bastList: bastList,
+        page:that.data.page+1,
+        loadend: loadend,
+        loadTitle: loadend ? '已全部加载' : '加载更多',
+        imgUrls: res.data.banner
+      });
+    }).catch(err=>{
+      that.setData({ loading: false, loadTitle: "加载更多" });
     });
   },
 
@@ -66,7 +84,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.getIndexGroomList();
   },
 
   /**

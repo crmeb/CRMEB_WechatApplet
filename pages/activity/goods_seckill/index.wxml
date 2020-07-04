@@ -1,17 +1,25 @@
 <navbar parameter='{{parameter}}'></navbar>
 <view class='flash-sale'>
-   <view class='header'><image src='{{topImage}}'></image></view>
-   <view class='timeLsit'>
+  <view class="saleBox"></view>
+  <view class='header'>
+    <image src='{{timeList[active].slide}}'></image>
+  </view>
+  <view class="seckillList acea-row row-between-wrapper">
+    <view class="priceTag">
+      <image src="/images/priceTag.png"></image>
+    </view>
+    <view class='timeLsit'>
       <scroll-view class="scroll-view_x" scroll-x scroll-with-animation scroll-left="{{scrollLeft}}" style="width:auto;overflow:hidden;height:106rpx;">
-         <block wx:for="{{timeList}}" wx:key>
-            <view bindtap='settimeList' class='item {{active == index?"on":""}}' data-index="{{index}}" data-stop="{{item.stop}}">
-               <view class='time'>{{item.time}}</view>
-               <view>{{item.state}}</view>
-            </view>
-         </block>  
-      </scroll-view>  
-   </view>
-   <view class='countDown font-color acea-row row-center-wrapper'>
+        <block wx:for="{{timeList}}" wx:key='index'>
+          <view bindtap='settimeList' class='item {{active == index?"on":""}}' data-index="{{index}}" data-stop="{{item.stop}}">
+            <view class='time'>{{item.time}}</view>
+            <view class="state">{{item.state}}</view>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+  <!-- <view class='countDown font-color acea-row row-center-wrapper'>
       <view wx:if="{{status == 1}}">
        <text class='text'>距结束仅剩</text>
        <text class='num'>{{countDownHour}}</text>：
@@ -20,9 +28,49 @@
       </view>
       <view wx:elif="{{status == 2}}"><text class='text'>即将开始</text></view>
       <view wx:if="{{status == 0}}"><text class='text'>已结束</text></view>       
-   </view>
-   <view class='list'>
-     <block wx:for="{{seckillList}}" wx:key>
+   </view> -->
+  <view class='list'>
+    <block wx:for="{{seckillList}}" wx:key='index'>
+      <view class='item acea-row row-between-wrapper'>
+        <view class='pictrue' data-id="{{item.id}}" bindtap='goDetails'>
+          <image src='{{item.image}}'></image>
+        </view>
+        <view class='text acea-row row-column-around'>
+          <view class='name line1' data-id="{{item.id}}" bindtap='goDetails'>{{item.title}}</view>
+          <view class='money' data-id="{{item.id}}" bindtap='goDetails'>￥
+            <text class='num font-color'>{{item.price}}</text>
+            <text class="y_money">￥{{item.ot_price}}</text>
+          </view>
+          <view class="limit">限量 <text class="limitPrice">{{item.quota}}件</text></view>
+          <view class="progress" data-id="{{item.id}}" catchtap='goDetails'>
+            <view class='bg-reds' style="width:{{item.percent}}%;"></view>
+            <view class='piece'>已抢{{item.percent}}%</view>
+          </view>
+          <!-- <view class="progress" wx:elif="{{status == 2}}" data-id="{{item.id}}" catchtap='goDetails'>
+            <view class='bg-reds' style="width:0%;"></view>
+            <view class='piece'>未开始</view>
+          </view> -->
+          <!-- <view class="progress" wx:else data-id="{{item.id}}" catchtap='goDetails'>
+            <view class='bg-reds' style="width:100%;"></view>
+            <view class='piece'>已抢完</view>
+          </view> -->
+        </view>
+        <view class='grab bg-color' wx:if="{{status == 1}}" data-id="{{item.id}}" bindtap='goDetails'>马上抢</view>
+        <view class='grab bg-color' wx:elif="{{status == 2}}" data-id="{{item.id}}" catchtap='goDetails'>未开始</view>
+        <view class='grab bg-color-hui' wx:else data-id="{{item.id}}" catchtap='goDetails'>已结束</view>
+      </view>
+    </block>
+  </view>
+  <view class='loadingicon acea-row row-center-wrapper' wx:if='{{seckillList.length > 0}}'>
+      <text class='loading iconfont icon-jiazai' wx:if='{{loading==true}}'></text>{{loadTitle}}
+  </view>
+</view>
+<view class='noCommodity' wx:if="{{seckillList.length == 0 && (page != 1 || active== 0)}}">
+   <view class='pictrue'><image src='/images/noShopper.png'></image></view>
+</view>
+<home></home>
+<!-- <view class='list'>
+     <block wx:for="{{seckillList}}" wx:key='index'>
       <view class='item acea-row row-between-wrapper'>
          <view class='pictrue' wx:if="{{status == 1}}" data-id="{{item.id}}" bindtap='goDetails'><image src='{{item.image}}'></image></view>
          <view class='pictrue' wx:else><image src='{{item.image}}'></image></view>
@@ -49,6 +97,4 @@
          <view class='grab bg-color' wx:else>已结束</view>
       </view>
      </block>
-   </view>
-</view>
-<home></home>
+   </view> -->

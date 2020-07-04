@@ -1,0 +1,7 @@
+{
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "navbar": "/components/navbar/index",
+    "write-off": "/components/write-off/index"
+  }
+}

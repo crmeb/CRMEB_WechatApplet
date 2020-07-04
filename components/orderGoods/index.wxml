@@ -1,7 +1,7 @@
 <view class="orderGoods">
   <view class='total'>共{{cartInfo.length}}件商品</view>
   <view class='goodWrapper'>
-     <view class='item acea-row row-between-wrapper' wx:for="{{cartInfo}}" wx:key>
+     <view class='item acea-row row-between-wrapper' wx:for="{{cartInfo}}" wx:key='index'>
         <view class='pictrue'>
           <image src='{{item.productInfo.attrInfo.image}}' wx:if="{{item.productInfo.attrInfo}}"></image>
           <image src='{{item.productInfo.image}}' wx:else></image>

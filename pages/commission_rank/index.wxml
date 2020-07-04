@@ -11,13 +11,13 @@
           wx:for="{{navList}}"
           data-index="{{index}}"
           bindtap="switchTap"
-          wx:key
+          wx:key='index'
         >
           {{ item }}
         </view>
       </view>
       <view class="list">
-      <view class="item acea-row row-between-wrapper" wx:for='{{rankList}}' wx:key>
+      <view class="item acea-row row-between-wrapper" wx:for='{{rankList}}' wx:key='index'>
         <view class="num" wx:if='{{index <= 2}}'>
           <image src="/images/medal0{{index+1}}.png"></image>
         </view>

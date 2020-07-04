@@ -1,10 +1,21 @@
-.payment{width:703rpx;height:470rpx;background-color:#fff;border-radius:10rpx;margin:20rpx auto 0 auto;padding-top:25rpx;}
+.payment{width:100%;background-color:#fff;margin:20rpx auto 0 auto;padding: 30rpx;border-top-right-radius: 39rpx;border-top-left-radius: 39rpx;margin-top: -45rpx;}
 .payment .nav{height:75rpx;line-height:75rpx;padding: 0 100rpx;}
 .payment .nav .item{font-size:30rpx;color:#333;}
 .payment .nav .item.on{font-weight:bold;border-bottom:4rpx solid #e83323;}
-.payment .input{width:552rpx;border-bottom:1rpx solid #dddddd;margin:60rpx auto 0 auto;font-size:56rpx;color:#333333;flex-wrap:nowrap;}
+.payment .input{width:100%;border-bottom:1rpx solid #dddddd;margin:60rpx auto 0 auto;font-size:56rpx;color:#333333;flex-wrap:nowrap;}
 .payment .input text{padding-left:106rpx;}
 .payment .input input{padding-right:106rpx;height:94rpx;text-align:center;} 
 .payment .placeholder{font-size:84.5rpx;color:#d0d0d0;}
-.payment .tip{font-size:26rpx;color:#888888;text-align:center;padding:0 30rpx;margin-top:25rpx;}
+.payment .tip{font-size:28rpx;color:#333333;font-weight:800;margin-bottom: 14rpx;}
+.payment .tip-samll{font-size:24rpx;color:#333333;margin-bottom: 14rpx;}
 .payment .but{color:#fff;font-size:30rpx;width:550rpx;height:86rpx;border-radius:50rpx;margin:46rpx auto 0 auto;line-height:86rpx;}
+.payment-top{width: 100%;height: 350rpx;background-color: #E83323;}
+.payment-top .name{font-size:26rpx;color:rgba(255,255,255,.8);margin-top: -38rpx;margin-bottom: 30rpx;}
+.payment-top .pic{font-size:32rpx;color: #fff;}
+.payment-top .pic-font{font-size:78rpx;color: #fff;}
+.picList .pic-box{width:216rpx; height:120rpx;border-radius:20rpx;margin-top: 21rpx;}
+.pic-box-color{background-color: #F4F4F4;color: #656565;}
+.pic-box-color-active{background-color: #EC3323;color: #fff;}
+.pic-box-active{width:216rpx; height:120rpx;background-color: #EC3323;border-radius:20rpx;}
+.pic-number{font-size:22rpx;}
+.pic-number-pic{font-size:38rpx;margin-right: 10rpx;text-align: center;}

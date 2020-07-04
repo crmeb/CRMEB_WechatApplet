@@ -2,3 +2,9 @@
 .product-bg swiper{width:100%;height:100%;position:relative;}
 .product-bg .slide-image{width:100%;height:100%;}
 .product-bg .pages{position:absolute;background-color:#fff;height:34rpx;padding:0 10rpx;border-radius:3rpx;right:30rpx;bottom:30rpx;line-height:34rpx;font-size:24rpx;color:#050505;}
+#myVideo{width: 100%;height: 100%}
+.product-bg .item{position:relative;width:100%;height:100%;}
+.product-bg .item .poster{position:absolute;top:0;left:0;height:750rpx;width:100%;}
+.product-bg .item .poster .image{width:100%;height:100%;}
+.product-bg .item .stop{position:absolute;top:50%;left:50%;width:136rpx;height:136rpx;margin-top:-68rpx;margin-left:-68rpx;}
+.product-bg .item .stop .image{width:100%;height:100%;}

@@ -4,7 +4,7 @@ import { getMenuList, getUserInfo} from '../../api/user.js';
 import { switchH5Login } from '../../api/api.js';
 import authLogin from '../../utils/autuLogin.js';
 import util from '../../utils/util.js';
-
+import wxh from '../../utils/wxh.js';
 Page({
 
   /**
@@ -26,6 +26,12 @@ Page({
     switchActive:false,
     loginType: app.globalData.loginType,
     orderStatusNum:{},
+    promoter_price:0,
+    generalActive:false,
+    generalContent:{
+      promoterNum:'',
+      title:'您未获得推广权限'
+    }
   },
 
   close:function(){
@@ -42,6 +48,7 @@ Page({
     wx.openSetting({
       success: function (res) {
         console.log(res.authSetting)
+        wxh.selfLocation();
       }
     });
   }, 
@@ -62,16 +69,31 @@ Page({
   getUserInfo:function(){
     var that=this;
     getUserInfo().then(res=>{
-      that.setData({ userInfo: res.data, loginType: res.data.login_type, orderStatusNum: res.data.orderStatusNum});
+      const generalContent="generalContent.promoterNum";
+      that.setData({ 
+        userInfo: res.data, 
+        loginType: res.data.login_type,
+        orderStatusNum: res.data.orderStatusNum,
+        [generalContent]:`您在商城累计消费金额仅差 ${res.data.promoter_price || 0}元即可开通推广权限`
+      });
     });
+  },
+  generalWindow:function(){
+    this.setData({
+      generalActive: false
+    })
   },
   /**
    * 页面跳转
   */
   goPages:function(e){
     if(app.globalData.isLog){
-      if (e.currentTarget.dataset.url == '/pages/user_spread_user/index' && this.data.userInfo.statu==1) {
-        if (!this.data.userInfo.is_promoter) return app.Tips({ title: '您还没有推广权限！！' });
+      if (e.currentTarget.dataset.url == '/pages/user_spread_user/index') {
+        if (!this.data.userInfo.is_promoter && this.data.userInfo.statu == 1) 
+          return app.Tips({ title: '您还没有推广权限！！' });
+        if (!this.data.userInfo.is_promoter && this.data.userInfo.statu == 2){
+          return this.setData({ generalActive:true});
+        }
       }
       if (e.currentTarget.dataset.url == '/pages/logon/index') return this.setData({ switchActive:true});
       wx.navigateTo({

@@ -47,7 +47,7 @@
               <image src='/images/sort2.png'></image>
             </view>
         </view>
-        <block wx:for="{{recordList}}" wx:key>
+        <block wx:for="{{recordList}}" wx:key='index'>
           <view class='item acea-row row-between-wrapper'>
               <view class="picTxt acea-row row-between-wrapper">
                   <view class='pictrue'><image src='{{item.avatar}}'></image></view>

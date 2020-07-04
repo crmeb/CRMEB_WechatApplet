@@ -1,6 +1,18 @@
 var app = getApp();
 Component({
   properties: {
+    iSplus:{
+      type: Boolean,
+      value: true
+    },
+    iSbnt:{
+      type:Number,
+      value:0
+    },
+    limitNum:{
+      type: Number,
+      value: 0
+    },
     attribute: {
       type: Object,
       value:{}
@@ -27,12 +39,30 @@ Component({
   data: {
     attrValue:[],
     attrIndex:0,
+    isShow: false
   },
   attached: function () {
+    let pages = getCurrentPages();
+    let currPage = null;
+    if (pages.length) {
+      currPage = pages[pages.length - 1];
+    }
+    let route = currPage.route
+    this.setData({ isShow: route.indexOf("goods_details")!==-1});
   },
   methods: {
+    /**
+    * 购物车手动输入数量
+    * 
+    */
+    bindCode: function (e) {
+      this.triggerEvent('iptCartNum', e.detail.value);
+    },
     close: function () {
       this.triggerEvent('myevent', {'window': false});
+    },
+    goCat:function(){
+      this.triggerEvent('goCat');
     },
     CartNumDes:function(){
       this.triggerEvent('ChangeCartNum', false);

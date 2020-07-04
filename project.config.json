@@ -13,6 +13,8 @@
 		"coverView": true,
 		"nodeModules": false,
 		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
 		"uglifyFileName": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": false,
@@ -24,9 +26,9 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.4",
+	"libVersion": "2.10.2",
 	"appid": "wx6ca9ac1a01f617a1",
-	"projectname": "crmeb_v3.1.3%E6%B5%8B%E8%AF%95",
+	"projectname": "3.2",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -55,8 +57,64 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "order_list",
+					"pathName": "pages/admin/order_list/index",
+					"query": "status=0"
+				},
+				{
+					"id": -1,
+					"name": "pages/user_payment/index",
+					"pathName": "pages/user_payment/index",
+					"query": "status=0",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "pages/goods_details/index",
+					"pathName": "pages/goods_details/index",
+					"query": "id=10",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/goods_details_store/index",
+					"pathName": "pages/goods_details_store/index",
+					"query": "id=10",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/admin/order_statistics/index",
+					"pathName": "pages/admin/order_statistics/index",
+					"query": "start=1577808000&stop=1580486399&type=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/activity/goods_seckill_details/index",
+					"pathName": "pages/activity/goods_seckill_details/index",
+					"query": "id=57&time=1591329600&status=1&scene=329",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/activity/goods_seckill_details/index",
+					"pathName": "pages/activity/goods_seckill_details/index",
+					"query": "id=57&time=1591329600&status=1&scene=329",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/activity/goods_seckill_details/index",
+					"pathName": "pages/activity/goods_seckill_details/index",
+					"query": "id=57&time=1591329600&status=1&scene=329",
+					"scene": null
+				}
+			]
 		}
 	}
 }

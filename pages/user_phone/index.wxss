@@ -8,4 +8,5 @@ page{background-color:#fff!important;}
 .ChangePassword .list .item input.codeIput{width:340rpx;}
 .ChangePassword .list .item .code{font-size:32rpx;background-color:#fff;}
 .ChangePassword .list .item .code.on{color:#b9b9bc!important;}
+.ChangePassword .list .item .images{width: 160rpx;height:70rpx;display:block;}
 .ChangePassword .confirmBnt{font-size:32rpx;width:580rpx;height:90rpx;border-radius:45rpx;color:#fff;margin:92rpx auto 0 auto;text-align:center;line-height:90rpx;}

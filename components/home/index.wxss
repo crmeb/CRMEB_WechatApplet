@@ -1,7 +1,16 @@
 @import '/app.wxss';
-.home{position: fixed ;top:780rpx;color: white;text-align: center;z-index:99;right:10rpx;}
+/* .home{position: fixed ;bottom:100rpx;color: white;text-align: center;z-index:99;right:10rpx;}
 .home .homeCon{width:86rpx;border-radius:50rpx;padding:34rpx 0;box-sizing:border-box;transition:all 0.3s ease-in-out 0s;opacity:0;transform: scale(0);height:0rpx;color:#e93323;}
 .home .homeCon.on{opacity:1;transform: scale(1);height:300rpx;color:#fff;}
 .home .homeCon .iconfont{font-size:48rpx;}
 .home .pictrue{width:86rpx;height:86rpx;border-radius:50%;margin-top:20rpx;}
-.home .pictrue image{width:100%;height:100%;border-radius:50%;}
+.home .pictrue image{width:100%;height:100%;border-radius:50%;} */
+
+.home{position: fixed ;bottom:100rpx;color: white;text-align: center;z-index:99;right:10rpx;height: 86rpx;width:96rpx;overflow:hidden;}
+.home.on{width:396rpx;}
+.home .homeCon{border-radius:50rpx;box-sizing:border-box;transform:translate3d(500rpx,0,0);transition:all .3s cubic-bezier(.25,.5,.5,.9);height:86rpx;background-color:#f44939;color:#f44939;}
+.home .homeCon.on{transform:translate3d(0,0,0);color:#fff;}
+.home .homeCon .iconfont{font-size:48rpx;width:100rpx;}
+.home .pictrue{width:86rpx;height:86rpx;border-radius:50%;margin-left: 10rpx;margin-top:-86rpx;}
+.home .pictrue image{width:100%;height:100%;border-radius:50%;transform: rotate(90deg);}
+.home .pictrue.on{margin-top:0;}

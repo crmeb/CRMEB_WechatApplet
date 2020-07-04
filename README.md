@@ -1,76 +1,14 @@
-<p align="center">
-<img src="https://images.gitee.com/uploads/images/2018/1214/151026_2299df23_892944.gif" />
-</p>
-<h1 align="center"> CRMEB客户管理+电商营销系统</h1> 
-<p align="center">
-    <a href="http://www.crmeb.com">
-        <img src="https://img.shields.io/badge/OfficialWebsite-CRMEB-yellow.svg" />
-    </a>
-<a href="http://www.crmeb.com">
-        <img src="https://img.shields.io/badge/Licence-GPL3.0-green.svg?style=flat" />
-    </a>
-    <a href="http://www.crmeb.com">
-        <img src="https://img.shields.io/badge/Edition-3.0-blue.svg" />
-    </a>
-     <a href="https://gitee.com/ZhongBangKeJi/CRMEB/repository/archive/master.zip">
-        <img src="https://img.shields.io/badge/download-2m-red.svg" />
-    </a>
-</p>
+# CRMEB XCX v3.0
 
-### 如果对您有帮助，您可以点右上角 "Star" 支持一下 谢谢！
+#### 介绍
+  CRMEB 3.0 小程序
 
-# CRMEBv3.0微信小程序前端页面
-
-## 介绍
-CRMEBv3.0微信小程序前端页面
-
-+ CRMEB后端程序下载地址
-
-  + 码云:https://gitee.com/ZhongBangKeJi/CRMEB.git
-  
-  + github:https://github.com/crmeb/CRMEB
-
-+ 微信小程序版前端界面
-  
-   + github:https://github.com/crmeb/CRMEB_WechatApplet
-  
-   + 码云：https://gitee.com/ZhongBangKeJi/CRMEB_WechatApplet
-  
-+ H5版前端界面
-  
-   + github:https://github.com/crmeb/CRMEB-H5
-  
-   + 码云：https://gitee.com/ZhongBangKeJi/CRMEB-H5
-
-### 帮助文档：
-https://help.crmeb.net/crmeb
-### 论坛地址:
-http://bbs.crmeb.net
-
-###  QQ交流群
- CRMEB微信开发11群:824195682 <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9fa928ec8346022fa33f6cd5efd83b6ba6ccd6a9d4a144beb1ddcb3c5232b3a1"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="CRMEB微信开发11群" title="CRMEB微信开发11群"></a>
-
-## 页面展示
-![展示图](/readme/images/展示图_01.jpg "展示图.png")
-![展示图](/readme/images/展示图_02.jpg "展示图.png")
-![展示图](/readme/images/展示图_03.jpg "展示图.png")
-
-## 后台演示
-http://demo.crmeb.net/admin
-帐号：demo 密码：crmeb.com
-
-## 前台演示
-![前端演示](/readme/images/演示二维码.jpg)
-
-## 官网地址
-商业版请到官网授权：http://www.crmeb.com
 #### 使用说明
 
 1. 配置config.js 中的 HTTP_REQUEST_URL 修改为自己的域名
 2. 配置微信开发工具中小程序的appid
 3. 前往CRMEB后台配置小程序 appid 和 AppSecret 
 3. 前往微信小程序后台配置业务，下载 合法域名
-4. 上传小程序前请删除小程序根目录下readme目录
 
 ### 目录结构
 

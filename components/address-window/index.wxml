@@ -1,7 +1,7 @@
 <view class="address-window {{address.address==true?'on':''}}">
    <view class='title'>选择地址<text class='iconfont icon-guanbi' bindtap='close'></text></view>
    <view class='list'>
-      <view class='item acea-row row-between-wrapper {{active==index?"font-color":""}}' wx:for="{{addressList}}" data-id='{{index}}' bindtap='tapAddress' wx:key data-addressId="{{item.id}}">
+      <view class='item acea-row row-between-wrapper {{active==index?"font-color":""}}' wx:for="{{addressList}}" data-id='{{index}}' bindtap='tapAddress' wx:key='index' data-addressId="{{item.id}}">
          <text class='iconfont icon-ditu {{active==index?"font-color":""}}'></text>
          <view class='address'>
             <view class='name {{active==index?"font-color":""}}'>{{item.real_name}}<text class='phone'>{{item.phone}}</text></view>

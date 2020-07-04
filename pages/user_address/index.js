@@ -1,4 +1,5 @@
 import { editAddress, getAddressDetail} from '../../api/user.js';
+import { getCity } from '../../api/api.js';
 
 const app = getApp();
 Page({
@@ -13,11 +14,16 @@ Page({
       'title': '添加地址'
     },
     region: ['省', '市', '区'],
+    valueRegion: [0, 0, 0],
     cartId:'',//购物车id
     pinkId:0,//拼团id
     couponId:0,//优惠券id
     id:0,//地址id
     userAddress: { is_default:false},//地址详情
+    cityId:0,
+    district:[],
+    multiArray:[],
+    multiIndex: [0, 0, 0],
   },
   /**
    * 授权回调
@@ -37,21 +43,79 @@ Page({
       id: options.id || 0,
       'parameter.title': options.id ? '修改地址' : '添加地址'
     });
+    this.getCityList();
+  },
+  getCityList:function(){
+    let that = this;
+    getCity().then(res=>{
+      that.setData({ district:res.data});
+      that.initialize();
+    })
+  },
+  initialize:function(){
+    let that = this, province = [], city = [], area = [];
+    if (that.data.district.length) {
+      let cityChildren = that.data.district[0].c || [];
+      let areaChildren = cityChildren.length ? (cityChildren[0].c || []) : [];
+      that.data.district.forEach(function (item) {
+        province.push(item.n);
+      });
+      cityChildren.forEach(function (item) {
+        city.push(item.n);
+      });
+      areaChildren.forEach(function (item) {
+        area.push(item.n);
+      });
+      that.setData({
+        multiArray: [province, city, area],
+      });
+    }
   },
   bindRegionChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    let multiIndex = this.data.multiIndex, province = this.data.district[multiIndex[0]] || { c: [] }, city = province.c[multiIndex[1]] || { v: 0 }, multiArray = this.data.multiArray, value = e.detail.value;
+    console.log(value);
+    console.log(province);
     this.setData({
-      region: e.detail.value
-    })
+      region: [multiArray[0][value[0]], multiArray[1][value[1]], multiArray[2][value[2]]],
+      cityId: city.v,
+      valueRegion: [0,0,0]
+    });
+    this.initialize();
+  },
+  bindMultiPickerColumnChange:function(e){
+    let that = this, column = e.detail.column, value = e.detail.value, currentCity = this.data.district[value] || { c: [] }, multiArray = that.data.multiArray, multiIndex = that.data.multiIndex;
+    multiIndex[column] = value;
+    switch (column){
+      case 0:
+        let areaList = currentCity.c[0] || { c: [] };
+        multiArray[1] = currentCity.c.map((item)=>{
+          return item.n;
+        });
+        multiArray[2] = areaList.c.map((item)=>{
+          return item.n;
+        });
+      break;
+      case 1:
+        let cityList = that.data.district[multiIndex[0]].c[multiIndex[1]].c || [];
+        multiArray[2] = cityList.map((item)=>{
+          return item.n;
+        });
+      break;
+      case 2:
+      
+      break;
+    }
+    this.setData({ multiArray: multiArray, multiIndex: multiIndex});
   },
   getUserAddress:function(){
     if(!this.data.id) return false;
-    var that=this;
+    let that = this;
     getAddressDetail(this.data.id).then(res=>{
       var region = [res.data.province, res.data.city, res.data.district];
       that.setData({
         userAddress: res.data,
         region: region,
+        cityId: res.data.city_id,
       });
     });
   },
@@ -73,7 +137,8 @@ Page({
               post_code: res.postalCode,
               phone: res.telNumber,
               detail: res.detailInfo,
-              id: 0
+              id: 0,
+              type: 1,
             }).then(res => {
               setTimeout(function () {
                 if (that.data.cartId) {
@@ -133,6 +198,7 @@ Page({
       province:that.data.region[0],
       city: that.data.region[1],
       district: that.data.region[2],
+      city_id: that.data.cityId,
     };
     value.is_default = that.data.userAddress.is_default ? 1 : 0;
     editAddress(value).then(res=>{

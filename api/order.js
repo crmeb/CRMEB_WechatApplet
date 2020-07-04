@@ -162,8 +162,8 @@ export function orderData(){
  * @param string price
  * 
 */
-export function getCouponsOrderPrice(price){
-  return request.get('coupons/order/'+price)
+export function getCouponsOrderPrice(price, data){
+  return request.get('coupons/order/' + price, data)
 }
 
 /**
@@ -182,7 +182,6 @@ export function orderCreate(key,data){
 export function express(uni) {
   return request.get("order/express/" + uni);
 }
-
 
 /**
  * 计算订单金额

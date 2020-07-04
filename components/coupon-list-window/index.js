@@ -9,6 +9,10 @@ Component({
         statusTile:''
       },
     },
+    cartId: {
+      type: String,
+      value: '',
+    },
     //打开状态 0=领取优惠券,1=使用优惠券
     openType:{
       type:Number,
@@ -18,6 +22,7 @@ Component({
   data: {
   },
   attached: function () {
+    console.log(this.data.cartId)
   },
   methods: {
     close: function () {

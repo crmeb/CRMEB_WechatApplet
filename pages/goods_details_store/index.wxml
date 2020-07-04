@@ -1,0 +1,26 @@
+<navbar parameter='{{parameter}}'></navbar>
+<view class="storeBox">
+    <view class="storeBox-box acea-row row-between-wrapper" wx:for="{{storeList}}" wx:key='index' bindtap="checked" data-details="{{item}}">
+     <view class="acea-row row-middle picTxt">
+         <view class="store-img"><image src="{{item.image}}" lazy-load="true"></image></view> 
+      <view class="store-cent-left">
+        <view class="store-name">{{item.name}}</view>
+        <view class="store-address addressTxt line1">{{item.address}}{{", "+item.detailed_address}}</view>
+      </view>
+     </view>
+        <view>
+          <view class="acea-row row-right phoneIcon">
+             <view class="store-phone" bindtap="makePhone" data-phone="{{item.phone}}"><text class="iconfont icon-dadianhua01"></text></view>
+          </view>
+          <view class="store-distance" catchtap="showMaoLocation" data-details="{{item}}">
+            <text class="addressTxt" wx:if="{{item.range}}">距离{{item.range}}千米</text>
+            <text class="addressTxt" wx:else>查看地图</text>
+            <text class="iconfont icon-youjian"></text>
+          </view>
+        </view>
+    </view>
+    <view class='loadingicon acea-row row-center-wrapper' wx:if="{{loading}}">
+      <text class='loading iconfont icon-jiazai' hidden='{{loading==false}}'></text>{{loadTitle}}
+    </view>
+</view>
+<authorize bind:onLoadFun='onLoadFun'></authorize>

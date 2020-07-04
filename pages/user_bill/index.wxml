@@ -6,11 +6,11 @@
       <view class='item {{type==2 ? "on":""}}' data-type='2' bindtap='changeType'>充值</view>
    </view>
    <view class='sign-record'>
-      <view class='list' wx:for="{{userBillList}}" wx:key>
+      <view class='list' wx:for="{{userBillList}}" wx:key='index'>
           <view class='item'>
             <view class='data'>{{item.time}}</view>
             <view class='listn'>
-                <view class='itemn acea-row row-between-wrapper' wx:for="{{item.list}}" wx:for-item="vo" wx:key>
+                <view class='itemn acea-row row-between-wrapper' wx:for="{{item.list}}" wx:for-item="vo" wx:key='index'>
                   <view>
                       <view class='name line1'>{{vo.title}}</view>
                       <view>{{vo.add_time}}</view>

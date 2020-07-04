@@ -18,7 +18,6 @@ Page({
     focus:true,
     bastList:[],
     hotSearchList:[],
-    first: 0,
     limit: 8,
     page:1,
     loading:false,

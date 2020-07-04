@@ -1,0 +1,21 @@
+.condition .line-title{
+  width:90rpx;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+  background:rgba(255,247,247,1);
+  border:1px solid rgba(232,51,35,1);
+  opacity:1;
+  border-radius:20rpx;
+  font-size:20rpx;
+  color: #E83323;
+  margin-right: 12rpx;
+}
+.condition .line-title.gray{
+  border-color:#BBB;
+  color:#bbb;
+  background-color:#F5F5F5;
+}
+.coupon-list .pic-num{
+  color: #FFFFFF;
+  font-size: 24rpx;
+}

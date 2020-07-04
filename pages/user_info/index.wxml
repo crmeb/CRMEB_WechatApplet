@@ -7,7 +7,7 @@
         <view
           class="item acea-row row-between-wrapper {{item.uid === userInfo.uid ? 'on' : ''}}"
           wx:for="{{switchUserInfo}}" 
-          wx:key
+          wx:key='index'
           bindtap='switchAccounts'
           data-index='{{index}}'
         >

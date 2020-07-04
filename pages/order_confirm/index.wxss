@@ -69,6 +69,7 @@
 .order-submission .wrapper{background-color:#fff;margin-top:13rpx;}
 .order-submission .wrapper .item{padding:27rpx 30rpx;font-size:30rpx;color:#282828;border-bottom:1px solid #f0f0f0;}
 .order-submission .wrapper .item .discount{font-size:30rpx;color:#999;}
+.order-submission .wrapper .item .discount input{text-align:right;}
 .order-submission .wrapper .item .discount .iconfont{color:#515151;font-size:30rpx;margin-left:15rpx;}
 .order-submission .wrapper .item .discount .num{font-size:32rpx;margin-right:20rpx;}
 .order-submission .wrapper .item .shipping{font-size:30rpx;color:#999;position:relative;padding-right: 58rpx;}

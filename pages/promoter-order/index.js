@@ -17,9 +17,11 @@ Page({
       'color':true,
       'class':'0'
     },
-    page: 0,
-    limit: 8,
-    status: false,
+    loading: false,//是否加载中
+    loadend: false,//是否加载完毕
+    loadTitle: '加载更多',//提示语
+    page: 1,
+    limit: 5,
     recordList: [],
     recordCount: 0,
   },
@@ -46,20 +48,28 @@ Page({
   },
   getRecordOrderList: function () {
     var that = this;
+    if (that.data.loadend) return;
+    if (that.data.loading) return;
+    that.setData({ loading: true, loadTitle: "" });
     var page = that.data.page;
     var limit = that.data.limit;
-    var status = that.data.status;
-    var recordList = that.data.recordList;
-    var recordListNew = [];
-    if (status == true) return;
     spreadOrder({ page: page, limit: limit }).then(res=>{
-      var len = res.data.list ? res.data.list.length : 0;
-      var recordListData = res.data.list;
-      recordListNew = recordList.concat(recordListData);
-      that.setData({ recordCount: res.data.count || 0, status: limit > len, page: limit + page, recordList: recordListNew });
-    });
+      var list = res.data.list || [];
+      var loadend = list.length < that.data.limit;
+      var recordList = that.data.recordList;
+      recordList = recordList.concat(res.data.list);
+      that.setData({
+        recordList: recordList,
+        loadend: loadend,
+        loading: false,
+        loadTitle: loadend ? "我也是有底线的" : '加载更多',
+        page: that.data.page + 1,
+        recordCount: res.data.count
+      });
+    }).catch(function(){
+      that.setData({ loading: false, loadTitle: "加载更多" });
+    })
   },
-  
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -85,7 +95,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.getRecordOrderList();
   },
 
   /**

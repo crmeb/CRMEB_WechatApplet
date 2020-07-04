@@ -9,7 +9,7 @@
     <view class='index-bg' wx:if="{{imgUrls.length}}">
         <swiper indicator-dots="true"
             autoplay="{{autoplay}}" circular="{{circular}}" interval="{{interval}}" duration="{{duration}}" indicator-color="rgba(255,255,255,0.6)" indicator-active-color="#fff">
-            <block wx:for="{{imgUrls}}" wx:key="index">
+            <block wx:for="{{imgUrls}}" wx:key='index'>
               <swiper-item>
                 <navigator url='{{item.url}}' class='slide-navigator acea-row row-between-wrapper' hover-class='none'>
                   <image src="{{item.pic}}" class="slide-image"/>
@@ -19,7 +19,7 @@
         </swiper>
     </view>
     <view class='nav acea-row' wx:if="{{menus.length}}">
-      <block wx:for="{{menus}}" wx:key="index">
+      <block wx:for="{{menus}}" wx:key='index'>
         <navigator class='item' wx:if="{{item.show == '1'}}" url='{{item.url}}'  open-type='switchTab' hover-class='none'>
           <view class='pictrue'><image src='{{item.pic}}'></image></view>
           <view>{{item.name}}</view>
@@ -34,7 +34,7 @@
        <view class='pictrue'><image src='/images/news.png'></image></view>
        <view class='swiperTxt'>
             <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="2500" duration="{{duration}}" vertical="true" circular="true">
-                <block wx:for="{{itemNew}}" wx:key="index">
+                <block wx:for="{{itemNew}}" wx:key='index'>
                     <swiper-item catchtouchmove='catchTouchMove'>
                         <navigator wx:if="{{item.show == '1'}}" url='{{item.url}}'  open-type='switchTab' class='acea-row row-between-wrapper' hover-class='none'>
                             <view class='text acea-row row-between-wrapper'>
@@ -56,7 +56,7 @@
        </view>
     </view>
     <view class='specialArea acea-row row-between-wrapper' wx:if="{{activityList.length}}">
-      <block wx:for="{{activityList}}" wx:key="index">
+      <block wx:for="{{activityList}}" wx:key='index'>
        <navigator class='assemble' url='{{item.link}}' wx:if="{{index < 1}}">
           <image src='{{item.pic}}'></image>
           <view class='text'>
@@ -66,7 +66,7 @@
        </navigator>
       </block> 
        <view class='list acea-row row-column-between'>
-          <block wx:for="{{activityList}}" wx:key="index">
+          <block wx:for="{{activityList}}" wx:key='index'>
             <navigator class='item' url='{{item.link}}' wx:if="{{index > 0}}">
               <image src='{{item.pic}}'></image>
               <view class='text'>
@@ -76,6 +76,32 @@
             </navigator>
           </block>  
        </view>
+    </view>
+    <view class="liveBroadcast" wx:if='{{liveList.length || liveInfo.roomid}}'>
+        <view class="title">热门直播</view>
+        <!-- end:结束；time：直播时间 -->
+        <navigator wx:if='{{liveInfo.roomid}}' hover-class="none" url="plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id={{liveInfo.roomid}}" class="broadcast time">
+           <view class="pictrue">
+              <image src="{{liveInfo.share_img}}"></image>
+              <view class="label" wx:if='{{liveInfo.live_status == 101}}'><text class="iconfont icon-zhibo"></text>直播中</view>
+              <view class="label" wx:if='{{liveInfo.live_status == 103}}'><text class="iconfont icon-zhibojieshux"></text>已结束</view>
+              <view class="label" wx:if='{{liveInfo.live_status == 102}}'><text class="iconfont icon-shijian"></text>直播时间 {{liveInfo._start_time}}</view>
+           </view>
+           <view class="text line1">{{liveInfo.name}}</view>
+        </navigator>
+        <view class="list" wx:if="{{liveList.length}}">
+           <scroll-view class="scroll-view_x" scroll-x style="width:auto;overflow:hidden;">
+              <navigator hover-class="none" wx:for='{{liveList}}' wx:key='index' url="plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id={{item.roomid}}" class="item">
+                  <view class="pictrue">
+                    <image src="{{item.share_img}}"></image>
+                    <view class="label" wx:if='{{item.live_status == 101}}'><text class="iconfont icon-zhibo"></text>直播中</view>
+              <view class="label" wx:if='{{item.live_status == 103}}'><text class="iconfont icon-zhibojieshux"></text>已结束</view>
+              <view class="label" wx:if='{{item.live_status == 102}}'><text class="iconfont icon-shijian"></text>直播时间 {{item._start_time}}</view>
+                  </view>
+                  <view class="text line1">{{item.name}}</view>
+                </navigator>
+            </scroll-view>
+        </view>
     </view>
     <view class='wrapper' wx:if="{{fastList.length}}">
        <view class='title acea-row row-between-wrapper'>
@@ -87,7 +113,7 @@
        </view>
        <view class='scroll-product'>
           <scroll-view class="scroll-view_x" scroll-x style="width:auto;overflow:hidden;">
-              <block wx:for="{{fastList}}" wx:key="index">
+              <block wx:for="{{fastList}}" wx:key='index'>
                  <navigator hover-class="none" class='item' url='/pages/goods_list/goods_list?sid={{item.id}}&title={{item.cate_name}}'>
                     <view class='img-box'>
                       <image src='{{item.pic}}'></image>
@@ -109,7 +135,7 @@
        <view class='boutique'>
             <swiper  autoplay="true"  indicator-dots="true"
                  circular="{{circular}}" interval="{{interval}}" duration="{{duration}}" indicator-color="rgba(252,65,65,0.3)" indicator-active-color="#fc4141">
-                <block wx:for="{{bastBanner}}" wx:key="index">
+                <block wx:for="{{bastBanner}}" wx:key='index'>
                   <swiper-item>
                 <navigator url='{{item.link}}' style='width:100%;height:100%;' hover-class='none'>
                     <image src="{{item.img}}" class="slide-image" data-idx='{{index}}'/>
@@ -128,7 +154,7 @@
           </view>
        </view>
        <view class='list acea-row row-middle'>
-          <block wx:for="{{likeInfo}}" wx:key="index">
+          <block wx:for="{{likeInfo}}" wx:key='index'>
             <navigator class='item' url='/pages/goods_details/index?id={{item.id}}'>
               <view class='pictrue'>
                 <image src='{{item.image}}'></image>
@@ -157,14 +183,17 @@
        </view>
        <view class='newProducts'>
           <scroll-view class="scroll-view_x" scroll-x style="width:auto;overflow:hidden;">
-              <block wx:for="{{firstList}}" wx:key="index">
-                 <navigator hover-class="none" url='/pages/goods_details/index?id={{item.id}}' class='item'>
-                    <view class='img-box'>
+              <block wx:for="{{firstList}}" wx:key='index'>
+                 <view class='item'>
+                    <view class='img-box' bindtap="goDetail" data-items='{{item}}'>
                       <image src='{{item.image}}'></image>
+                      <text class="pictrue_log_medium pictrue_log_class" wx:if="{{item.activity && item.activity.type ==='1'}}">秒杀</text>
+                      <text class="pictrue_log_medium pictrue_log_class" wx:if="{{item.activity && item.activity.type === '2'}}">砍价</text>
+                      <text class="pictrue_log_medium pictrue_log_class" wx:if="{{item.activity && item.activity.type === '3'}}">拼团</text>
                     </view>
                     <view class='pro-info line1'>{{item.store_name}}</view>
                     <view class='money font-color'>￥{{item.price}}</view>
-                  </navigator>
+                 </view>
               </block>  
            </scroll-view>
         </view>

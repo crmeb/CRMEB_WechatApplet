@@ -1,3 +1,4 @@
+.promoter-order .list{width:100%;overflow:hidden;}
 .promoter-order .list .item .title{height:133rpx;padding:0 30rpx;font-size:26rpx;color:#999;}
 .promoter-order .list .item .title .data{font-size:28rpx;color:#282828;margin-bottom:5rpx;}
 .promoter-order .list .item .listn .itenm{background-color:#fff;}

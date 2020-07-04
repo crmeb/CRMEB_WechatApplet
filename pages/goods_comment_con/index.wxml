@@ -12,7 +12,7 @@
       </view>
    </view>
    <view class='score'>
-       <view class='item acea-row row-middle' wx:for='{{scoreList}}' wx:key>
+       <view class='item acea-row row-middle' wx:for='{{scoreList}}' wx:key='index'>
            <view>{{item.name}}</view>
            <view class='starsList'>
               <text bindtap='stars' data-indexw='{{index}}' data-index='1' class='iconfont {{item.stars>=1?"icon-shitixing font-color":"icon-kongxinxing"}}'></text>
@@ -26,7 +26,7 @@
        <view class='textarea'>
           <textarea placeholder='商品满足你的期待么？说说你的想法，分享给想买的他们吧~' name="comment" placeholder-class='placeholder'></textarea>
           <view class='list acea-row row-middle'>
-             <view class='pictrue' wx:for="{{pics}}" wx:key>
+             <view class='pictrue' wx:for="{{pics}}" wx:key='index'>
                <image src='{{item}}'></image>
                <text class='iconfont icon-guanbi1 font-color' data-index='{{index}}' bindtap='DelPic'></text>
              </view>

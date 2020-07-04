@@ -1,0 +1,12 @@
+@import '/font/iconfont.wxss';
+@import '/css/style.wxss';
+.generalWindow .generalTip{position:fixed;top:50%;left:50%;width:560rpx;margin-left:-280rpx;z-index:99;border-radius:20rpx;background-color:#fff;transition:all 0.3s ease-in-out 0s;opacity:0;transform: scale(0);padding-bottom:60rpx;margin-top:-330rpx;}
+.generalWindow .generalTip.on{opacity:1;transform: scale(1);}
+.generalWindow .generalTip .pictrue{width:100%;height:270rpx;} 
+.generalWindow .generalTip .pictrue image{width:100%;height:100%;border-radius:20rpx 20rpx 0 0;}
+.generalWindow .generalTip .name{font-size:36rpx;font-weight:bold;color:#282828;text-align:center;padding:0 29rpx;margin-top:37rpx;}
+.generalWindow .generalTip .info{font-size:30rpx;color:#666;padding:0 29rpx;text-align:center;margin-top:21rpx;}
+.generalWindow .generalTip .info .money{font-weight:bold;margin:0 10rpx;}
+.generalWindow .generalTip .help{font-size:32rpx;font-weight:bold;text-align:center;margin-top:40rpx;}
+.generalWindow .generalTip .tipBnt{font-size:32rpx;color:#fff;width:360rpx;height:82rpx;border-radius:41rpx;background-image:linear-gradient(to right,#f67a38 0%,#f11b09 100%);text-align:center;line-height:82rpx;margin:50rpx auto 0 auto;}
+.generalWindow .mask{position:fixed;top:0;bottom:0;left:0;right:0;background-color:rgba(0, 0, 0, 0.7);z-index:55;}

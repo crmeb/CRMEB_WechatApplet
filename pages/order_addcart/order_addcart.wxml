@@ -12,10 +12,11 @@
   <view wx:if="{{cartList.valid.length > 0 || cartList.invalid.length > 0}}">
     <view class='list'>
      <checkbox-group bindchange="checkboxChange">
-       <block wx:for="{{cartList.valid}}" wx:key>
-        <view class='item acea-row row-between-wrapper'>
+       <block wx:for="{{cartList.valid}}" wx:key='index'>
+        <view class='item acea-row row-between-wrapper' >
            <checkbox value="{{item.id}}" checked="{{item.checked}}"/>
            <navigator url='/pages/goods_details/index?id={{item.product_id}}' hover-class='none' class='picTxt acea-row row-between-wrapper'>
+            <view class='picTxt acea-row row-between-wrapper'>
               <view class='pictrue'>
                 <image wx:if="{{item.productInfo.attrInfo}}" src='{{item.productInfo.attrInfo.image}}'></image>
                 <image wx:else src='{{item.productInfo.image}}'></image>
@@ -26,10 +27,13 @@
                   <view class='money'>￥{{item.truePrice}}</view>
               </view>
               <view class='carnum acea-row row-center-wrapper'>
-                 <view class="reduce {{item.numSub ? 'on' : ''}}" catchtap='subCart' data-index="{{index}}">-</view>
-                 <view class='num'>{{item.cart_num}}</view>
-                 <view class="plus {{item.numAdd ? 'on' : ''}}" catchtap='addCart' data-index="{{index}}">+</view>
+                <view class="reduce {{item.numSub ? 'on' : ''}}" catchtap='subCart' data-index="{{index}}">-</view>
+                <view class='num'>
+                  <input type="number" value="{{item.cart_num}}" data-name="item.cart_num" catchinput="iptCartNum" data-index="{{index}}" bindblur="inputBlur" catchtap="proventD"></input>
+                </view>
+                <view class="plus {{item.numAdd ? 'on' : ''}}" catchtap='addCart' data-index="{{index}}">+</view>
               </view>
+            </view>  
            </navigator>
         </view>
        </block> 
@@ -41,7 +45,7 @@
           <view class='del' bindtap='unsetCart'><text class='iconfont icon-shanchu1'></text>清空</view>
       </view>
       <view class='goodsList' hidden='{{goodsHidden}}'>
-        <block wx:for="{{cartList.invalid}}" wx:key>
+        <block wx:for="{{cartList.invalid}}" wx:key='index'>
           <view class='item acea-row row-between-wrapper'>
             <view class='invalid'>失效</view>
             <view class='pictrue'>
@@ -52,7 +56,7 @@
                 <view class='line1'>{{item.productInfo.store_name}}</view>
                 <view class='infor line1' wx:if="{{item.productInfo.attrInfo}}">属性：{{item.productInfo.attrInfo.suk}}</view>
                 <view class='acea-row row-between-wrapper'>
-                  <view>￥{{item.truePrice}}</view>
+                  <view wx:if="{{item.truePrice}}">￥{{item.truePrice}}</view>
                   <view class='end'>该商品已失效</view>
                 </view>
             </view>

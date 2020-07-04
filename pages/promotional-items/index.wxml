@@ -7,4 +7,7 @@
       <view class='line'></view>
    </view>
    <promotionGood benefit="{{bastList}}"></promotionGood>
+    <view class='loadingicon acea-row row-center-wrapper' wx:if='{{bastList.length > 0}}'>
+      <text class='loading iconfont icon-jiazai' wx:if='{{loading==true}}'></text>{{loadTitle}}
+    </view>
 </view>

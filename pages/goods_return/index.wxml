@@ -1,7 +1,7 @@
 <navbar parameter='{{parameter}}'></navbar>
 <form  bindsubmit="subRefund" report-submit='true'>
   <view class='apply-return'>
-    <view class='goodsStyle acea-row row-between' wx:for="{{orderInfo.cartInfo}}" wx:key>
+    <view class='goodsStyle acea-row row-between' wx:for="{{orderInfo.cartInfo}}" wx:key='index'>
         <view class='pictrue'><image src='{{item.productInfo.image}}'></image></view>
         <view class='text acea-row row-between'>
           <view class='name line2'>{{item.productInfo.store_name}}</view>
@@ -43,7 +43,7 @@
               <view class='tip'>( 最多可上传3张 )</view>
           </view>
           <view class='upload acea-row row-middle'>
-              <view class='pictrue' wx:for="{{refund_reason_wap_img}}" wx:key>
+              <view class='pictrue' wx:for="{{refund_reason_wap_img}}" wx:key='index'>
                 <image src='{{item}}'></image>
                 <view class='iconfont icon-guanbi1 font-color' bindtap='DelPic' data-index='{{index}}'></view>
               </view>

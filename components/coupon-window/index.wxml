@@ -1,10 +1,18 @@
 <view class='coupon-window {{window==true?"on":""}}'>
    <view class='couponWinList'>
-      <view class='item acea-row row-between-wrapper' wx:for="{{couponList}}" wx:key>
-         <view class='money font-color'>￥<text class='num'>{{item.coupon_price}}</text></view>
-         <view class='text'>
-            <view class='name'>购物买{{item.use_min_price}}减{{item.coupon_price}}</view>
-            <view>{{item.start_time ? item.start_time+'-' : ''}}{{item.end_time}}</view>
+      <view class='item acea-row row-center-wrapper' wx:for="{{couponList}}" wx:key='index'>
+         <view class='money font-color acea-row row-column row-center-wrapper'>
+            <view>￥<text class='num'>{{item.coupon_price}}</text></view>
+            <view class="pic-num">满{{item.use_min_price}}元可用</view>
+         </view>
+         <view class="text acea-row row-between">
+            <view class='pic acea-row row-column row-center'>
+               <view class='name line1'>{{item.title}}</view>
+               <view>{{item.start_time ? item.start_time+'-' : ''}}{{item.end_time}}</view>
+            </view>
+            <view class="type" wx:if="{{item.type===0}}">通用劵</view>
+            <view class="type" wx:elif="{{item.type===1}}">品类券</view>
+            <view class="type" wx:else>商品券</view>
          </view>
       </view>
    </view>

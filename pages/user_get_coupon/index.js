@@ -59,17 +59,19 @@ Page({
     var that=this
     if(this.data.loadend) return false;
     if(this.data.loading) return false;
+    that.setData({loading:true,loadTitle:'正在搜索'});
     getCoupons({ page: this.data.page, limit: this.data.limit }).then(res=>{
       var list=res.data,loadend=list.length < that.data.limit;
       var couponsList = app.SplitArray(list, that.data.couponsList);
       that.setData({ 
-        loading: true, 
+        loading: false, 
         couponsList: couponsList,
         page:that.data.page+1,
-        loadend: loadend
+        loadend: loadend,
+        loadTitle: loadend ? '已全部加载' : '加载更多'
       });
     }).catch(err=>{
-      that.setData({ loading: false });
+      that.setData({ loading: false, loadTitle: '加载更多' });
     });
   },
 

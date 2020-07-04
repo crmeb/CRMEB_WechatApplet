@@ -1,7 +1,12 @@
        <view class='promotionGood'>
-          <block wx:for="{{benefit}}" wx:key>
-           <navigator class='item acea-row row-between-wrapper' url='/pages/goods_details/index?id={{item.id}}'>
-              <view class='pictrue'><image src='{{item.image}}'></image></view>
+          <block wx:for="{{benefit}}" wx:key='index'>
+            <view class='item acea-row row-between-wrapper'  bindtap="goDetail" data-items='{{item}}'>
+               <view class='pictrue'>
+                  <image src='{{item.image}}'></image>
+                  <text class="pictrue_log pictrue_log_class" wx:if="{{item.activity && item.activity.type ==='1'}}">秒杀</text>
+                   <text class="pictrue_log pictrue_log_class" wx:if="{{item.activity && item.activity.type === '2'}}">砍价</text>
+                   <text class="pictrue_log pictrue_log_class" wx:if="{{item.activity && item.activity.type === '3'}}">拼团</text>
+              </view>
               <view class='text'>
                  <view class='name line1'>{{item.store_name}}</view>
                  <view class='sp-money acea-row'>
@@ -12,6 +17,6 @@
                    <view>仅剩：{{item.stock}}{{item.unit_name}}</view>
                  </view>
               </view>
-           </navigator>
+            </view>
           </block> 
        </view>

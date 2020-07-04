@@ -22,11 +22,11 @@
   <view class='wrapper'>
      <view class='nav acea-row'>
         <view class='item acea-row row-center-wrapper {{current==index?"on":""}}' 
-        wx:for='{{navList}}' bindtap='nav' data-idx='{{index}}' wx:key><text class='iconfont {{item.icon}}'></text>{{item.name}}</view>
+        wx:for='{{navList}}' bindtap='nav' data-idx='{{index}}' wx:key='index'><text class='iconfont {{item.icon}}'></text>{{item.name}}</view>
      </view>
      <view class='list' hidden='{{current!=0}}'>
         <view class='tip acea-row row-middle'><text class='iconfont icon-shuoming'></text>提示：积分数值的高低会直接影响您的会员等级</view>
-        <view class='item acea-row row-between-wrapper' wx:for="{{integralList}}" wx:key>
+        <view class='item acea-row row-between-wrapper' wx:for="{{integralList}}" wx:key='index'>
            <view>
               <view class='state'>{{item.mark}}</view>
               <view>{{item.add_time}}</view>

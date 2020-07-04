@@ -1,10 +1,10 @@
 <navbar parameter='{{parameter}}'></navbar>
 <view class='sign-record'>
-   <view class='list' wx:for="{{signList}}" wx:key>
+   <view class='list' wx:for="{{signList}}" wx:key='index'>
       <view class='item'>
          <view class='data'>{{item.month}}</view>
          <view class='listn'>
-            <view class='itemn acea-row row-between-wrapper' wx:for="{{item.list}}" wx:key>
+            <view class='itemn acea-row row-between-wrapper' wx:for="{{item.list}}" wx:key='index'>
                <view>
                   <view class='name line1'>{{item.title}}</view>
                   <view>{{item.add_time}}</view>

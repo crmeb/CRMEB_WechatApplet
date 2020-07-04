@@ -1,11 +1,19 @@
 <navbar parameter='{{parameter}}'></navbar>
 <view class='coupon-list' wx:if="{{couponsList.length}}">
-  <view class='item acea-row row-center-wrapper' wx:for="{{couponsList}}" wx:key>
-     <view class='money {{item._type == 0 ? "moneyGray" : ""}}'>￥<text class='num'>{{item.coupon_price}}</text></view>
+  <view class='item acea-row row-center-wrapper' wx:for="{{couponsList}}" wx:key='index'>
+      <view class='money {{item._type == 0 ? "moneyGray" : "" }}'>
+         <view>￥<text class='num'>{{item.coupon_price}}</text></view>
+         <view class="pic-num">满{{item.use_min_price}}元可用</view>
+     </view>
      <view class='text'>
-        <view class='condition line1'>{{item.coupon_title}}</view>
+        <view class='condition line1'>
+            <span class='line-title {{item._type==0?"gray":""}}'  wx:if="{{item.applicable_type===0}}">通用劵</span>
+            <span class='line-title {{item._type==0?"gray":""}}' wx:elif="{{item.applicable_type===1}}">品类券</span>
+            <span class='line-title {{item._type==0?"gray":""}}' wx:else>商品券</span>
+            <span>{{item.coupon_title}}</span>
+        </view>
         <view class='data acea-row row-between-wrapper'>
-           <view>{{item._add_time}}-{{item._end_time}}</view>
+           <view>{{ item.start_time ? item.start_time+'-':''}}{{ item.end_time }}</view>
            <view class='bnt gray' wx:if="{{item._type==0}}">{{item._msg}}</view>
            <view class='bnt bg-color' wx:else>{{item._msg}}</view>
         </view>

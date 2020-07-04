@@ -25,6 +25,8 @@ export default function request(api, method, data, {noAuth = false, noVerify = f
           reslove(res.data, res);
         else if (res.data.status == 200)
           reslove(res.data, res);
+        else if (res.data.status == 402)
+          reslove(res.data, res);
         else if ([410000, 410001, 410002].indexOf(res.data.status) !== -1) {
           util.logout()
           return authLogin().then(res => { return request(api, method, data, { noAuth, noVerify }); });

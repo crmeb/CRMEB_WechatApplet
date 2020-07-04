@@ -1,13 +1,39 @@
 <navbar parameter='{{parameter}}'></navbar>
 <form bindsubmit="submitSub" report-submit='true'>
-<view class="payment">
-     <view class="nav acea-row row-around row-middle">
-        <view class="item {{active==index?'on':''}}" wx:key data-id="{{index}}" wx:for='{{navRecharge}}' bindtap="navRecharge">{{item}}</view>
-     </view>
-     <view class='input acea-row row-betweent row-bottom'><text>￥</text><input placeholder='{{placeholder}}' focus="{{focus}}" bindfocus='setPlaceholder' type='digit' bindblur="setPlaceholderStatus" placeholder-class='placeholder' name='number' value='{{number}}'></input></view>
-     <view class='tip' wx:if='{{!active}}'>提示：当前余额为 <text class='font-color'>￥{{userinfo.now_money || 0}}</text></view>
-     <view class="tip" wx:else>提示：当前佣金为 <text class='font-color'>￥{{userinfo.extractPrice || 0}}</text></view>
-     <button class='but bg-color' formType="submit"> {{active ? '立即转入': '立即充值' }}</button>
-</view>
+   <view class="payment-top acea-row row-column row-center-wrapper">
+      <text class='name'>我的余额</text>
+      <view class='pic'>￥<text class='pic-font'>{{userinfo.now_money || 0}}</text></view>
+   </view>
+   <view class="payment">
+      <view class="nav acea-row row-around row-middle">
+         <view class="item {{active==index?'on':''}}" wx:key='index' data-id="{{index}}" wx:for='{{navRecharge}}' bindtap="navRecharge">{{item}}</view>
+      </view>
+      <view wx:if='{{active}}'>
+          <view class='input acea-row row-betweent row-bottom'>
+            <text>￥</text><input placeholder='{{placeholder}}' focus="{{focus}}" bindfocus='setPlaceholder' type='digit' bindblur="setPlaceholderStatus" placeholder-class='placeholder' name='number' value='{{number}}'></input>
+         </view>
+         <view class="acea-row row-column">
+             <text class="tip">提示：</text>
+            <view class="tip-samll">当前可转入佣金：
+            <text class="font-color">￥{{userinfo.commissionCount || 0}}</text>
+            </view>
+         </view> 
+      </view>
+      <view class="picList acea-row row-between mt-20" wx:if='{{!active}}'>
+         <view class="pic-box pic-box-color acea-row row-center-wrapper row-column {{activePic==index?'pic-box-color-active':''}}" wx:for='{{picList}}' wx:key='index' bindtap="picCharge" data-index="{{index}}" data-id="{{item.id}}" data-pic="{{item.give_money}}" data-quota="{{item.price}}">
+            <view class="pic-number"><text class="pic-number-pic">{{item.price}}</text>元</view>
+            <view class="pic-number">赠送：{{item.give_money}}元</view>
+         </view>
+         <view class="pic-box pic-box-color acea-row row-center-wrapper {{activePic==picList.length?'pic-box-color-active':''}}" bindtap="picCharge" data-id="0" data-index="{{picList.length}}">
+            <input class="pic-number-pic" placeholder='{{placeholderOther}}' bindfocus='setOtherPlaceholder' bindblur="setOtherPlaceholderStatus" focus="{{focus}}" type='digit' placeholder-class="{{activePic==picList.length?'pic-box-color-active':''}}" name='number' value='{{number}}'></input>
+         </view>
+      </view>
+      
+      <view class='acea-row row-column'>
+         <text class="tip mt-30">注意事项：</text>
+         <text class="tip-samll" wx:for='{{recharge_attention}}' wx:key='index'>{{item}}</text>
+      </view>
+      <button class='but bg-color' formType="submit"> {{active ? '立即转入': '立即充值' }}</button>
+   </view>
 </form>
 <authorize bind:onLoadFun="onLoadFun"></authorize>

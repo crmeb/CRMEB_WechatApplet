@@ -2,5 +2,6 @@
   "usingComponents": {
     "navbar": "/components/navbar/index",
     "home": "/components/home/index"
-  }
+  },
+  "navigationBarTextStyle": "white"
 }

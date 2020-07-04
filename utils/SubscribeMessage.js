@@ -103,8 +103,9 @@ export function openEextractSubscribe()
  */
 export function subscribe(tmplIds)
 {
+  let wecaht = wx;
   return new Promise((reslove) => {
-    wx.requestSubscribeMessage({
+    wecaht.requestSubscribeMessage({
       tmplIds: tmplIds,
       success(res) {
         return reslove(res);

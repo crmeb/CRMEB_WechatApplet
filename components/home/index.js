@@ -11,11 +11,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
   setTouchMove: function (e) {
     var that = this;
-    if (e.touches[0].clientY < 400 && e.touches[0].clientY > 66) {
+    if (e.touches[0].clientY < 545 && e.touches[0].clientY > 66) {
       that.setData({
         top: e.touches[0].clientY
       })

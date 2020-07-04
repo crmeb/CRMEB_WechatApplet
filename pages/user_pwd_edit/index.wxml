@@ -18,6 +18,10 @@
             {{ timetext }}
           </button>
       </view>
+      <view class="item acea-row row-between-wrapper" wx:if="{{imagesCode}}">
+        <input type='text' placeholder='填写图片验证码' placeholder-class='placeholder' class="codeIput" bindinput='inputgetName' data-name='captchaimg'></input>
+        <image src="{{httpUrl}}" class="images" bindtap="imagesCodeTap"></image>
+      </view>
     </view>
     <view class="confirmBnt bg-color" bindtap="editPwd">确认修改</view>
   </view>

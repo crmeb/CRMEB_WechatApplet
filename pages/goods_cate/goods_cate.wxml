@@ -7,13 +7,13 @@
       </view>
    </view>
    <view class='aside' style='top:{{navH}}rpx;margin-top:98rpx'>
-      <block wx:for="{{productList}}" wx:for-item="item" wx:key>
+      <block wx:for="{{productList}}" wx:for-item="item" wx:key='index'>
          <view class='item acea-row row-center-wrapper {{index==navActive?"on":""}}' data-index='{{index}}' data-id='b{{index}}' bindtap='tap'><text>{{item.cate_name}}</text></view>
       </block>
    </view>
    <view class='conter'>
      <scroll-view scroll-y="true" scroll-into-view="{{toView}}" style='height:{{height}}rpx;' bindscroll="scroll" scroll-with-animation='true'>
-        <block wx:for="{{productList}}" wx:key>
+        <block wx:for="{{productList}}" wx:key='index'>
           <view class='listw' id="b{{index}}">
             <view class='title acea-row row-center-wrapper'>
                 <view class='line'></view>
@@ -21,7 +21,7 @@
                 <view class='line'></view>
             </view>
             <view class='list acea-row'>
-                <block wx:for="{{item.children}}" wx:for-item="item" wx:key>
+                <block wx:for="{{item.children}}" wx:for-item="item" wx:key='index'>
                     <navigator hover-class='none' url='/pages/goods_list/goods_list?sid={{item.id}}&title={{item.cate_name}}' class='item acea-row row-column row-middle'>
                         <view class='picture'><image src='{{item.pic}}'></image></view>
                         <view class='name line1'>{{item.cate_name}}</view>

@@ -1,3 +1,4 @@
+import { CACHE_LONGITUDE, CACHE_LATITUDE } from '../config.js';
 //购物车减
 var carmin = function (that){
     var num = that.data.num;
@@ -143,6 +144,83 @@ var tapsize = function(that,e){
     taberindex: $index
   })
 }
+var selfLocation = function(showMode) {
+  const that = this;
+  return new Promise((resolve, reject)=>{
+    let longitude = wx.getStorageSync(CACHE_LONGITUDE); //经度
+    let latitude = wx.getStorageSync(CACHE_LATITUDE); //纬度
+    if (longitude && latitude) {
+      return resolve({ longitude: longitude, latitude: latitude});
+    }
+    wx.getSetting({
+      success: (res) => {
+        if (!res.authSetting['scope.userLocation']) {
+          wx.removeStorageSync(CACHE_LONGITUDE);
+          wx.removeStorageSync(CACHE_LATITUDE);
+          wx.getLocation({
+            success: function (res) {
+              var latitude = res.latitude;
+              var longitude = res.longitude;
+              wx.setStorageSync(CACHE_LONGITUDE, longitude);
+              wx.setStorageSync(CACHE_LATITUDE, latitude);
+              resolve(res);
+            },
+            fail(res) {
+              if (res.errMsg == "getLocation:fail auth deny" && showMode == undefined) {
+                wx.showModal({
+                  title: '您已经拒绝授权地理位置',
+                  content: '是否需要开启权限',
+                  success: function (res) {
+                    if (res.cancel) {
+                      reject(res);
+                    } else if (res.confirm) {
+                      wx.openSetting({
+                        success: function (res) {
+                          if (res.authSetting["scope.userLocation"] == true) {
+                            wx.showToast({
+                              title: '授权成功',
+                              icon: 'success',
+                              duration: 1000
+                            })
+                            wx.getLocation({
+                              success: function (res) {
+                                var latitude = res.latitude;
+                                var longitude = res.longitude;
+                                wx.setStorageSync(CACHE_LONGITUDE, longitude);
+                                wx.setStorageSync(CACHE_LATITUDE, latitude);
+                                resolve(res);
+                              }
+                            })
+                          } else {
+                            wx.showToast({
+                              title: '授权失败',
+                              icon: 'none',
+                              duration: 1000
+                            })
+                          }
+                        }
+                      })
+                    }
+                  },
+                })
+              }
+            },
+          });
+        } else {
+          wx.getLocation({
+            success: function (res) {
+              let latitude = res.latitude;
+              let longitude = res.longitude;
+              wx.setStorageSync(CACHE_LONGITUDE, longitude);
+              wx.setStorageSync(CACHE_LATITUDE, latitude);
+              resolve(res);
+            }
+          })
+        }
+      }
+    })
+  })
+}
 module.exports = {
   carmin: carmin,
   carjia: carjia,
@@ -150,5 +228,6 @@ module.exports = {
   footan: footan,
   tapsize: tapsize,
   home: home,
-  time2: time2
+  time2: time2,
+  selfLocation: selfLocation
 }

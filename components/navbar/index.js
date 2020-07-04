@@ -27,7 +27,13 @@ Component({
   },
   methods: {
     return:function(){
-      wx.navigateBack();
+      wx.navigateBack({
+        delta: 1
+      });
+      // var pages = getCurrentPages();
+      // wx.navigateBack({
+      //   delta: pages.length-2
+      // });
     },
     setGoodsSearch:function(){
        wx.navigateTo({

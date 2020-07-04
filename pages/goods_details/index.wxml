@@ -1,6 +1,28 @@
-<navbar parameter='{{parameter}}'></navbar>
+<view class='navbar {{parameter.class}}' style='height:{{navH}}rpx;opacity:{{opacity}}'>
+   <view class='navbarH' style='height:{{navH}}rpx;'>
+      <view class='navbarCon acea-row row-center-wrapper'>
+          <view class="header acea-row row-center-wrapper">
+            <view class="item {{navActive === index ? 'on' : ''}}" wx:for="{{navList}}" wx:key='index' bindtap="tap" data-index="{{index}}" data-id='past{{index}}'>
+              {{ item }}
+            </view>
+          </view>
+      </view>
+   </view>
+</view>
+<view class="returnF" style="height:{{navH}}rpx;">
+    <view class="returnH" style='height:{{navH}}rpx;'>
+        <view class="returnCon acea-row row-center-wrapper" bindtap="returns">
+           <view class="iconfont icon-xiangzuo"></view>
+        </view>
+    </view>
+</view>
+<!-- <view class='iconfont icon-xiangzuo' style="top:{{navH/2}}rpx" bindtap='returns'></view> -->
+<!-- <view style="height:{{navH+20}}rpx;" wx:if="{{scrollY>200}}"></view> -->
+<!-- style='height:{{scrollY>200?(height+2*navH+20):(height+navH)}}rpx;' -->
 <view class='product-con'>
-  <productConSwiper imgUrls="{{storeInfo.slider_image}}"></productConSwiper>
+ <scroll-view scroll-top="{{scrollTop}}" scroll-y='true' scroll-with-animation="true" style='height:{{height}}px;' bindscroll="scroll">
+     <view id="past0">
+  <productConSwiper imgUrls="{{storeInfo.slider_image}}" videoline="{{storeInfo.video_link}}"></productConSwiper>
   <view class='wrapper'>
     <view class='share acea-row row-between row-bottom'>
       <view class='money font-color'>
@@ -26,38 +48,64 @@
     <view class='coupon acea-row row-between-wrapper' bindtap='coupon' style="{{ storeInfo.give_integral > 0 ? 'margin-top:0;':''}}">
       <view class='hide line1 acea-row'>
         优惠券：
-        <view class='activity' wx:for="{{couponList}}" wx:key>满{{item.use_min_price}}减{{item.coupon_price}}</view>
+        <view class='activity' wx:for="{{couponList}}" wx:key='index'>满{{item.use_min_price}}减{{item.coupon_price}}</view>
       </view>
       <view class='iconfont icon-jiantou'></view>
     </view>
+    <view class="coupon acea-row row-between-wrapper"  wx:if="{{activity.length}}">
+        <view class="line1 acea-row">
+          <text decode="{{true}}" space="{{true}}">活&nbsp;&nbsp;&nbsp;动：</text>
+           <view wx:for="{{activity}}" wx:key='index' bindtap="goActivity" data-items='{{item}}'>
+              <view wx:if="{{item.type === '1'}}" class="{{index==0?'activity_pin':'' || index==1?'activity_miao':'' || index==2?'activity_kan':''}}">
+                <text class="iconfonts iconfont icon-pintuan"></text>
+                <text class="activity_title"> 参与秒杀</text>
+              </view>
+              <view class="{{index==0?'activity_pin':'' || index==1?'activity_miao':'' || index==2?'activity_kan':''}}" wx:if="{{item.type === '2'}}">
+                <text class="iconfonts iconfont icon-shenhezhong"></text>
+                <text class="activity_title"> 参与砍价</text>
+              </view>
+              <view class="{{index==0?'activity_pin':'' || index==1?'activity_miao':'' || index==2?'activity_kan':''}}" wx:if="{{item.type === '3'}}">
+                <text class="iconfonts iconfont icon-kanjia"></text>
+                <text class="activity_title"> 参与拼团</text>
+              </view>
+           </view>
+        </view>
+    </view>
   </view>
-  <view class='attribute acea-row row-between-wrapper' bindtap='selecAttr'>
+  <view class='attribute acea-row row-between-wrapper' bindtap='selecAttr' wx:if='{{productAttr.length}}'>
     <view>{{attr}}：
       <text class='atterTxt'>{{attrValue}}</text>
     </view>
     <view class='iconfont icon-jiantou'></view>
   </view>
-  <view class="store-info" wx:if='{{systemStore.id && storeSelfMention}}'>
-    <view class="title">门店信息</view>
-    <view class="info acea-row row-between-wrapper">
-      <view class="picTxt acea-row row-between-wrapper">
+  <!-- <view class="store-info" wx:if='{{systemStore.id && storeSelfMention}}'>
+    <view class="acea-row row-between-wrapper store-box" bindtap="showStoreList">
+      <view class="title">门店信息</view>
+      <view class='iconfont icon-jiantou'></view>
+    </view> 
+    <view class="info acea-row row-between-wrapper" wx:if="{{storeList.length!==0}}">
+      <view class="picTxt">
         <view class="pictrue">
-          <image src="{{systemStore.image}}" lazy-load="true"></image>
+          <image src="{{storeItems.image}}" lazy-load="true"></image>
         </view>
         <view class="text">
           <view class="name line1">
-            {{systemStore.name}}
+            {{storeItems.name}}
           </view>
           <view class="address acea-row row-middle" bindtap="showMaoLocation">
-            <text class="addressTxt line1">{{systemStore._detailed_address}}</text>
+            <text class="addressTxt line1">{{storeItems.address}}{{", "+storeItems.detailed_address}}</text>
             <text class="iconfont icon-youjian"></text>
           </view>
         </view>
       </view>
-      <view class="iconfont icon-dadianhua01 font-color" bindtap="makePhone"></view>
+      <view class="addressBox">
+        <view class="iconfont icon-dadianhua01 font-color phone" bindtap="makePhone"></view>
+        <view class="addressTxt line1 corlor-red" wx:if="{{storeItems.range}}" bindtap="showMaoLocation">距离{{storeItems.range}}千米</view>
+      </view>
     </view>
+  </view> -->
   </view>
-  <view class='userEvaluation' wx:if="{{replyCount}}">
+  <view class='userEvaluation' id="past1">
     <view class='title acea-row row-between-wrapper'>
       <view>用户评价({{replyCount}})</view>
       <navigator class='praise' hover-class='none' url='/pages/goods_comment_list/index?product_id={{id}}'>
@@ -67,7 +115,7 @@
     </view>
     <userEvaluation reply="{{reply}}"></userEvaluation>
   </view>
-   <view class="superior" wx:if="{{good_list.length}}">
+   <view class="superior" wx:if="{{good_list.length}}" id="past2">
       <view class="title acea-row row-center-wrapper">
         <image src="/images/ling.png"></image>
         <view class="titleTxt">优品推荐</view>
@@ -76,16 +124,17 @@
       <view class="slider-banner banner">
         <swiper indicator-dots="true"
             autoplay="{{autoplay}}" circular="{{circular}}" interval="{{interval}}" duration="{{duration}}" indicator-color="#999" indicator-active-color="#e93323" style="height:{{clientHeight+'px'}}">
-          <swiper-item wx:for="{{good_list}}" wx:for-item='item' wx:key>
-            <view class="list acea-row row-middle" id="list">
-              <view class="item" wx:for="{{item.list}}" wx:key wx:for-item='val'>
-                <navigator url='/pages/goods_details/index?id={{val.id}}' hover-class='none'>
+          <swiper-item wx:for="{{good_list}}" wx:for-item='item' wx:for-index='indexw' wx:key='index'>
+            <view class="list acea-row row-middle" id="list{{indexw}}">
+              <view class="item" wx:for="{{item.list}}" wx:key='index' wx:for-item='val' bindtap="goDetail" data-items='{{val}}'>
                   <view class="pictrue">
                     <image src="{{val.image}}"></image>
+                     <text class="pictrue_log pictrue_log_class" wx:if="{{val.activity && val.activity.type ==='1'}}">秒杀</text>
+                    <text class="pictrue_log pictrue_log_class" wx:if="{{val.activity && val.activity.type === '2'}}">砍价</text>
+                    <text class="pictrue_log pictrue_log_class" wx:if="{{val.activity && val.activity.type === '3'}}">拼团</text>
                   </view>
                   <view class="name line1">{{val.store_name}}</view>
                   <view class="money font-color">¥{{val.price}}</view>
-                </navigator>
               </view>
             </view>
           </swiper-item>
@@ -93,13 +142,14 @@
         </swiper>
       </view>
     </view>
-  <view class='product-intro'>
+  <view class='product-intro' id="past3">
     <view class='title'>产品介绍</view>
     <view class='conter'>
       <template is="wxParse" data="{{wxParseData:description.nodes}}" />
     </view>
   </view>
   <view style='height:120rpx;'></view>
+   </scroll-view>
   <view class='footer acea-row row-between-wrapper'>
     <button open-type="contact" hover-class='none' class='item ' send-message-title="{{storeInfo.store_name}}" send-message-img="{{storeInfo.image}}" send-message-path="/pages/goods_details/index?id={{storeInfo.id}}" show-message-card>
     <view class='iconfont icon-kefu'></view>
@@ -117,11 +167,14 @@
       <view>购物车</view>
     </navigator>
     <view class='bnt acea-row'>
-      <form bindsubmit="joinCart" report-submit='true'>
+      <form bindsubmit="joinCart">
         <button class='joinCart bnts' formType="submit">加入购物车</button>
       </form>
-      <form bindsubmit="goBuy" report-submit='true'>
+      <form bindsubmit="goBuy" wx:if="{{productSelect.stock>0}}">
         <button class='buy bnts' formType="submit">立即购买</button>
+      </form>
+      <form wx:else>
+        <button class='buy bnts bg-color-hui'>已售罄</button>
       </form>
     </view>
   </view>
@@ -149,7 +202,7 @@
 <view class='mask' wx:if="{{posterImageStatus}}"></view>
 <canvas class="canvas" canvas-id='myCanvas' wx:if="{{canvasStatus}}"></canvas>
 <!-- 组件 -->
-<product-window attribute='{{attribute}}' productAttr="{{productAttr}}" productSelect="{{productSelect}}" bind:myevent="onMyEvent" bind:ChangeAttr="ChangeAttr" bind:ChangeCartNum="ChangeCartNum" id='product-window'></product-window>
+<product-window iSplus='{{iSplus}}' attribute='{{attribute}}' productAttr="{{productAttr}}" productSelect="{{productSelect}}" bind:myevent="onMyEvent" bind:ChangeAttr="ChangeAttr" bind:ChangeCartNum="ChangeCartNum" id='product-window' bind:iptCartNum="iptCartNum" ></product-window>
 <coupon-list-window coupon='{{coupon}}' bind:ChangCouponsClone="ChangCouponsClone" bind:ChangCoupons="ChangCoupons"></coupon-list-window>
 <authorize bind:onLoadFun="onLoadFun" isAuto="{{isAuto}}" iShidden="{{iShidden}}"></authorize>
 <!-- html转wxml -->

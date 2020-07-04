@@ -13,7 +13,7 @@
       </view>
       <view class='item acea-row row-between-wrapper'>
           <view class='name'>所在地区</view>
-          <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+          <picker mode="multiSelector" bindchange="bindRegionChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{valueRegion}}" custom-item="{{customItem}}" range="{{multiArray}}">
             <view class='acea-row row-between-wrapper'>
               <view class="picker">{{region[0]}}，{{region[1]}}，{{region[2]}}</view>
               <view class='iconfont icon-dizhi font-color'></view>

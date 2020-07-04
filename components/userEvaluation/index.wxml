@@ -1,5 +1,5 @@
 <view class='evaluateWtapper'>
-   <view class='evaluateItem' wx:for="{{reply}}" wx:key>
+   <view class='evaluateItem' wx:for="{{reply}}" wx:key='index'>
       <view class='pic-text acea-row row-middle'>
          <view class='pictrue'><image src='{{item.avatar}}'></image></view>
          <view class='acea-row row-middle'>
@@ -10,7 +10,7 @@
       <view class='time'>{{item.add_time}} {{item.suk}}</view>
       <view class='evaluate-infor'>{{item.comment}}</view>
       <view class='imgList acea-row'>
-          <view class='pictrue' wx:for="{{item.pics}}" wx:for-item="items" wx:for-index='pic_index' wx:key>
+          <view class='pictrue' wx:for="{{item.pics}}" wx:for-item="items" wx:for-index='pic_index' wx:key='index'>
             <image  wx:if="{{items}}" src='{{items}}' data-index="{{index}}" data-pic_index='{{pic_index}}' bindtap='getpreviewImage'></image>
           </view>
       </view>

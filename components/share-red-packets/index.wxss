@@ -1,5 +1,5 @@
 @import '/app.wxss';
-.sharing-packets{position:fixed;right:30rpx;top:900rpx;z-index:5;transition:all 0.3s ease-in-out 0s;opacity:1;transform: scale(1);}
+.sharing-packets{position:fixed;left:30rpx;z-index:5;transition:all 0.3s ease-in-out 0s;opacity:1;transform: scale(1);bottom:150rpx;}
 .sharing-packets.on{transform: scale(0);opacity:0;}
 .sharing-packets .iconfont{width:44rpx;height:44rpx;border-radius:50%;text-align:center;line-height:44rpx;background-color:#999;font-size:20rpx;color:#fff;margin:0 auto;box-sizing:border-box;padding-left:1px;}
 .sharing-packets .line{width:2rpx;height:40rpx;background-color:#999;margin:0 auto;}

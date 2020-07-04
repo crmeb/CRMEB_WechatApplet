@@ -1,10 +1,10 @@
 <navbar parameter='{{parameter}}'></navbar>
 <view class='return-list'>
-    <view class='goodWrapper' wx:for="{{orderList}}" wx:key bindtap='goOrderDetails' data-order_id='{{item.order_id}}'>
+    <view class='goodWrapper' wx:for="{{orderList}}" wx:key='index' bindtap='goOrderDetails' data-order_id='{{item.order_id}}'>
         <view class='iconfont icon-tuikuanzhong powder' wx:if="{{item._status._type==-1}}"></view>
         <view class='iconfont icon-yituikuan' wx:if="{{item._status._type==-2}}"></view>
         <view class='orderNum'>订单号：{{item.order_id}}</view>
-        <view class='item acea-row row-between-wrapper' wx:for="{{item.cartInfo}}" wx:key>
+        <view class='item acea-row row-between-wrapper' wx:for="{{item.cartInfo}}" wx:key='index'>
             <view class='pictrue'><image src='{{item.productInfo.image}}'></image></view>
             <view class='text'>
               <view class='acea-row row-between-wrapper'>

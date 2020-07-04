@@ -1,5 +1,4 @@
-import { registerVerify, bindingPhone} from '../../api/api.js';
-
+import { registerVerify, bindingPhone, verifyCode} from '../../api/api.js';
 const app = getApp();
 
 Page({
@@ -20,6 +19,10 @@ Page({
     timetext: '获取验证码',
     userInfo: {},
     phone: '',
+    key: '',
+    imagesCode: false,
+    httpUrl: '',
+    captchaimg: ''
   },
   inputgetName(e) {
     let that = this;
@@ -83,30 +86,64 @@ Page({
     let that = this;
     if (!this.data.phone) return app.Tips({ title: '请填写手机号码！' });
     if (!(/^1[3456789]\d{9}$/.test(that.data.phone))) return app.Tips({ title: '请输入正确的手机号码！' });
-    registerVerify(this.data.phone).then(res => {
-      that.setData({ disabled: true, active: true });
-      let n = 60;
-      let run = setInterval(function () {
-        n--;
-        if (n < 0) {
-          clearInterval(run);
-          that.setData({ disabled: false, active: false, timetext: '重新获取' });
-        } else {
-          that.setData({ timetext: "剩余 " + n + "s" })
+    if (that.data.imagesCode) {
+      if (!that.data.captchaimg) {
+        return app.Tips({ title: '请输入图片验证码' });
+      }
+    };
+    registerVerify(this.data.captchaimg, this.data.key,this.data.phone).then(res => {
+      if (res.status == 402) {
+        that.data.imagesCode = true;
+        that.setData({
+          imagesCode: that.data.imagesCode
+        });
+        if (this.data.captchaimg != '') {
+          that.runNun();
         }
-      }, 1000);
+      } else {
+        that.runNun();
+      }
       return app.Tips({title:'发送成功',icon:'success'});
     }).catch(err => {
       return app.Tips({ title: err });
     });
   },
+  runNun: function () {
+    let that = this;
+    let n = 60;
+    let run = setInterval(function () {
+      n--;
+      if (n < 0) {
+        clearInterval(run);
+        that.setData({ disabled: false, active: false, timetext: '重新获取' })
+      } else {
+        that.setData({ timetext: "剩余 " + n + "s", disabled: true, active: true })
+      }
+    }, 1000);
+  },
+  // 获取key值；
+  getVerifyCode: function () {
+    let that = this;
+    verifyCode().then(res => {
+      that.setData({
+        key: res.data.key,
+        httpUrl: app.globalData.url + '/api/sms_captcha?key=' + res.data.key
+      })
+    }).catch(err => {
+      return app.Tips({ title: err.msg });
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getVerifyCode();
   },
-
+  imagesCodeTap: function () {
+    this.setData({
+      httpUrl: this.data.httpUrl + '&' + Date.parse(new Date())
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

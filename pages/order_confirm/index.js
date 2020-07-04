@@ -1,8 +1,8 @@
 import { orderConfirm, getCouponsOrderPrice, orderCreate, postOrderComputed} from '../../api/order.js';
 import { getAddressDefault, getAddressDetail } from '../../api/user.js';
 import { openPaySubscribe } from '../../utils/SubscribeMessage.js';
-import util from '../../utils/util.js';
-
+import { storeListApi } from '../../api/store.js';
+import { CACHE_LONGITUDE, CACHE_LATITUDE } from '../../config.js';
 const app = getApp();
 Page({
 
@@ -22,7 +22,7 @@ Page({
     cartArr: [
       { "name": "微信支付", "icon": "icon-weixin2", value: 'weixin', title: '微信快捷支付' },
       { "name": "余额支付", "icon": "icon-icon-test", value: 'yue',title:'可用余额:'},
-      { "name": "线下支付", "icon": "icon-yinhangqia", value: 'offline', title: '线下支付' },
+      { "name": "线下支付", "icon": "icon-yinhangqia", value: 'offline', title: '线下支付'},
     ],
     payType:'weixin',//支付方式
     openType:1,//优惠券打开方式 1=使用
@@ -50,7 +50,9 @@ Page({
     system_store:{},
     storePostage:0,
     contacts:'',
-    contactsTel:''
+    contactsTel:'',
+    mydata: {},
+    storeList: []
   },
   /**
    * 授权回调事件
@@ -72,6 +74,44 @@ Page({
       this.getaddressInfo();
       this.selectComponent('#address-window').getAddressList();
     }
+    let pages = getCurrentPages();
+    let currPage = pages[pages.length - 1]; //当前页面
+    if (currPage.data.storeItem){
+      let json = currPage.data.storeItem;
+      this.setData({
+        system_store: json,
+      });
+    }
+  },
+  /**
+  * 获取门店列表数据
+ */
+  getList: function () {
+    let longitude = wx.getStorageSync(CACHE_LONGITUDE); //经度
+    let latitude = wx.getStorageSync(CACHE_LATITUDE); //纬度
+    let data = {
+      latitude: latitude, //纬度
+      longitude: longitude, //经度
+      page: 1,
+      limit: 10
+    }
+    storeListApi(data).then(res => {
+      let list = res.data.list || [];
+      this.setData({
+        storeList: list,
+        system_store: list[0],
+      });
+    }).catch(err => {
+
+    })
+  },
+  /*
+ * 跳转门店列表
+ */
+  showStoreList: function () {
+    wx.navigateTo({
+      url: '/pages/goods_details_store/index?go=order'
+    })
   },
   computedPrice:function(){
     let shippingType = this.data.shippingType;
@@ -79,7 +119,8 @@ Page({
       addressId: this.data.addressId,
       useIntegral: this.data.useIntegral ? 1 : 0,
       couponId: this.data.couponId,
-      shipping_type: parseInt(shippingType) + 1
+      shipping_type: parseInt(shippingType) + 1,
+      payType: this.data.payType
     }).then(res=>{
       let result = res.data.result;
       if (result){
@@ -95,7 +136,13 @@ Page({
   },
   addressType:function(e){
     let index = e.currentTarget.dataset.index;
-    this.setData({shippingType: parseInt(index)});
+    if (this.data.storeList.length>0){
+      this.setData({ shippingType: parseInt(index) });
+    }else{
+      if(index==1){
+        return app.Tips({ title: '暂无门店信息，你无法选择到店自提' });
+      }
+    }
     this.computedPrice();
   },
   bindPickerChange: function (e) {
@@ -164,18 +211,20 @@ Page({
   OnChangeAddress:function(e){
     this.setData({ textareaStatus:true,addressId: e.detail,'address.address':false});
     this.getaddressInfo();
+    this.computedPrice();
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     if (!options.cartId) return app.Tips({ title:'请选择要购买的商品'},{tab:3,url:1});
+    // if (options.shippingType) this.setData({ shippingType: options.shippingType, storeIndex: options.storeIndex });
     this.setData({ 
       couponId: options.couponId || 0, 
       pinkId: options.pinkId ? parseInt(options.pinkId) : 0, 
       addressId: options.addressId || 0, 
       cartId: options.cartId,
-      is_address: options.is_address ? true : false,
+      is_address: options.is_address ? true : false
     });
   },
   bindHideKeyboard: function (e) {
@@ -199,7 +248,7 @@ Page({
         totalPrice: app.help().Add(parseFloat(res.data.priceGroup.totalPrice), parseFloat(res.data.priceGroup.storePostage)),
         seckillId: parseInt(res.data.seckill_id),
         usableCoupon: res.data.usableCoupon,
-        system_store: res.data.system_store,
+        // system_store: res.data.system_store,
         store_self_mention: res.data.store_self_mention
       });
       that.data.cartArr[1].title = '可用余额:' + res.data.userInfo.now_money;
@@ -207,6 +256,7 @@ Page({
       that.setData({ cartArr: that.data.cartArr, ChangePrice: that.data.totalPrice });
       that.getBargainId();
       that.getCouponList();
+      that.getList();
     }).catch(err=>{
       return app.Tips({ title: err }, { tab: 3, url: 1 });
     });
@@ -235,7 +285,8 @@ Page({
   */
   getCouponList:function(){
     var that=this;
-    getCouponsOrderPrice(this.data.totalPrice).then(res=>{
+    let data = { cartId: this.data.cartId}
+    getCouponsOrderPrice(this.data.totalPrice, data).then(res=>{
       that.setData({ 'coupon.list': res.data, openType: 1 });
     });
   },
@@ -263,7 +314,8 @@ Page({
       active: active,
       animated: true,
       payType: that.data.cartArr[active].value,
-    })
+    });
+    that.computedPrice();
     setTimeout(function () {
       that.car();
     }, 500);
@@ -323,6 +375,7 @@ Page({
       pinkId: that.data.pinkId,
       seckill_id: that.data.seckillId,
       mark: that.data.mark,
+      store_id: that.data.system_store ? that.data.system_store.id : 0,
       'from':'routine',
       shipping_type: app.help().Add(that.data.shippingType,1)
     };

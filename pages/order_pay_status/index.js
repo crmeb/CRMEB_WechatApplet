@@ -11,7 +11,7 @@ Page({
   data: {
     parameter: {
       'navbar': '1',
-      'return': '1',
+      'return': '0',
       'title': '支付成功'
     },
     orderId:'',

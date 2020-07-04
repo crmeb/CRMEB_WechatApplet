@@ -70,6 +70,7 @@
     <view class='line' wx:if="{{orderInfo.shipping_type === 1}}"><image src='/images/line.jpg'></image></view>
    </view>
    <orderGoods evaluate='{{evaluate}}' orderId="{{order_id}}" cartInfo="{{cartInfo}}"></orderGoods>
+   <button open-type="contact" hover-class='none' class="contactCustomer font-color"><text class='iconfont icon-kefu'></text>联系客服</button>
    <view class='wrapper'>
       <view class='item acea-row row-between'>
         <view>订单编号：</view>
@@ -166,9 +167,9 @@
    <view style='height:120rpx;'></view>
    <view class='footer acea-row row-right row-middle' wx:if="{{isGoodsReturn==false || status.type == 9}}">
       <view class='bnt bg-color' wx:if="{{status.type==0}}" data-order_id='{{orderInfo.order_id}}' bindtap='pay_open'>立即付款</view>
-      <view bindtap="openSubcribe" class='bnt cancel' wx:elif="{{status.type==1}}" hover-class='none' data-url='/pages/goods_return/index?orderId={{orderInfo.order_id}}'>申请退款</view>
+      <view bindtap="openSubcribe" class='bnt cancel' wx:elif="{{orderInfo.paid === 1 && orderInfo.refund_status === 0}}" hover-class='none' data-url='/pages/goods_return/index?orderId={{orderInfo.order_id}}'>申请退款</view>
       <view class='bnt bg-color' wx:if="{{status.class_status==1}}" bindtap='goJoinPink'>查看拼团</view>
-      <navigator class='bnt cancel' wx:if="{{orderInfo.delivery_type == 'express' && status.class_status==3 && status.type==2}}" hover-class='none' url='/pages/goods_logistics/index?orderId={{orderInfo.order_id}}'>查看物流</navigator>
+      <navigator class='bnt cancel' wx:if="{{orderInfo.delivery_type == 'express' && status.type!=0}}" hover-class='none' url='/pages/goods_logistics/index?orderId={{orderInfo.order_id}}'>查看物流</navigator>
       <view class='bnt bg-color' wx:if="{{status.class_status==3}}" bindtap='confirmOrder'>确认收货</view>
       <view class='bnt cancel' wx:if="{{status.type==4}}" bindtap='delOrder'>删除订单</view>
       <view class='bnt bg-color' wx:if="{{status.class_status==5}}" bindtap='goOrderConfirm'>再次购买</view>
@@ -177,3 +178,9 @@
 <home></home>
 <authorize bind:onLoadFun='onLoadFun'></authorize>
 <payment payMode='{{payMode}}' pay_close="{{pay_close}}" bind:onChangeFun='onChangeFun' order_id="{{pay_order_id}}" totalPrice='{{totalPrice}}'></payment>
+<generalWindow 
+  generalActive='{{generalActive}}' 
+  generalContent='{{generalContent}}' 
+  bind:generalWindow='generalWindow'
+  wx:if='{{generalContent}}'
+></generalWindow>

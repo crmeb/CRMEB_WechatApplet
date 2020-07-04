@@ -17,13 +17,14 @@ Page({
     navList: ["周榜", "月榜"],
     active: 0,
     page:1,
-    limit:10,
+    limit:15,
     type:'week',
     loading:false,
     loadend:false,
+    loadTitle:"加载更多",
     rankList:[],
-    Two:{},
-    One:{},
+    Two: {},
+    One: {},
     Three:{},
   },
   onLoadFun:function(e){
@@ -33,29 +34,32 @@ Page({
     let that = this;
     if(that.data.loadend) return;
     if(that.data.loading) return;
-    that.setData({loading:true});
+    that.setData({ loading: true, loadTitle: ""});
     getRankList({
       page:this.data.page,
       limit:this.data.limit,
       type: this.data.type
     }).then(res=>{
       let list = res.data;
-      that.data.rankList.push.apply(that.data.rankList, list);
+      that.data.rankList = that.data.rankList.concat(list);
       if(that.data.page == 1){
-        that.data.One=that.data.rankList.shift();
+        that.data.One=that.data.rankList.shift() || {};
         that.data.Two = that.data.rankList.shift() || {};
         that.data.Three = that.data.rankList.shift() || {};
       }
+      let loadend = list.length < that.data.limit;
       that.setData({
-        loadend:list.length < that.data.limit,
+        loadend: loadend,
         loading:false,
         rankList: that.data.rankList,
+        page: that.data.page+1,
+        loadTitle: loadend ? "我也是有底线的" : '加载更多',
         One: that.data.One,
         Two: that.data.Two,
         Three: that.data.Three,
       });
     }).catch(err=>{
-      that.setData({loading:false});
+      that.setData({ loading: false, loadTitle: "加载更多"});
     })
   },
   

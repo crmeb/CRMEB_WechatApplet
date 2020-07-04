@@ -1,0 +1,10 @@
+<view class='generalWindow'>
+    <view class='generalTip {{generalActive==true?"on":""}}'>
+          <view class='pictrue'><image src='./../../images/promoter.png'></image></view>
+          <view class='name'>{{generalContent.title}}</view>
+          <view class='info'>{{generalContent.promoterNum}}</view>
+          <view class='tipBnt' bindtap='close'>我知道了</view>
+    </view>
+    <view class='mask' catchtouchmove="true" hidden='{{generalActive==false}}' bindtap='close'></view>
+</view>
+

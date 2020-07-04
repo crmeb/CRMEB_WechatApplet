@@ -34,8 +34,13 @@ Page({
     loadend:false,
     loading:false,
     loadTitle:'加载更多',
+    userInfo:{}
   },
-
+  onLoadFun: function (e) {
+    this.setData({
+      userInfo: e.detail
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -49,6 +54,25 @@ Page({
     this.get_product_list();
     this.get_host_product();
   },
+   /**
+   * 商品详情跳转
+   */
+  goDetail: function (e) {
+    let item = e.currentTarget.dataset.items;
+   if (item.activity && item.activity.type === "1") {
+     wx.navigateTo({
+      url: `/pages/activity/goods_seckill_details/index?id=${item.activity.id}&time=${item.activity.time}&status=1`
+     });
+   } else if (item.activity && item.activity.type === "2") {
+     wx.navigateTo({ url:  `/pages/activity/goods_bargain_details/index?id=${item.activity.id}&bargain=${this.data.userInfo.uid}`});
+   } else if (item.activity && item.activity.type === "3") {
+     wx.navigateTo({
+       url: `/pages/activity/goods_combination_details/index?id=${item.activity.id}`
+     });
+   } else {
+     wx.navigateTo({ url: `/pages/goods_details/index?id=${item.id}` });
+   }
+   },
   Changswitch:function(){
      var that = this;
      that.setData({
