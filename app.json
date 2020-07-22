@@ -61,7 +61,6 @@
     "components/address-window/index",
     "components/home/index",
     "components/write-off/index",
-    "components/price-change/index",
     "components/general-window/index"
   ],
   "subPackages": [
@@ -70,8 +69,7 @@
       "name": "activity",
       "pages": [
         "goods_seckill_details/index",
-        "goods_seckill/index",
-        "poster-poster/index"
+        "goods_seckill/index"
       ]
     }
   ],
