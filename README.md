@@ -9,6 +9,19 @@
 2. 配置微信开发工具中小程序的appid
 3. 前往CRMEB后台配置小程序 appid 和 AppSecret 
 3. 前往微信小程序后台配置业务，下载 合法域名
+5. 删除readme/images文件夹再进行打包上传,不然会提示超包。
+
+### 小程序直播使用
+方法1，修改app.copy.json文件名称为app.json覆盖原有app.json文件
+方法2，修改根目录下的./app.json文件再第：73行加上
+```
+"plugins": {
+	"live-player-plugin": {
+		"version": "1.1.4",
+		"provider": "wx2b03c6e691cd7370"
+	}
+}
+```
 
 ### 目录结构
 
