@@ -1,7 +1,7 @@
-# CRMEB XCX v3.0
+# CRMEB XCX v3.x
 
 #### 介绍
-  CRMEB 3.0 小程序
+  CRMEB 3.x 小程序
 
 #### 使用说明
 
@@ -17,7 +17,7 @@
 ```
 "plugins": {
 	"live-player-plugin": {
-		"version": "1.1.4",
+		"version": "1.2.4",
 		"provider": "wx2b03c6e691cd7370"
 	}
 }
